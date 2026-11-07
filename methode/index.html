@@ -283,6 +283,15 @@ details.ctx summary{font-weight:700;color:var(--acc);cursor:pointer;font-size:.9
   .print-only{display:block}
 }
 
+.itrow{display:grid;gap:6px;padding:9px 0;border-bottom:1px solid var(--line)}
+.itrow .itt{font-size:.94rem;line-height:1.3}
+.seg3{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.seg3 button{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:7px 4px;font-weight:700;font-size:.84rem}
+.itrow.ok .seg3 button.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.itrow.sou .seg3 button.on{background:var(--terra);border-color:var(--terra);color:#fff;text-decoration:underline}
+.itrow.no .seg3 button.on{background:var(--muted);border-color:var(--muted);color:#fff}
+.thumb.ent{border:2px solid var(--acc)}
+.thumb .tlab{position:absolute;left:0;right:0;bottom:0;background:var(--acc);color:#fff;font-size:.66rem;font-weight:800;text-align:center;padding:2px 0}
 .prog-t{border-collapse:collapse;width:100%;font-size:.94rem}
 .prog-t th,.prog-t td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
 .prog-t td:first-child,.prog-t th:first-child{text-align:left}
@@ -331,6 +340,16 @@ const CRIT = {
   arg:{n:"Argumentation",max:8,c:"var(--acc)",d:"Introduction, plan, exemples exploités, bilans, conclusion"}
 };
 const CRIT_ORDER = ["soin","expr","conn","arg"];
+/* Items de la grille de l'en-tête, et marche correspondante pour chaque type de devoir
+   (c : composition ; e : étude critique, à compléter au DS3) */
+const GRID = {
+  soin:[{t:"Copie soignée, informations claires",c:"soin"},{t:"Texte lisible, sans surcharges",c:"soin"}],
+  expr:[{t:"Orthographe et grammaire correctes",c:"soin"},{t:"Phrases claires et bien construites",c:"liaison"},{t:"Vocabulaire précis et adapté au sujet",c:"liaison"},{t:"Connecteurs logiques pour structurer",c:"liaison"}],
+  conn:[{t:"Connaissances mobilisées pertinentes et exactes",c:"exemples"},{t:"Repères historiques, géographiques et culturels",c:"exemples"},{t:"Termes du sujet définis et documents présentés",c:"termes"},{t:"Exemples précis et documents compris sans contresens",c:"exemples"},{t:"Bonne compréhension du sujet, des enjeux et des documents",c:"termes"},{t:"Connaissances approfondies, recherches personnelles",c:"exemples"}],
+  arg:[{t:"Réponse centrée sur la problématique",c:"prob"},{t:"Structure en parties et sous-parties équilibrées",c:"plan"},{t:"Transitions rappelant le sujet entre les parties",c:"bilans"},{t:"Position argumentée, intégrant des exemples et citations",c:"exemples"},{t:"Exemples et citations pertinents et bien exploités",c:"exemples"},{t:"Introduction avec accroche, problématique, annonce du plan",c:"intro"},{t:"Conclusion qui synthétise les arguments et fait une ouverture",c:"bilans"},{t:"Analyse critique, position nuancée et distanciée",c:"bilans"}]
+};
+const ITEM_STATES = [["ok","✓ Coché"],["sou","Souligné"],["no","Rien"]];
+const CONVENTION = "Sur la grille de l'en-tête, le professeur coche les items réussis et souligne ce qui ne va pas dans un item, même quand il accorde quand même le point.";
 const LEVELS = [[0,"Premiers pas"],[60,"En route"],[150,"Solide"],[260,"Maîtrise"],[450,"Expertise"],[700,"Excellence"]];
 const TYPE_LABEL = {composition:"Composition", etude:"Étude critique de documents"};
 
@@ -372,7 +391,7 @@ function loadDevoirs(){
   })), Promise.resolve());
 }
 const keyOf = d => d.key || ("hggsp1-methode-"+d.id);
-function fresh(){return {notes:{soin:null,expr:null,conn:null,arg:null},appr:"",chosen:[],target:null,signed:false,xp:0,m:{}}}
+function fresh(){return {notes:{soin:null,expr:null,conn:null,arg:null},items:{},appr:"",chosen:[],target:null,signed:false,xp:0,m:{}}}
 function loadState(d){ let s=fresh(); try{const x=JSON.parse(localStorage.getItem(keyOf(d))); if(x) s=Object.assign(fresh(),x);}catch(e){} return s; }
 const notesOkOf = s => CRIT_ORDER.every(k=>s.notes[k]!==null&&s.notes[k]!=="");
 const totalOf = s => notesOkOf(s)? CRIT_ORDER.reduce((a,k)=>a+Number(s.notes[k]),0) : null;
@@ -601,6 +620,15 @@ function useDevoir(id){
   photosFor(D);
   return true;
 }
+/* Items reportés par l'élève */
+const itemsOf = s => s.items||{};
+function itemList(state){ const r=[]; CRIT_ORDER.forEach(k=>GRID[k].forEach((it,i)=>{const v=itemsOf(S)[k+i];if(v&&(!state||state.includes(v)))r.push({k,i,t:it.t,v,m:it[D&&D.type==="etude"?"e":"c"]})})); return r; }
+const itemsFilled = () => Object.keys(itemsOf(S)).length>0;
+function recoMarches(){
+  const sc={}, why={};
+  itemList(["sou","no"]).forEach(x=>{ if(!x.m||!M[x.m]) return; sc[x.m]=(sc[x.m]||0)+(x.v==="no"?2:1); (why[x.m]=why[x.m]||[]).push(x); });
+  return Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).map(id=>({id,score:sc[id],items:why[id]}));
+}
 function prevDevoir(){ const i=ORDER.indexOf(D.id); for(let j=i-1;j>=0;j--){ const s=loadState(REG[ORDER[j]]); if(s.signed&&notesOkOf(s)) return {d:REG[ORDER[j]],s}; } return null; }
 
 function addXP(n,key,id){
@@ -646,20 +674,20 @@ function photosFor(d){
 }
 function dbOpen(name){return new Promise(res=>{try{const r=indexedDB.open(name,1);r.onupgradeneeded=()=>r.result.createObjectStore("p",{keyPath:"id",autoIncrement:true});r.onsuccess=()=>{DB=r.result;res()};r.onerror=()=>res()}catch(e){res()}})}
 function dbAll(){return new Promise(res=>{if(!DB)return res([]);const q=DB.transaction("p").objectStore("p").getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>res([])})}
-function dbPut(blob){return new Promise(res=>{if(!DB)return res(null);const q=DB.transaction("p","readwrite").objectStore("p").add({blob,t:Date.now()});q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)})}
+function dbPut(blob,kind){return new Promise(res=>{if(!DB)return res(null);const q=DB.transaction("p","readwrite").objectStore("p").add({blob,kind:kind||"page",t:Date.now()});q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)})}
 function dbDel(id){return new Promise(res=>{if(!DB)return res();const q=DB.transaction("p","readwrite").objectStore("p").delete(id);q.onsuccess=()=>res();q.onerror=()=>res()})}
-async function loadPhotos(){PHOTOS.forEach(p=>URL.revokeObjectURL(p.url));PHOTOS=(await dbAll()).map(r=>({id:r.id,url:URL.createObjectURL(r.blob)}))}
+async function loadPhotos(){PHOTOS.forEach(p=>URL.revokeObjectURL(p.url));PHOTOS=(await dbAll()).map(r=>({id:r.id,kind:r.kind||"page",url:URL.createObjectURL(r.blob)})).sort((a,b)=>(a.kind==="entete"?0:1)-(b.kind==="entete"?0:1))}
 function shrink(file){return new Promise(res=>{const img=new Image();const u=URL.createObjectURL(file);img.onload=()=>{const k=Math.min(1,1800/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b||file),"image/jpeg",.78)};img.onerror=()=>{URL.revokeObjectURL(u);res(file)};img.src=u})}
-async function addPhotos(files){
-  for(const f of files){ const b=await shrink(f); const id=await dbPut(b); if(id==null){ PHOTOS.push({id:"m"+Date.now()+Math.random(),url:URL.createObjectURL(b)}); } }
+async function addPhotos(files,kind){
+  for(const f of files){ const b=await shrink(f); const id=await dbPut(b,kind); if(id==null){ PHOTOS.push({id:"m"+Date.now()+Math.random(),kind:kind||"page",url:URL.createObjectURL(b)}); } }
   if(DB) await loadPhotos();
-  toast(files.length>1?files.length+" photos ajoutées":"Photo ajoutée"); render();
+  toast(kind==="entete"?"En-tête ajouté : reporte maintenant ce qui est coché ou souligné.":(files.length>1?files.length+" pages ajoutées":"Page ajoutée")); render();
 }
 function openViewer(){
   if(!D){ toast("Choisis d'abord un devoir."); return; }
   if(!PHOTOS.length){ toast("Aucune photo pour l'instant : ajoute-les dans « Faire le point »."); return; }
   const v=document.createElement("div"); v.className="viewer"; v.id="viewer";
-  v.innerHTML=`<div class="vbar"><b>Ma copie (${PHOTOS.length} photo${PHOTOS.length>1?"s":""})</b><span class="row" style="flex:0 0 auto"><button class="btn" data-a="vzoom">🔍 Zoom</button><button class="btn" data-a="vclose">✕ Fermer</button></span></div>`+PHOTOS.map(p=>`<img src="${p.url}" alt="Page de ma copie">`).join("");
+  v.innerHTML=`<div class="vbar"><b>Ma copie (${PHOTOS.length} photo${PHOTOS.length>1?"s":""})</b><span class="row" style="flex:0 0 auto"><button class="btn" data-a="vzoom">🔍 Zoom</button><button class="btn" data-a="vclose">✕ Fermer</button></span></div>`+PHOTOS.map(p=>`<img src="${p.url}" alt="${p.kind==="entete"?"En-tête d'évaluation":"Page de ma copie"}">`).join("");
   document.body.appendChild(v); document.body.style.overflow="hidden";
 }
 function closeViewer(){const v=$("#viewer"); if(v) v.remove(); document.body.style.overflow="";}
@@ -735,10 +763,10 @@ function vPoint(){
   <div class="kicker">Étape 1 sur 3</div><h1 style="font-size:2rem">Faire le point</h1>
   ${prevContractBox()}
   <div class="card">
-    <h3>📷 Les photos de ma copie <span class="muted small">(facultatif)</span></h3>
-    <p class="muted small" style="margin:0 0 10px">Photographie l'en-tête d'évaluation et chaque page. Tu pourras les revoir à tout moment avec le bouton 📄. Elles restent sur ton téléphone.</p>
-    <label class="btn filebtn">📷 Ajouter des photos<input type="file" accept="image/*" multiple data-in="photos"></label>
-    <div class="thumbs">${PHOTOS.map(p=>`<div class="thumb"><img src="${p.url}" alt="Page de ma copie" data-a="photos"><button data-a="delphoto" data-id="${p.id}" aria-label="Supprimer la photo">✕</button></div>`).join("")}</div>
+    <h3>📷 Les photos de ma copie</h3>
+    <p class="muted small" style="margin:0 0 10px">Commence par l'<b>en-tête d'évaluation</b> : ton professeur y a coché ce qui est réussi et souligné ce qui est à retravailler. Ajoute ensuite chaque page. Tu pourras tout revoir avec le bouton 📄. Les photos restent sur ton téléphone.</p>
+    <div class="row"><label class="btn filebtn ${PHOTOS.some(p=>p.kind==="entete")?"":"primary"}">📷 L'en-tête<input type="file" accept="image/*" data-in="photos" data-kind="entete"></label><label class="btn filebtn">📷 Les pages de ma copie<input type="file" accept="image/*" multiple data-in="photos" data-kind="page"></label></div>
+    <div class="thumbs">${PHOTOS.map(p=>`<div class="thumb ${p.kind==="entete"?"ent":""}"><img src="${p.url}" alt="${p.kind==="entete"?"En-tête":"Page de ma copie"}" data-a="photos"><button data-a="delphoto" data-id="${p.id}" aria-label="Supprimer la photo">✕</button>${p.kind==="entete"?'<span class="tlab">En-tête</span>':""}</div>`).join("")}</div>
   </div>
   <div class="card">
     <h3>📝 Mes points, critère par critère</h3>
@@ -748,12 +776,23 @@ function vPoint(){
       <select data-in="note" data-k="${k}" aria-label="${c.n}"><option value="">—</option>${opts.map(v=>`<option value="${v}" ${S.notes[k]!==null&&Number(S.notes[k])===v?"selected":""}>${fmtN(v)}</option>`).join("")}</select></div>`}).join("")}
     <div class="total"><span>Ma note</span><b>${t===null?"— ":fmtN(t)} / 20</b></div>
   </div>
+  ${vItems()}
   <div class="card">
     <h3>💬 L'appréciation et les conseils <span class="muted small">(facultatif)</span></h3>
     <textarea data-in="appr" rows="3" placeholder="Recopie l'appréciation et les conseils de ton professeur">${esc(S.appr)}</textarea>
   </div>`;
 }
 
+function vItems(){
+  const st=itemsOf(S), n=Object.keys(st).length, tot=CRIT_ORDER.reduce((a,k)=>a+GRID[k].length,0);
+  return `<div class="card">
+    <h3>🔎 Ma grille : coché ou souligné ?</h3>
+    <p class="muted small" style="margin:0 0 4px">Pour chaque item de la grille de l'en-tête, indique ce qu'a fait ton professeur. <b>Coché</b> : réussi. <b>Souligné</b> : à retravailler, même si le point a été accordé. <b>Rien</b> : ni coché ni souligné. C'est ce qui te permettra de choisir les bonnes marches.</p>
+    ${PHOTOS.some(p=>p.kind==="entete")?`<button class="btn copybtn" data-a="photos">📄 Revoir l'en-tête</button>`:""}
+    ${CRIT_ORDER.slice().reverse().map(k=>`<div class="crithead">${CRIT[k].n} · /${CRIT[k].max}</div>`+GRID[k].map((it,i)=>{const v=st[k+i]||"";return `<div class="itrow ${v}"><span class="itt">${esc(it.t)}</span><span class="seg3">${ITEM_STATES.map(([s2,l])=>`<button class="${v===s2?"on":""}" data-s="${s2}" data-a="item" data-k="${k+i}" aria-pressed="${v===s2}">${l}</button>`).join("")}</span></div>`}).join("")).join("")}
+    <p class="muted small" style="margin:10px 0 0" id="itcount">${n}/${tot} items renseignés.</p>
+  </div>`;
+}
 function recoCrit(){
   if(!notesOk()) return null;
   let best=null, lost=-1, ratio=-1;
@@ -762,7 +801,7 @@ function recoCrit(){
 }
 function vContrat(){
   if(!notesOk()) { setTimeout(()=>go("point")); return ""; }
-  const t=total(), rk=recoCrit();
+  const t=total(), rk=recoCrit(), rm=recoMarches(), recoIds=rm.length?rm.slice(0,2).map(r=>r.id):null;
   const maxT=Math.min(20,t+4);
   if(S.target===null||S.target<t||S.target>maxT) S.target=Math.min(20,t+2);
   const can = S.chosen.length>=1;
@@ -773,11 +812,11 @@ function vContrat(){
   <div class="card">
     <h3>Où as-tu perdu des points ?</h3>
     <div class="lost">${CRIT_ORDER.slice().sort((a,b)=>(CRIT[b].max-S.notes[b])-(CRIT[a].max-S.notes[a])).map(k=>{const l=CRIT[k].max-Number(S.notes[k]);return `<div class="lostrow"><span>${CRIT[k].n}</span><div class="lostbar"><i style="width:${l/CRIT[k].max*100}%"></i></div><span>${l?"−"+fmtN(l):"✓"}</span></div>`}).join("")}</div>
-    ${rk?`<div class="reco">💡 C'est en <b>${CRIT[rk].n.toLowerCase()}</b> que tu as perdu le plus de points (−${fmtN(CRIT[rk].max-S.notes[rk])} sur ${CRIT[rk].max}) : c'est là que tu peux gagner le plus. Les marches conseillées sont signalées.</div>`:`<div class="reco">🏆 Tu n'as perdu aucun point : choisis une marche pour consolider ta méthode.</div>`}
+    ${rm.length?`<div class="reco">💡 D'après ta grille, ton professeur attend surtout des progrès sur :<ul style="margin:6px 0 0;padding-left:1.2em">${rm.slice(0,2).map(r=>`<li><b>${M[r.id].title}</b> <span class="small" style="font-weight:400">(${r.items.map(x=>`« ${esc(x.t)} » ${x.v==="sou"?"souligné":"non coché"}`).join(" ; ")})</span></li>`).join("")}</ul></div>`:rk?`<div class="reco">💡 C'est en <b>${CRIT[rk].n.toLowerCase()}</b> que tu as perdu le plus de points (−${fmtN(CRIT[rk].max-S.notes[rk])} sur ${CRIT[rk].max}) : c'est là que tu peux gagner le plus. Les marches conseillées sont signalées.${itemsFilled()?"":" Pour un conseil plus précis, reporte ta grille à l'étape précédente."}</div>`:`<div class="reco">🏆 Tu n'as perdu aucun point : choisis une marche pour consolider ta méthode.</div>`}
   </div>
   <h2>Choisis 1 ou 2 marches</h2>
   <p class="muted small" style="margin-top:-4px">Pas plus de deux : mieux vaut progresser vraiment sur un point que survoler tout le reste. Les autres marches resteront disponibles plus tard.</p>
-  ${CRIT_ORDER.slice().reverse().map(k=>{const list=MARCHES.filter(m=>m.crit===k);return list.length?`<div class="crithead">${CRIT[k].n} · /${CRIT[k].max}</div>`+list.map(m=>{const on=S.chosen.includes(m.id);const before=pv&&pv.s.chosen.includes(m.id);return `<button class="pick ${on?"on":""}" data-a="pick" data-id="${m.id}"><span class="ic">${m.icon}</span><span><b>${m.title}</b><span class="muted">${m.short}</span>${rk===k?'<span class="tag reco2">Conseillé</span>':""}${before?`<span class="tag">Déjà travaillé au ${esc(pv.d.court)}</span>`:""}${S.m[m.id]&&S.m[m.id].done?'<span class="tag">Fait ✓</span>':""}</span><span class="chk">${on?"✓":""}</span></button>`}).join(""):""}).join("")}
+  ${CRIT_ORDER.slice().reverse().map(k=>{const list=MARCHES.filter(m=>m.crit===k);return list.length?`<div class="crithead">${CRIT[k].n} · /${CRIT[k].max}</div>`+list.map(m=>{const on=S.chosen.includes(m.id);const before=pv&&pv.s.chosen.includes(m.id);return `<button class="pick ${on?"on":""}" data-a="pick" data-id="${m.id}"><span class="ic">${m.icon}</span><span><b>${m.title}</b><span class="muted">${m.short}</span>${(recoIds?recoIds.includes(m.id):rk===k)?'<span class="tag reco2">Conseillé</span>':""}${before?`<span class="tag">Déjà travaillé au ${esc(pv.d.court)}</span>`:""}${S.m[m.id]&&S.m[m.id].done?'<span class="tag">Fait ✓</span>':""}</span><span class="chk">${on?"✓":""}</span></button>`}).join(""):""}).join("")}
   <h2>La note que je vise au prochain devoir</h2>
   <div class="card">
     ${t>=20?`<p style="margin:0">Tu as obtenu 20/20 : ton objectif est de garder ce niveau.</p>`:`
@@ -835,6 +874,7 @@ function stepDiag(id){
   return `<h2 class="steph">1. Regarde ta copie</h2>
   <p class="muted small" style="margin:0">Relis ta copie ${PHOTOS.length?"":"(ou ajoute tes photos dans « Faire le point »)"} et coche ce qui est vrai pour toi. Sois honnête : c'est pour toi.</p>
   <button class="btn copybtn" data-a="photos">📄 Voir ma copie</button>
+  ${(()=>{const l=itemList().filter(x=>x.m===id);return l.length?`<div class="card" style="padding:10px 14px"><b class="small">Sur ta grille</b><ul class="livechecks">${l.map(x=>`<li class="${x.v==="ok"?"y":""}">${esc(x.t)} · <b>${x.v==="ok"?"coché":x.v==="sou"?"souligné":"rien"}</b></li>`).join("")}</ul></div>`:""})()}
   <div class="checks">${mk.diag.map((d,i)=>`<label><input type="checkbox" data-in="diag" data-id="${id}" data-i="${i}" ${m.diag[i]?"checked":""}><span>${d}</span></label>`).join("")}</div>
   <label class="fld"><span>Recopie le passage concerné tel que tu l'as écrit <span class="muted small">(facultatif, pour comparer avant / après)</span></span><textarea data-in="orig" data-id="${id}" rows="4">${esc(m.orig)}</textarea></label>
   ${m.diag.filter(Boolean).length===mk.diag.length?`<div class="fb good">Tout est coché : parfait, l'exercice va le confirmer.</div>`:""}`;
@@ -936,6 +976,7 @@ function bilanText(){
   const pv=prevDevoir(); if(pv) L.push(`Contrat du ${pv.d.court} : objectif ${fmtN(pv.s.target)}/20 · obtenu ${fmtN(total())}/20 ${total()>=pv.s.target?"(atteint)":"(pas encore atteint)"}`);
   L.push(`Note obtenue : ${fmtN(total())}/20 (Soin ${fmtN(S.notes.soin)}/2, Expression ${fmtN(S.notes.expr)}/4, Connaissances ${fmtN(S.notes.conn)}/6, Argumentation ${fmtN(S.notes.arg)}/8)`);
   L.push(`Objectif au prochain devoir : ${fmtN(S.target)}/20`);
+  { const s=itemList(["sou","no"]); if(s.length) L.push("Items à retravailler sur ma grille : "+s.map(x=>x.t+(x.v==="sou"?" (souligné)":" (non coché)")).join(" ; ")); }
   L.push(`Marches choisies : ${S.chosen.filter(id=>M[id]).map(id=>M[id].title).join(", ")}`);
   L.push(`Code de suivi : ${codeSuivi()}`);
   MARCHES.filter(m=>S.m[m.id]&&(S.m[m.id].done||rewLen(m.id))).forEach(m=>{
@@ -1005,7 +1046,8 @@ Méthode attendue par le professeur : ${D.type==="composition"?METHODE_COMPO:(D.
 L'ÉLÈVE
 Note obtenue : ${fmtN(total())}/20 (Soin ${fmtN(S.notes.soin)}/2, Expression ${fmtN(S.notes.expr)}/4, Connaissances ${fmtN(S.notes.conn)}/6, Argumentation ${fmtN(S.notes.arg)}/8).
 Objectif fixé : viser ${fmtN(S.target)}/20 au prochain devoir en travaillant : ${chosen}.
-${pv?`Au devoir précédent (${pv.d.court}), il visait ${fmtN(pv.s.target)}/20 : objectif ${total()>=pv.s.target?"atteint":"pas encore atteint"}.\n`:""}${S.appr.trim()?`Appréciation du professeur : « ${S.appr.trim()} »\n`:""}
+${CONVENTION} Lis la photo de l'en-tête avec cette convention.
+${(()=>{const s=itemList(["sou"]),n=itemList(["no"]);return (s.length?"Items soulignés par le professeur : "+s.map(x=>x.t).join(" ; ")+".\n":"")+(n.length?"Items ni cochés ni soulignés : "+n.map(x=>x.t).join(" ; ")+".\n":"")})()}${pv?`Au devoir précédent (${pv.d.court}), il visait ${fmtN(pv.s.target)}/20 : objectif ${total()>=pv.s.target?"atteint":"pas encore atteint"}.\n`:""}${S.appr.trim()?`Appréciation du professeur : « ${S.appr.trim()} »\n`:""}
 POINT À TRAVAILLER AUJOURD'HUI
 ${mk.ai}
 
@@ -1063,6 +1105,9 @@ const ACT = {
   mchk:el=>{const {id,b,g}=el.dataset;const st=exst(id,b);const s=st["g"+g];const grp=M[id].exo[b].groups[g];s.chk=true;s.ok=grp.opts.every((o,oi)=>!!o.ok===s.sel.includes(oi));if(s.ok)addXP(5,`m${b}-${g}`,id);save();render();if(exoDone(id))toast("Exercice réussi !")},
   gapsel:el=>{const {id,b}=el.dataset;exst(id,b).act=Number(el.dataset.i);save();render()},
   gapput:el=>{const {id,b,w}=el.dataset;const st=exst(id,b);if(st.act==null)return;const it=M[id].exo[b].items[st.act];st["v"+st.act]=w;const ok=groupOf(w)===it.g;if(ok){addXP(3,`g${b}-${st.act}`,id);st.act=null}save();render();if(exoDone(id))toast("Exercice réussi !");else if(ok){const nx=exst(id,b).act;const el2=nx!=null&&document.getElementById("gap-"+nx);if(el2)el2.scrollIntoView({behavior:"smooth",block:"center"})}},
+  item:el=>{const k=el.dataset.k,v=el.dataset.s;S.items=S.items||{};if(S.items[k]===v)delete S.items[k];else S.items[k]=v;save();
+    const row=el.closest(".itrow");if(row){row.className="itrow "+(S.items[k]||"");row.querySelectorAll("button").forEach(b=>{const on=b.dataset.s===S.items[k];b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)})}
+    const c=document.getElementById("itcount");if(c)c.textContent=fr(Object.keys(S.items).length+"/"+CRIT_ORDER.reduce((a,x)=>a+GRID[x].length,0)+" items renseignés.")},
   self:el=>{const m=ms(el.dataset.id);m.self=el.dataset.v;save();render()},
   hl:el=>{const k=el.dataset.k;HL.has(k)?HL.delete(k):HL.add(k);render()},
   copyprompt:el=>copyText(buildPrompt(el.dataset.id),"Consigne copiée : colle-la dans ton IA.",true),
@@ -1084,7 +1129,7 @@ document.addEventListener("input",e=>{const el=e.target, k=el.dataset.in; if(!k)
 document.addEventListener("change",e=>{const el=e.target,k=el.dataset.in;if(!k)return;
   if(k==="note"){S.notes[el.dataset.k]=el.value===""?null:Number(el.value);S.target=null;save();render()}
   else if(k==="diag"){const m=ms(el.dataset.id);m.diag[Number(el.dataset.i)]=el.checked;save()}
-  else if(k==="photos"){const files=[...el.files];if(files.length)addPhotos(files);el.value=""}
+  else if(k==="photos"){const files=[...el.files];if(files.length)addPhotos(files,el.dataset.kind);el.value=""}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeViewer()});
 
