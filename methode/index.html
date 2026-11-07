@@ -743,7 +743,7 @@ function vPoint(){
   <div class="card">
     <h3>📝 Mes points, critère par critère</h3>
     <p class="muted small" style="margin:0 0 4px">Recopie les points notés dans la grille de l'en-tête.</p>
-    ${CRIT_ORDER.map(k=>{const c=CRIT[k];const opts=[];for(let v=0;v<=c.max;v+=.5)opts.push(v);
+    ${CRIT_ORDER.map(k=>{const c=CRIT[k];const opts=[];for(let v=0;v<=c.max;v++)opts.push(v);
       return `<div class="crit"><b>${c.n} <span class="muted">/ ${c.max}</span></b><span class="muted">${c.d}</span>
       <select data-in="note" data-k="${k}" aria-label="${c.n}"><option value="">—</option>${opts.map(v=>`<option value="${v}" ${S.notes[k]!==null&&Number(S.notes[k])===v?"selected":""}>${fmtN(v)}</option>`).join("")}</select></div>`}).join("")}
     <div class="total"><span>Ma note</span><b>${t===null?"— ":fmtN(t)} / 20</b></div>
@@ -782,7 +782,7 @@ function vContrat(){
   <div class="card">
     ${t>=20?`<p style="margin:0">Tu as obtenu 20/20 : ton objectif est de garder ce niveau.</p>`:`
     <div class="target">${fmtN(S.target)} / 20 <small>${S.target>t?"(+"+fmtN(S.target-t)+")":""}</small></div>
-    <input type="range" min="${t}" max="${maxT}" step="0.5" value="${S.target}" data-in="target" aria-label="Note visée">
+    <input type="range" min="${t}" max="${maxT}" step="1" value="${S.target}" data-in="target" aria-label="Note visée">
     <p class="muted small" style="margin:4px 0 0">Un objectif réaliste : au plus 4 points de plus que ta note actuelle (${fmtN(t)}).</p>`}
   </div>`;
 }
