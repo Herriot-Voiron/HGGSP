@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c2230">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HGGSP">
+<meta name="format-detection" content="telephone=no">
+<title>HGGSP Première · Cours et exercices</title>
+<meta name="description" content="Banque de cours, de flip cards de révision et d'exercices de méthode pour la spécialité HGGSP en Première.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5efe3; --bg2:#ece3d1; --card:#fffdf8; --ink:#1c2230; --muted:#5d6475; --line:#ddd2bc;
+  --terra:#b8502f; --gold:#b98a1f; --ok:#2f7d4f;
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 10px 30px -12px rgba(40,30,10,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#11151d;--bg2:#181e29;--card:#1c2331;--ink:#ece6d9;--muted:#9aa2b3;--line:#2c3547;--terra:#e27f5f;--gold:#e0b94f;--ok:#5cc489;--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7)}
+  :root:not([data-theme="light"]) .theme{--tc:var(--tcd)}
+}
+:root[data-theme="dark"]{--bg:#11151d;--bg2:#181e29;--card:#1c2331;--ink:#ece6d9;--muted:#9aa2b3;--line:#2c3547;--terra:#e27f5f;--gold:#e0b94f;--ok:#5cc489;--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .theme{--tc:var(--tcd)}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+a,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 "Source Sans 3",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
+header{padding-top:env(safe-area-inset-top);border-bottom:1px solid var(--line)}
+.stripes{display:flex;height:6px}.stripes i{flex:1}
+.hbar{display:flex;align-items:center;gap:10px;padding:10px 0}
+.logo{min-width:34px;padding:0 7px;height:34px;border-radius:9px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800;font-size:.85rem}
+.hbar b{font-family:Fraunces;font-size:1.05rem}
+.hbar small{display:block;color:var(--muted);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.icon-btn{margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;display:grid;place-items:center;cursor:pointer}
+main.wrap{padding-top:22px;padding-bottom:50px}
+.kicker{font-weight:700;color:var(--terra);letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}
+h1{font-size:clamp(2.1rem,9vw,3rem);line-height:1.03;margin:.15em 0 .3em;font-weight:800}
+.lead{color:var(--muted);margin:0 0 6px;max-width:48ch}
+.theme{margin:26px 0;--tc:var(--tcl)}
+.thead{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.tnum{width:42px;height:42px;flex:none;border-radius:12px;background:var(--tc);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800;font-size:1.2rem}
+.thead h2{margin:0;font-size:1.35rem;line-height:1.15}
+.thead small{display:block;color:var(--muted);font-weight:700;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase}
+.items{display:grid;gap:10px}
+.item{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-left:5px solid var(--tc);border-radius:16px;padding:14px;box-shadow:var(--shadow);transition:transform .15s}
+.item:active{transform:scale(.99)}
+@media (hover:hover){.item:hover{transform:translateY(-2px)}}
+.item .ic{font-size:1.6rem;width:34px;text-align:center;flex:none}
+.item .tx{min-width:0;flex:1}
+.item .ty{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tc)}
+.item b{display:block;font-size:1.05rem;line-height:1.25}
+.item .sub{display:block;color:var(--muted);font-size:.86rem;line-height:1.3}
+.item .prog{display:inline-block;margin-top:5px;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--bg2)}
+.item .go{flex:none;color:var(--muted);font-size:1.2rem}
+.soon{opacity:.55}
+.soon .item{border-left-color:var(--line);box-shadow:none}
+.foot{color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);margin-top:30px;padding-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="stripes" id="stripes"></div>
+  <div class="wrap hbar">
+    <div class="logo">HGGSP</div>
+    <div><b>Cours et exercices</b><small>Spécialité · Première</small></div>
+    <button class="icon-btn" id="themeBtn" aria-label="Mode clair ou sombre" title="Mode clair ou sombre">◐</button>
+  </div>
+</header>
+<main class="wrap">
+  <div class="kicker">HGGSP Première</div>
+  <h1>Réviser et progresser</h1>
+  <p class="lead">Choisis ton thème, puis ce que tu veux faire : relire le cours, réviser avec les flip cards, ou retravailler ta méthode après un devoir.</p>
+  <div id="list"></div>
+  <p class="foot">De nouveaux cours et exercices s'ajouteront au fil de l'année. Ta progression est enregistrée sur cet appareil, dans ce navigateur.</p>
+</main>
+
+<script>
+/* =====================================================================
+   POUR AJOUTER UN COURS OU UN EXERCICE : ajouter une ligne dans "items"
+   type : "cours" (lien Genially), "flip" (flip cards), "exo" (exercice de méthode)
+   url  : adresse complète, ou nom du dossier sur GitHub (ex. "flipcards-t1/")
+   key  : (facultatif) clé d'enregistrement de l'appli, pour afficher la progression
+   ===================================================================== */
+const THEMES = [
+  { n:1, title:"Démocratie, démocraties", sub:"Comprendre un régime politique", tcl:"#1f4e79", tcd:"#6fa7da", items:[
+    { type:"cours", title:"Le cours", sub:"Trace écrite et documents, sur Genially", url:"https://view.genially.com/6850448af9ff9448616c945b" },
+    { type:"flip",  title:"Flip cards de révision", sub:"Répétition espacée, points et niveaux", url:"flipcards-t1/", key:"hggsp1-t1-democratie-v1",
+      levels:[[0,"Éphèbe"],[150,"Citoyen"],[400,"Bouleute"],[800,"Prytane"],[1400,"Archonte"],[2200,"Stratège"],[3200,"Périclès"],[4500,"Gardien de la Constitution"]] },
+    { type:"exo",   title:"Corriger mon DS1", sub:"Composition : la démocratie depuis 1945", url:"methode/#ds1", key:"hggsp1-ds1-correction-v1" }
+  ]},
+  { n:2, title:"Puissance, puissances", sub:"Analyser les dynamiques des puissances internationales", tcl:"#6b1f2e", tcd:"#e58f9c", items:[
+    { type:"cours", title:"Le cours", sub:"Trace écrite et documents, sur Genially", url:"https://view.genially.com/68f5eb9dc550b709474b7d9e" },
+    { type:"flip",  title:"Flip cards de révision", sub:"Répétition espacée, points et niveaux", url:"flipcards-t2/", key:"hggsp1-t2-puissance-v1",
+      levels:[[0,"Observateur"],[150,"Sherpa"],[400,"Diplomate"],[800,"Puissance moyenne"],[1400,"Puissance régionale"],[2200,"Puissance émergente"],[3200,"Grande puissance"],[4500,"Superpuissance"]] }
+  ]},
+  { n:3, title:"Les frontières", sub:"Étudier les divisions politiques du monde", tcl:"#5f7032", tcd:"#a9bd6b", items:[] },
+  { n:4, title:"S'informer", sub:"Un regard critique sur les sources et modes de communication", tcl:"#b8502f", tcd:"#e27f5f", items:[] },
+  { n:5, title:"États et religions", sub:"Analyser les relations entre États et religions", tcl:"#b98a1f", tcd:"#e0b94f", items:[] }
+];
+
+/* Outils valables toute l'année (affichés en haut de la page) */
+const OUTILS = [
+  { type:"exo", title:"Corriger mes devoirs", sub:"Après chaque DS : retravailler sa méthode, marche par marche, et suivre ses progrès", url:"methode/", resume:"hggsp1-methode-resume" }
+];
+
+const ICON = {cours:"📚", flip:"🃏", exo:"✍️"};
+const TYPE = {cours:"Cours", flip:"Réviser", exo:"Méthode"};
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const fr = s => String(s).replace(/ ([:;!?»])/g," $1").replace(/« /g,"« ");
+function read(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+function progress(it){
+  if(it.resume){ const r=read(it.resume); return r&&r.text?r.text:""; }
+  if(!it.key) return "";
+  const s = read(it.key); if(!s) return "";
+  if(it.type==="flip"){
+    const xp = s.xp||0; if(!xp) return "";
+    let name = ""; (it.levels||[]).forEach(l=>{ if(xp>=l[0]) name=l[1]; });
+    return `✦ ${xp} points${name?" · "+name:""}`;
+  }
+  if(it.type==="exo" && s.chosen && s.chosen.length){
+    const d = s.chosen.filter(id=>s.m&&s.m[id]&&s.m[id].done).length;
+    return d===s.chosen.length ? "✓ Parcours terminé" : `En cours : ${d}/${s.chosen.length} marche${s.chosen.length>1?"s":""}`;
+  }
+  return "";
+}
+function render(){
+  document.getElementById("stripes").innerHTML = THEMES.map(t=>`<i style="background:${t.tcl}"></i>`).join("");
+  const itemHTML = it=>{const ext=/^https?:/.test(it.url);const p=progress(it);
+    return `<a class="item" href="${esc(it.url)}" ${ext?'target="_blank" rel="noopener"':""}><span class="ic">${ICON[it.type]||"•"}</span><span class="tx"><span class="ty">${TYPE[it.type]||""}</span><b>${esc(fr(it.title))}</b><span class="sub">${esc(fr(it.sub))}</span>${p?`<span class="prog">${esc(fr(p))}</span>`:""}</span><span class="go">${ext?"↗":"›"}</span></a>`};
+  document.getElementById("list").innerHTML = (OUTILS.length?`<section class="theme" style="--tcl:#1c2230;--tcd:#ece6d9"><div class="thead"><div class="tnum">✦</div><div><small>Toute l'année</small><h2>${esc(fr("Méthode"))}</h2></div></div><div class="items">${OUTILS.map(itemHTML).join("")}</div></section>`:"") + THEMES.map(t=>`
+    <section class="theme ${t.items.length?"":"soon"}" style="--tcl:${t.tcl};--tcd:${t.tcd}">
+      <div class="thead"><div class="tnum">${t.n}</div><div><small>Thème ${t.n}${t.items.length?"":" · bientôt"}</small><h2>${esc(fr(t.title))}</h2></div></div>
+      <div class="items">${t.items.length ? t.items.map(it=>{const ext=/^https?:/.test(it.url);const p=progress(it);
+        return `<a class="item" href="${esc(it.url)}" ${ext?'target="_blank" rel="noopener"':""}><span class="ic">${ICON[it.type]||"•"}</span><span class="tx"><span class="ty">${TYPE[it.type]||""}</span><b>${esc(fr(it.title))}</b><span class="sub">${esc(fr(it.sub))}</span>${p?`<span class="prog">${esc(fr(p))}</span>`:""}</span><span class="go">${ext?"↗":"›"}</span></a>`}).join("")
+        : `<div class="item"><span class="ic">⏳</span><span class="tx"><b>${esc(fr(t.sub))}</b><span class="sub">Cours et exercices à venir</span></span></div>`}</div>
+    </section>`).join("");
+}
+/* Thème clair / sombre (mémorisé) */
+const TKEY="hggsp1-portail-theme";
+function applyTheme(){ const t=localStorage.getItem(TKEY); if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme"); }
+document.getElementById("themeBtn").addEventListener("click",()=>{
+  const cur = localStorage.getItem(TKEY) || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  try{ localStorage.setItem(TKEY, cur==="dark"?"light":"dark"); }catch(e){}
+  applyTheme();
+});
+applyTheme(); render();
+window.addEventListener("pageshow", render);
+</script>
+</body>
+</html>

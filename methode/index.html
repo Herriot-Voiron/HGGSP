@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f4e79">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Méthode HGGSP">
+<meta name="format-detection" content="telephone=no">
+<title>Méthode · Corriger mes devoirs · HGGSP</title>
+<meta name="description" content="Corriger ses devoirs d'HGGSP Première et progresser en méthode, devoir après devoir : travail par marches, sans connexion obligatoire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5efe3; --bg2:#ece3d1; --card:#fffdf8; --ink:#1c2230; --muted:#5d6475; --line:#ddd2bc;
+  --acc:#1f4e79; --terra:#b8502f; --olive:#5f7032; --gold:#b98a1f;
+  --ok:#2f7d4f; --mid:#c08a12; --ko:#b23b2e;
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 10px 30px -12px rgba(40,30,10,.25);
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+    --acc:#6fa7da; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f;
+    --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+  --acc:#6fa7da; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f;
+  --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:70px;scroll-padding-bottom:110px}
+button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 "Source Sans 3",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:disabled{cursor:default}
+.wrap{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
+a{color:var(--acc)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.band{height:5px;background:var(--acc)}
+.hbar{display:flex;align-items:center;gap:10px;padding:9px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;background:none;border:0;padding:0;text-align:left;min-width:0}
+.brand .logo{min-width:34px;padding:0 6px;height:34px;flex:none;border-radius:9px;background:var(--acc);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800;font-size:.95rem}
+.brand span{font-family:Fraunces;font-size:1.02rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;font-weight:600;color:var(--muted);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.hstats{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+.xpbar{width:70px;height:8px;border-radius:9px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--terra));width:0;transition:width .6s}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:.86rem;white-space:nowrap}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;flex:none}
+@media (max-width:420px){.xpbar{display:none}.brand small{display:none}}
+
+#app{padding-top:18px;padding-bottom:150px}
+.kicker{font-weight:700;color:var(--terra);letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}
+h1{font-size:clamp(2rem,8vw,2.9rem);line-height:1.04;margin:.15em 0 .3em;font-weight:800}
+h2{font-size:1.3rem;margin:26px 0 10px}
+.lead{color:var(--muted);margin:0 0 14px}
+.subject{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:14px;padding:14px 16px;margin:14px 0;font-family:Fraunces;font-weight:700;font-size:1.12rem;line-height:1.3}
+.subject small{display:block;font-family:"Source Sans 3";font-weight:700;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);margin:12px 0}
+.card h3{margin:0 0 6px;font-size:1.12rem}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.steps3{display:grid;gap:10px;margin:16px 0}
+.steps3 .card{display:flex;gap:14px;align-items:center;margin:0}
+.num{width:34px;height:34px;flex:none;border-radius:50%;background:var(--acc);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800}
+
+.btn{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 16px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--acc);border-color:transparent;color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0d1420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0d1420}}
+.btn.block{width:100%}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .btn{flex:1 1 auto}
+
+/* Barre d'action fixe en bas */
+.actions{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:10px 0 calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%)}
+.actions .wrap{display:flex;gap:10px}
+.actions .btn{flex:1;padding:15px 16px;font-size:1.02rem;box-shadow:var(--shadow)}
+.actions .btn.ghost{flex:0 0 auto;background:var(--card)}
+
+/* Notes */
+.crit{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.crit:last-child{border-bottom:0}
+.crit b{font-size:1.02rem}
+.crit .muted{grid-column:1/2;font-size:.84rem;line-height:1.3}
+.crit select{grid-row:1/3;grid-column:2;font:inherit;font-weight:700;font-size:1.05rem;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:96px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:10px;border-top:2px solid var(--ink)}
+.total b{font-family:Fraunces;font-size:1.6rem}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;line-height:1.45;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+textarea:focus,select:focus,input:focus{outline:2px solid var(--acc);outline-offset:1px}
+.fld{display:block;margin:12px 0}
+.fld>span{display:block;font-weight:700;margin-bottom:6px}
+
+/* Photos */
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.thumb{position:relative;width:76px;height:100px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb button{position:absolute;top:3px;right:3px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:.9rem;line-height:1}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.viewer{position:fixed;inset:0;z-index:40;background:#0b0e14;color:#fff;overflow:auto;-webkit-overflow-scrolling:touch}
+.viewer .vbar{position:sticky;top:0;display:flex;gap:8px;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;background:rgba(11,14,20,.92);z-index:2}
+.viewer .vbar .btn{background:#222a38;color:#fff;border-color:#333d50;padding:9px 13px}
+.viewer img{display:block;width:100%;margin:0 auto 10px}
+.viewer.zoom img{width:200%;max-width:none}
+
+/* Diagnostic et contrat */
+.lost{display:grid;gap:8px;margin:10px 0}
+.lostrow{display:grid;grid-template-columns:120px 1fr 54px;gap:10px;align-items:center;font-weight:600;font-size:.94rem}
+.lostbar{height:12px;border-radius:9px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.lostbar i{display:block;height:100%;background:var(--ko)}
+.reco{background:color-mix(in srgb,var(--gold) 16%,var(--card));border:1px solid var(--gold);border-radius:14px;padding:12px 14px;margin:12px 0;font-weight:600}
+.pick{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:13px 14px;margin:8px 0}
+.pick .ic{font-size:1.5rem;line-height:1.2;flex:none;width:32px;text-align:center}
+.pick b{display:block;font-size:1.02rem}
+.pick .muted{font-size:.86rem;line-height:1.3;display:block}
+.pick .tag{display:inline-block;margin-top:5px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--bg2)}
+.pick .tag.reco2{background:var(--gold);color:#1c1405}
+.pick.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 9%,var(--card))}
+.pick .chk{margin-left:auto;flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:800}
+.pick.on .chk{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.crithead{font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 2px}
+input[type=range]{width:100%;accent-color:var(--acc);height:34px}
+.target{font-family:Fraunces;font-weight:800;font-size:2.2rem;text-align:center;margin:4px 0}
+.target small{font-family:"Source Sans 3";font-size:1rem;color:var(--ok);font-weight:700}
+.contract{border:2px dashed var(--acc);border-radius:16px;padding:14px 16px;margin:12px 0;background:var(--card)}
+.contract p{margin:.3em 0}
+
+/* Parcours */
+.mcard{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--cc,var(--acc));border-radius:16px;padding:14px;margin:10px 0;box-shadow:var(--shadow)}
+.mcard .ic{font-size:1.5rem;flex:none;width:32px;text-align:center}
+.mcard b{display:block}
+.mcard .st{margin-left:auto;flex:none;font-size:.8rem;font-weight:700;padding:4px 9px;border-radius:99px;background:var(--bg2);white-space:nowrap}
+.mcard .st.done{background:var(--ok);color:#fff}
+.mcard.locked{opacity:.5}
+.mini{height:6px;border-radius:9px;background:var(--bg2);overflow:hidden;margin-top:6px}
+.mini i{display:block;height:100%;background:var(--acc)}
+details.more{margin-top:18px}
+details.more summary{font-weight:700;cursor:pointer;padding:10px 0;color:var(--muted)}
+
+/* Marche */
+.mhead{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.mhead .ic{font-size:1.8rem}
+.ctag{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--cc,var(--acc))}
+.mtitle{font-size:1.5rem;margin:0;line-height:1.15}
+.stepper{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 16px}
+.stepper button{border:0;background:none;padding:0;text-align:center;font-size:.72rem;font-weight:700;color:var(--muted)}
+.stepper button i{display:block;height:6px;border-radius:9px;background:var(--bg2);margin-bottom:5px;border:1px solid var(--line)}
+.stepper button.done i{background:var(--ok);border-color:var(--ok)}
+.stepper button.cur{color:var(--ink)}
+.stepper button.cur i{background:var(--acc);border-color:var(--acc)}
+.stepper button:disabled{opacity:.5}
+.steph{font-family:Fraunces;font-size:1.2rem;margin:0 0 6px}
+.checks{list-style:none;padding:0;margin:10px 0}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:12px;margin:7px 0;background:var(--card);cursor:pointer}
+.checks input{width:22px;height:22px;flex:none;accent-color:var(--acc);margin:1px 0 0}
+.copybtn{margin:8px 0}
+
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+.q-card.solved{border-color:var(--ok)}
+.q-n{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.q-t{font-weight:700;margin:6px 0 10px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:11px 13px;font-size:.98rem;line-height:1.35}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card));font-weight:600}
+.opt.ko{border-color:var(--ko);background:color-mix(in srgb,var(--ko) 10%,var(--card));animation:shake .35s}
+.opt.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--card))}
+.opt:disabled:not(.ok){opacity:.6}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:.94rem;line-height:1.4}
+.fb.good{background:color-mix(in srgb,var(--ok) 13%,transparent);border:1px solid color-mix(in srgb,var(--ok) 45%,transparent)}
+.fb.bad{background:color-mix(in srgb,var(--ko) 10%,transparent);border:1px solid color-mix(in srgb,var(--ko) 40%,transparent)}
+details.ctx{margin:6px 0 8px;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:8px 12px}
+details.ctx summary{font-weight:700;color:var(--acc);cursor:pointer;font-size:.92rem}
+.ord{display:flex;gap:8px;align-items:center;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px;margin:8px 0}
+.ord.okp{border-color:var(--ok)}
+.ord.kop{border-color:var(--ko)}
+.ord .t{flex:1;font-size:.94rem;line-height:1.35}
+.ord .t b{display:block;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.ord .mv{display:flex;flex-direction:column;gap:4px}
+.ord .mv button{width:40px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);font-weight:800}
+.sel-note{font-size:.84rem;color:var(--muted);margin:4px 0 8px}
+
+.gapline{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0;line-height:1.7}
+.gapline .ctxs{display:block;font-size:.82rem;color:var(--muted);line-height:1.3;margin-bottom:4px}
+.gap{border:2px dashed var(--acc);background:var(--bg);border-radius:9px;padding:1px 10px;font-weight:700;min-width:96px}
+.gap.act{background:color-mix(in srgb,var(--acc) 15%,var(--card));border-style:solid}
+.gap.okg{border:2px solid var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.gap.kog{border:2px solid var(--ko);background:color-mix(in srgb,var(--ko) 10%,var(--card))}
+.palette{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:8px 10px;margin-top:10px;line-height:1.4}
+.palette .pg{margin:4px 0}
+.palette .pg span{display:block;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.palette .pg button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:5px 11px;margin:3px 3px 0 0;font-weight:700;font-size:.9rem}
+
+.aibox{border:1px solid var(--line);border-radius:16px;margin:16px 0;background:color-mix(in srgb,var(--acc) 6%,var(--card))}
+.aibox summary{padding:13px 14px;font-weight:700;cursor:pointer;list-style:none}
+.aibox summary::-webkit-details-marker{display:none}
+.aibox summary::after{content:"▾";float:right;color:var(--muted)}
+.aibox[open] summary::after{content:"▴"}
+.aibox .in{padding:0 14px 14px}
+.aibox ol{padding-left:1.2em;margin:6px 0 12px}
+.aibox li{margin:4px 0}
+.promptbox{font-size:13px;height:160px;margin-top:10px}
+.livechecks{list-style:none;padding:0;margin:8px 0}
+.livechecks li{padding:4px 0;font-size:.94rem;display:flex;gap:8px}
+.livechecks li::before{content:"○";color:var(--muted);font-weight:800;width:16px;flex:none}
+.livechecks li.y::before{content:"✓";color:var(--ok)}
+.livechecks li.y{color:var(--ink)}
+.livechecks li:not(.y){color:var(--muted)}
+
+.cmp{border-radius:14px;padding:12px 14px;margin:10px 0;border:1px solid var(--line);background:var(--card)}
+.cmp>b{display:block;font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.cmp.mine>b{color:var(--terra)}
+.cmp.model{border-color:var(--acc)}
+.cmp.model>b{color:var(--acc)}
+.cmp .pre{white-space:pre-wrap}
+.keep{background:var(--bg2);border-radius:14px;padding:12px 14px;margin:12px 0}
+.keep b{font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--olive)}
+.keep ul{margin:6px 0 0;padding-left:1.2em}
+.selfev{display:grid;gap:8px;margin:12px 0}
+.selfev button{text-align:left;padding:13px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);font-weight:700}
+.selfev button.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--card))}
+.done-card{text-align:center;padding:22px 16px}
+.done-card .big{font-size:3rem}
+
+/* Copie modèle */
+.copy p{margin:0 0 .35em;text-indent:2em;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.copy .gap-part{height:1.1em}
+.copy{font-size:1.02rem;line-height:1.6}
+.cmp .copy p,.q-card .copy p,details.ctx .copy p{font-size:.95rem}
+.hlchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 16px;position:sticky;top:62px;z-index:5;background:var(--bg);padding:8px 0}
+.hlchips button{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:6px 12px;font-weight:700;font-size:.86rem;display:inline-flex;gap:6px;align-items:center}
+.hlchips button i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.hlchips button.on{border-color:var(--ink)}
+.seg{border-radius:3px;transition:background .2s}
+.hl-idea .s-idea{background:color-mix(in srgb,var(--acc) 20%,transparent);box-shadow:inset 0 -2px var(--acc)}
+.hl-ex .s-ex{background:color-mix(in srgb,var(--olive) 22%,transparent)}
+.hl-int .s-int{background:color-mix(in srgb,var(--gold) 25%,transparent)}
+.hl-bil .s-bil,.hl-bil .s-tr,.hl-bil .s-tranche{background:color-mix(in srgb,var(--terra) 20%,transparent)}
+.cx{font-weight:inherit}
+.hl-cx .cx{font-weight:700;color:var(--acc);text-decoration:underline;text-underline-offset:3px}
+.hl-intro .s-acc{background:color-mix(in srgb,var(--gold) 25%,transparent)}
+.hl-intro .s-def{background:color-mix(in srgb,var(--olive) 20%,transparent)}
+.hl-intro .s-prob{background:color-mix(in srgb,var(--acc) 22%,transparent)}
+.hl-intro .s-ann{background:color-mix(in srgb,var(--terra) 18%,transparent)}
+.lab{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:0 6px;border-radius:5px;background:var(--ink);color:var(--bg);text-indent:0;vertical-align:2px;margin-right:4px}
+
+/* Bilan */
+.bil-m{border-top:1px solid var(--line);padding:12px 0}
+.bil-m h4{margin:0 0 6px;font-size:1.02rem}
+.code{font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:1.05rem;background:var(--bg2);border-radius:10px;padding:10px 12px;text-align:center;letter-spacing:.02em}
+
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:14px;font-weight:700;opacity:0;transition:.3s;z-index:50;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.xpfloat{position:fixed;top:40%;left:50%;transform:translateX(-50%);font-family:Fraunces;font-weight:800;font-size:2.2rem;color:var(--ok);pointer-events:none;animation:up 1s ease-out forwards;z-index:55;text-shadow:0 2px 10px var(--bg)}
+@keyframes up{from{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1}to{opacity:0;transform:translate(-50%,-70px) scale(1.1)}}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.6}}
+.foot{color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);margin-top:30px;padding-top:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.foot button{background:none;border:0;color:var(--muted);text-decoration:underline;padding:0}
+.print-only{display:none}
+@media (prefers-reduced-motion: reduce){.confetti,.xpfloat{display:none}.opt.ko{animation:none}}
+@media print{
+  header,.actions,.noprint,.toast,.foot{display:none!important}
+  body{background:#fff;color:#000;font-size:12pt}
+  main{padding:0}
+  .card,.cmp{box-shadow:none;border-color:#999;break-inside:avoid}
+  .print-only{display:block}
+}
+
+.prog-t{border-collapse:collapse;width:100%;font-size:.94rem}
+.prog-t th,.prog-t td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.prog-t td:first-child,.prog-t th:first-child{text-align:left}
+.prog-t th{font-family:Fraunces}
+.prog-t td.up{color:var(--ok);font-weight:800}
+.prog-t td.down{color:var(--ko);font-weight:700}
+.prog-t tr.tot td{font-weight:800;border-top:2px solid var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <div class="band"></div>
+  <div class="wrap hbar">
+    <a class="icon-btn" href="../" title="Banque d'exercices HGGSP" aria-label="Retour à l'accueil de la banque d'exercices" style="text-decoration:none;color:inherit">⌂</a>
+    <button class="brand" data-a="go" data-to="" aria-label="Tous mes devoirs">
+      <div class="logo" id="brandLogo">M</div>
+      <div style="min-width:0"><span id="brandTitle">Méthode</span><small id="brandSub">HGGSP · Corriger mes devoirs</small></div>
+    </button>
+    <div class="hstats">
+      <div class="xpbar" title="Progression vers le niveau suivant"><i id="xpFill"></i></div>
+      <span class="pill" id="xpPill" title="Points gagnés">✦ 0</span>
+      <button class="icon-btn" data-a="photos" title="Voir ma copie" aria-label="Voir les photos de ma copie">📄</button>
+      <button class="icon-btn" data-a="theme" title="Mode clair ou sombre" aria-label="Changer de thème">◐</button>
+    </div>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<div class="actions" id="actions"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="devoirs.js"></script>
+<script>
+/* =====================================================================
+   OUTIL MÉTHODE · HGGSP Première
+   Moteur commun à tous les devoirs de l'année. Le contenu de chaque
+   devoir est dans son propre fichier (voir devoirs.js).
+   ===================================================================== */
+const HOME_URL = "../";                 // page d'accueil de la banque d'exercices
+const THEME_KEY = "hggsp1-methode-theme";
+const RESUME_KEY = "hggsp1-methode-resume";
+
+/* Grille d'évaluation commune à tous les devoirs (en-tête) */
+const CRIT = {
+  soin:{n:"Soin",max:2,c:"var(--gold)",d:"Copie soignée, lisible, sans surcharges"},
+  expr:{n:"Expression",max:4,c:"var(--terra)",d:"Orthographe, phrases claires, connecteurs logiques"},
+  conn:{n:"Connaissances",max:6,c:"var(--olive)",d:"Termes définis, repères, documents présentés, exemples précis"},
+  arg:{n:"Argumentation",max:8,c:"var(--acc)",d:"Introduction, plan, exemples exploités, bilans, conclusion"}
+};
+const CRIT_ORDER = ["soin","expr","conn","arg"];
+const LEVELS = [[0,"Premiers pas"],[60,"En route"],[150,"Solide"],[260,"Maîtrise"],[450,"Expertise"],[700,"Excellence"]];
+const TYPE_LABEL = {composition:"Composition", etude:"Étude critique de documents"};
+
+/* =====================================================================
+   OUTILS
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const wc = s => (String(s||"").trim().match(/[\p{L}\p{N}'’-]+/gu)||[]).length;
+const sentences = s => String(s||"").split(/[.!?…]+/).filter(x=>wc(x)>=3).length;
+const hasYear = s => /\b(1[5-9]\d\d|20\d\d)\b/.test(s||"");
+const norm = s => String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const CONNECTEURS = ["En effet","Effectivement","Cependant","Pourtant","Toutefois","Néanmoins","Ainsi","donc","C'est pourquoi","Par conséquent","Par la suite","Dès lors","À l'inverse","En définitive","En somme","De plus","Par ailleurs","En outre","Or","Enfin","Mais","car","puis","Ensuite","d'abord","ensuite","enfin","Malgré","Tout d'abord"];
+const CX_RE = new RegExp("(?<![\\p{L}'’])(" + CONNECTEURS.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|") + ")(?![\\p{L}])","gu");
+const countConn = s => { const f=new Set(); (String(s||"").match(new RegExp(CX_RE.source,"giu"))||[]).forEach(w=>f.add(w.toLowerCase())); return f.size; };
+const fmtN = n => String(n).replace(".",",");
+function fmt(s){ return esc(s).replace(/\*(.+?)\*/g,"<i>$1</i>").replace(CX_RE,'<b class="cx">$1</b>'); }
+function typo(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>/^(TEXTAREA|SCRIPT|STYLE)$/.test(n.parentNode.nodeName)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  let n; while(n=w.nextNode()){ const v=n.nodeValue.replace(/ ([:;!?»])/g," $1").replace(/« /g,"« "); if(v!==n.nodeValue) n.nodeValue=v; }
+}
+const fr = s => String(s).replace(/ ([:;!?»])/g," $1").replace(/« /g,"« ");
+function toast(msg,ms=2600){const t=$("#toast");t.textContent=fr(msg);t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),ms)}
+function confetti(n=50){const cols=["var(--gold)","var(--terra)","var(--acc)","var(--ok)","var(--olive)"];for(let i=0;i<n;i++){const s=document.createElement("i");s.className="confetti";s.style.left=Math.random()*100+"vw";s.style.background=cols[i%cols.length];s.style.animationDuration=(1.6+Math.random()*1.8)+"s";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),4000)}}
+
+/* =====================================================================
+   DEVOIRS : enregistrement et chargement
+   ===================================================================== */
+const REG = {}; const ORDER = [];
+function registerDevoir(d){ REG[d.id]=d; }
+function loadDevoirs(){
+  const list = (typeof LISTE_DEVOIRS!=="undefined") ? LISTE_DEVOIRS : [];
+  return list.reduce((p,f)=>p.then(()=>new Promise(res=>{
+    const before=new Set(Object.keys(REG));
+    const s=document.createElement("script"); s.src=f+"?v="+Date.now().toString(36).slice(0,-3);
+    s.onload=()=>{ Object.keys(REG).filter(k=>!before.has(k)).forEach(k=>ORDER.push(k)); res(); };
+    s.onerror=()=>{ console.warn("Devoir introuvable : "+f); res(); };
+    document.head.appendChild(s);
+  })), Promise.resolve());
+}
+const keyOf = d => d.key || ("hggsp1-methode-"+d.id);
+function fresh(){return {notes:{soin:null,expr:null,conn:null,arg:null},appr:"",chosen:[],target:null,signed:false,xp:0,m:{}}}
+function loadState(d){ let s=fresh(); try{const x=JSON.parse(localStorage.getItem(keyOf(d))); if(x) s=Object.assign(fresh(),x);}catch(e){} return s; }
+const notesOkOf = s => CRIT_ORDER.every(k=>s.notes[k]!==null&&s.notes[k]!=="");
+const totalOf = s => notesOkOf(s)? CRIT_ORDER.reduce((a,k)=>a+Number(s.notes[k]),0) : null;
+
+/* Devoir en cours */
+let D=null, S=fresh(), M={}, MARCHES=[];
+function save(){
+  if(!D) return;
+  try{ localStorage.setItem(keyOf(D),JSON.stringify(S)); }catch(e){}
+  try{
+    const parts=ORDER.map(id=>{const s=loadState(REG[id]);if(!s.signed)return null;const d=s.chosen.filter(x=>s.m[x]&&s.m[x].done).length;return `${REG[id].court} : ${d===s.chosen.length?"terminé ✓":d+"/"+s.chosen.length+" marche"+(s.chosen.length>1?"s":"")}`}).filter(Boolean);
+    localStorage.setItem(RESUME_KEY,JSON.stringify({text:parts.slice(-2).join(" · ")}));
+  }catch(e){}
+}
+const ms = id => S.m[id] || (S.m[id]={step:0,reach:0,diag:[],orig:"",exo:{},f:{},self:null,done:false,xpd:{}});
+const notesOk = () => notesOkOf(S);
+const total = () => totalOf(S);
+function totalXP(){ return ORDER.reduce((a,id)=>a+((D&&id===D.id)?S.xp:(loadState(REG[id]).xp||0)),0); }
+
+/* =====================================================================
+   COPIE MODÈLE : rendu
+   ===================================================================== */
+const C = () => D.copy;
+function seg(list){ return list.map(([tag,k])=>`<span class="seg s-${tag}">${fmt(C().T[k])}</span>`).join(" "); }
+function segsByTag(part,tags){ return (C().P[part]||[]).filter(x=>tags.includes(x[0])); }
+function para(id,withLab){ return `<p>${withLab&&C().sub[id]?`<span class="lab">${C().sub[id]}</span>`:""}${seg(C().P[id])}</p>`; }
+function fullCopy(withLab){ return C().groups.map(g=>g.map(id=>para(id,withLab)).join("")).join('<div class="gap-part"></div>'); }
+const subIds = () => Object.keys(C().sub);
+const txt = list => list.map(x=>C().T[x[1]]).join(" ").replace(/\*/g,"");
+
+/* =====================================================================
+   MARCHES DE LA COMPOSITION (génériques)
+   Le fichier du devoir apporte les exercices propres au sujet.
+   ===================================================================== */
+const LIAISON_GROUPS = {
+  exp:{n:"Expliquer",d:"expliquer ou justifier ce qui précède",w:["En effet","Effectivement"]},
+  add:{n:"Ajouter",d:"ajouter une idée",w:["De plus","Par ailleurs","En outre"]},
+  opp:{n:"Opposer, nuancer",d:"opposer ou nuancer",w:["Cependant","Pourtant","Toutefois","Néanmoins","Or"]},
+  cons:{n:"Conséquence",d:"tirer une conséquence",w:["C'est pourquoi","Par conséquent","Dès lors"]},
+  concl:{n:"Conclure",d:"conclure ou faire un bilan",w:["Ainsi","En définitive","En somme"]},
+  temps:{n:"Temps",d:"marquer une étape dans le temps",w:["Par la suite","Ensuite","Puis"]}
+};
+const groupOf = w => Object.keys(LIAISON_GROUPS).find(g=>LIAISON_GROUPS[g].w.includes(w));
+const IDEA_WHY = {
+  ex:"C'est un exemple, pas une idée : il prouve l'idée mais ne la formule pas.",
+  vague:"Trop vague : une idée doit répondre au sujet de façon précise.",
+  hors:"Cette idée appartient à une autre partie de la copie.",
+  contre:"C'est un contresens : relis la sous-partie."
+};
+const tensionOk = s => (D.cles&&D.cles.tension||[]).every(w=>norm(s).includes(norm(w)));
+const tensionAny = s => (D.cles&&D.cles.tension||[]).some(w=>norm(s).includes(norm(w)));
+const bornesOk = s => (D.cles&&D.cles.bornes||[]).every(b=>String(s).includes(b));
+const notCopy = s => { const a=norm(s).match(/[a-z]{4,}/g)||[]; if(!a.length) return false; const sj=new Set(norm(D.sujet).match(/[a-z]{4,}/g)||[]); return a.filter(w=>sj.has(w)).length/a.length < .8; };
+const tensionTxt = () => (D.cles&&D.cles.tensionTxt)||"les deux termes du sujet";
+
+const METHODE_COMPO = "pas de titres dans la copie ; une idée et un seul exemple développé par sous-partie ; transitions rédigées avec des mots de liaison ; un alinéa au début de chaque sous-partie ; une ligne sautée seulement entre l'introduction, les parties et la conclusion.";
+
+const BASE = {
+composition: [
+{ id:"prob", code:"PROB", crit:"arg", icon:"❓", title:"La problématique",
+  short:"Transformer le sujet en vraie question de réflexion",
+  diag:["Ma problématique est bien une question.","Elle ne se contente pas de recopier le sujet.","Elle fait apparaître la tension du sujet.","Elle est placée à la fin de l'introduction, juste avant l'annonce du plan."],
+  rew:{prompt:"Réécris ta problématique. Elle doit être une vraie question, qui pose la tension du sujet sans le recopier.",
+    fields:[{k:"p",label:"Ma nouvelle problématique",rows:3,ph:"Dans quelle mesure…"}],
+    checks:()=>[
+      {l:"C'est une question (elle se termine par « ? »)",f:v=>/\?\s*$/.test(v.p.trim())},
+      {l:"Elle fait apparaître "+tensionTxt(),f:v=>tensionOk(v.p)},
+      {l:"Elle ne recopie pas le sujet",f:v=>v.p.trim().length>0&&notCopy(v.p)},
+      {l:"Elle est assez développée (12 mots ou plus)",f:v=>wc(v.p)>=12}]},
+  model:()=>`<div class="copy"><p>${seg(segsByTag("intro",["prob"]))}</p></div>`,
+  keep:["Une problématique reformule le sujet : elle ne le recopie pas.","Elle fait apparaître la tension du sujet, pour peser le pour et le contre.","« Dans quelle mesure… ? » appelle une réponse nuancée, que la conclusion devra trancher."],
+  ai:"LA PROBLÉMATIQUE. Une bonne problématique reformule le sujet sans le recopier, fait apparaître la tension du sujet et appelle une réponse nuancée (par exemple avec « dans quelle mesure »). Elle se place à la fin de l'introduction, avant l'annonce du plan.",
+  aiRef:()=>txt(segsByTag("intro",["prob"])) },
+
+{ id:"intro", code:"INTRO", crit:"arg", icon:"🚪", title:"L'introduction",
+  short:"Accroche, termes du sujet, problématique, annonce du plan",
+  diag:["Mon introduction commence par une accroche (citation, événement daté…).","J'ai défini les termes du sujet et précisé les bornes.","J'ai posé une problématique.","J'ai annoncé mon plan."],
+  autoExo:()=>{ const lab={acc:"Accroche",def:"Définition des termes",prob:"Problématique",ann:"Annonce du plan"}; const items=segsByTag("intro",["acc","def","prob","ann"]).map(([t,k])=>{const s=C().T[k].replace(/\*/g,"");return {k:lab[t],t:s.length>150?s.slice(0,s.lastIndexOf(" ",145))+"…":s}}); return {type:"order",prompt:"Remets dans l'ordre les quatre étapes de l'introduction modèle (flèches ↑ ↓).",items,start:items.length===4?[2,0,3,1]:items.map((_,i)=>i).reverse()}; },
+  rew:{prompt:"Réécris ton introduction en suivant les quatre étapes, dans l'ordre.",
+    fields:[{k:"i",label:"Ma nouvelle introduction",rows:11}],
+    checks:()=>[
+      {l:"Une accroche avec une date ou une citation",f:v=>hasYear(v.i)||/[«"]/.test(v.i)},
+      {l:"Les termes du sujet sont définis",f:v=>/(désigne|signifie|on appelle|c'est-à-dire|c’est-à-dire|se définit| est le | est un | est une )/i.test(v.i)},
+      {l:"Les bornes chronologiques apparaissent ("+((D.cles&&D.cles.bornes)||[]).join(", ")+")",f:v=>bornesOk(v.i)},
+      {l:"Une problématique (« ? »)",f:v=>/\?/.test(v.i)},
+      {l:"Le plan est annoncé (d'abord… ensuite… enfin)",f:v=>/(d'abord|d’abord|premi[eè]re partie)/i.test(v.i)&&/(ensuite|puis|deuxi[eè]me)/i.test(v.i)},
+      {l:"Assez développée (80 mots ou plus)",f:v=>wc(v.i)>=80}]},
+  model:()=>`<div class="copy hl-intro"><p>${seg(C().P.intro)}</p></div><p class="small muted">Couleurs : <span style="background:color-mix(in srgb,var(--gold) 25%,transparent)">accroche</span> · <span style="background:color-mix(in srgb,var(--olive) 20%,transparent)">termes</span> · <span style="background:color-mix(in srgb,var(--acc) 22%,transparent)">problématique</span> · <span style="background:color-mix(in srgb,var(--terra) 18%,transparent)">annonce du plan</span></p>`,
+  keep:["Quatre étapes, toujours dans le même ordre : accroche, termes, problématique, annonce.","Les termes se définissent par rapport au sujet, pas comme dans un dictionnaire.","L'annonce du plan reprend les idées des parties, pas des titres."],
+  ai:"L'INTRODUCTION. Elle comporte quatre étapes dans l'ordre : une accroche (citation ou événement daté), la définition des termes du sujet et de ses bornes chronologiques et spatiales, la problématique, puis l'annonce du plan (d'abord, ensuite, enfin).",
+  aiRef:()=>txt(C().P.intro) },
+
+{ id:"plan", code:"PLAN", crit:"arg", icon:"🧭", title:"Le plan : une idée par sous-partie",
+  short:"Retrouver l'idée de chaque sous-partie, puis bâtir son plan",
+  diag:["Ma copie a des parties et des sous-parties visibles (alinéas, lignes sautées).","Chaque sous-partie défend une seule idée.","Mes parties sont à peu près équilibrées.","Mon plan répond à la question posée."],
+  rew:{prompt:"Écris le plan détaillé de ta copie corrigée : une idée, en une phrase, pour chaque sous-partie.",
+    fields:()=>subIds().map(k=>({k,label:C().sub[k]+" · idée",rows:2})),
+    checks:()=>[
+      {l:"Toutes les sous-parties ont une idée",f:v=>subIds().every(k=>wc(v[k])>=3)},
+      {l:"Chaque idée est une vraie phrase (5 mots ou plus)",f:v=>subIds().every(k=>wc(v[k])>=5)},
+      {l:"Chaque idée tient en une phrase courte (35 mots maximum)",f:v=>subIds().every(k=>wc(v[k])>0&&wc(v[k])<=35)}]},
+  model:()=>`<ol class="copy" style="padding-left:1.3em">${(D.plan||[]).map(([k,idea,ex])=>`<li><b>${esc(C().sub[k]||k)}</b> · ${esc(idea)}${ex?` <span class="muted">(${esc(ex)})</span>`:""}</li>`).join("")}</ol>`,
+  keep:["Une idée = une phrase qui répond au sujet ; l'exemple vient ensuite pour la prouver.","Le plan doit suivre la logique du sujet : chronologique pour une évolution, thématique pour un bilan.","Des parties équilibrées : autant de sous-parties dans chacune."],
+  ai:"LE PLAN. Le professeur attend une idée par sous-partie (une phrase qui répond au sujet), prouvée par un seul exemple développé. Les parties doivent être équilibrées et le plan doit répondre à la question posée. Aide l'élève à repérer dans sa copie l'idée de chaque sous-partie, puis à reformuler son plan.",
+  aiRef:()=>(D.plan||[]).map(([k,i,e])=>`${C().sub[k]||k} : ${i}${e?" ("+e+")":""}`).join(" ") },
+
+{ id:"bilans", code:"BILAN", crit:"arg", icon:"🎯", title:"Bilans, transitions et conclusion",
+  short:"Répondre à la question à la fin de chaque partie, puis trancher",
+  diag:["Chaque partie se termine par une phrase-bilan qui répond à la question.","Une phrase de transition fait le lien avec la partie suivante.","Ma conclusion tranche clairement.","Ma conclusion se termine par une ouverture."],
+  rew:{prompt:"Rédige une phrase-bilan pour l'une de tes parties, puis réécris ta conclusion.",
+    fields:[{k:"b",label:"Une phrase-bilan (pour la partie de ton choix)",rows:3,ph:"Ainsi, entre … et …, …"},{k:"c",label:"Ma nouvelle conclusion (synthèse, réponse qui tranche, ouverture)",rows:9}],
+    checks:()=>[
+      {l:"Le bilan commence par un connecteur de conclusion (Ainsi, Donc, En somme…)",f:v=>/^\s*(ainsi|donc|en somme|en définitive|par conséquent|finalement)/i.test(v.b)},
+      {l:"Le bilan répond au sujet",f:v=>tensionAny(v.b)},
+      {l:"La conclusion reprend "+tensionTxt(),f:v=>tensionOk(v.c)},
+      {l:"La conclusion se termine par une ouverture (question)",f:v=>/\?/.test(v.c)},
+      {l:"La conclusion est assez développée (50 mots ou plus)",f:v=>wc(v.c)>=50}]},
+  model:()=>{ let n=0; const parts=C().groups.slice(1,-1).map(g=>{n++;const s=g.flatMap(id=>segsByTag(id,["bil","tr"]));return s.length?`<p><span class="lab">Bilan ${["I","II","III","IV"][n-1]}</span>${seg(s)}</p>`:""}).join(""); return `<div class="copy hl-bil">${parts}<div class="gap-part"></div><p><span class="lab">Conclusion</span>${seg(C().P.concl)}</p></div>`; },
+  keep:["Un bilan commence souvent par « Ainsi » et répond à la question pour la période ou l'idée étudiée.","Une transition relie deux parties avec un mot de liaison (« Pourtant », « Cependant »…).","La conclusion synthétise, tranche, puis ouvre : elle ne se contente pas de résumer."],
+  ai:"LES PHRASES-BILANS, LES TRANSITIONS ET LA CONCLUSION. Chaque partie doit se terminer par une phrase-bilan qui répond explicitement à la question (souvent introduite par « Ainsi »), suivie d'une transition rédigée avec un mot de liaison. La conclusion synthétise les parties, tranche clairement puis propose une ouverture.",
+  aiRef:()=>txt(subIds().flatMap(id=>segsByTag(id,["bil","tr"])))+" "+txt(C().P.concl) },
+
+{ id:"termes", code:"TERMES", crit:"conn", icon:"📖", title:"Définir les termes du sujet",
+  short:"Les mots-clés, les bornes chronologiques et l'échelle",
+  diag:["J'ai défini les mots-clés du sujet.","J'ai expliqué le sens des termes dans ce sujet précis.","J'ai justifié les bornes chronologiques.","J'ai précisé l'échelle (le monde, l'Europe, un pays…)."],
+  rew:{prompt:"Rédige la définition des termes du sujet, comme dans une introduction (3 à 5 phrases).",
+    fields:[{k:"d",label:"Ma définition des termes du sujet",rows:8}],
+    checks:()=>[
+      {l:"Les mots-clés du sujet sont expliqués ("+tensionTxt()+")",f:v=>tensionOk(v.d)},
+      {l:"Les bornes chronologiques sont justifiées ("+((D.cles&&D.cles.bornes)||[]).join(", ")+")",f:v=>bornesOk(v.d)},
+      {l:"Assez développé (50 mots ou plus)",f:v=>wc(v.d)>=50}]},
+  model:()=>`<div class="copy"><p>${seg(segsByTag("intro",["def"]))}</p></div>`,
+  keep:["Définir, c'est préciser le sens des mots dans ce sujet, pas réciter un dictionnaire.","Un mot du sujet peut avoir plusieurs sens : les préciser ouvre la discussion.","Toujours justifier les bornes : pourquoi commencer et finir à ces dates ?"],
+  ai:"LA DÉFINITION DES TERMES DU SUJET. L'élève doit définir les mots-clés du sujet dans le sens qu'ils prennent ici, justifier les bornes chronologiques et préciser l'échelle.",
+  aiRef:()=>txt(segsByTag("intro",["def"])) },
+
+{ id:"exemples", code:"EX", crit:"conn", icon:"📌", title:"Des exemples précis et développés",
+  short:"Un exemple daté par sous-partie, expliqué et interprété",
+  diag:["Chaque sous-partie contient un exemple précis et daté.","Mes exemples sont expliqués, pas seulement cités.","Je n'ai pas aligné une liste de dates.","Mes exemples correspondent à la bonne période."],
+  multiPrompt:"Pour chaque sous-partie, coche les exemples qui pourraient remplacer celui de la copie modèle. Attention aux pièges.",
+  rew:{prompt:"Développe un exemple pour l'une de tes sous-parties, en trois temps : l'idée, l'exemple précis et daté, puis ce qu'il prouve.",
+    fields:[{k:"idee",label:"1. Mon idée (une phrase)",rows:2},{k:"ex",label:"2. Mon exemple précis et daté (2 ou 3 phrases)",rows:5},{k:"int",label:"3. Ce que l'exemple prouve (une phrase)",rows:2,ph:"…ce qui montre que…"}],
+    checks:()=>[
+      {l:"L'idée est rédigée",f:v=>wc(v.idee)>=5},
+      {l:"L'exemple est daté",f:v=>hasYear(v.ex)},
+      {l:"L'exemple est développé (25 mots ou plus)",f:v=>wc(v.ex)>=25},
+      {l:"L'interprétation dit ce que l'exemple prouve (montre, prouve, ainsi…)",f:v=>/(montre|prouve|illustre|ainsi|donc|témoigne|révèle)/i.test(v.int)}]},
+  model:()=>{ const p=D.exemplesPart||subIds()[0]; const L={idea:"Idée",ex:"Exemple",int:"Ce qu'il prouve"}; return `<div class="copy hl-idea hl-ex hl-int">${segsByTag(p,["idea","ex","int"]).map(s=>`<p><span class="lab">${L[s[0]]}</span>${seg([s])}</p>`).join("")}</div>`; },
+  keep:["Un exemple développé vaut mieux que cinq exemples cités.","Un bon exemple : une date, des acteurs, des faits précis.","Termine toujours par ce que l'exemple prouve : « ce qui montre que… »."],
+  ai:"LES EXEMPLES PRÉCIS ET DÉVELOPPÉS. Le professeur attend une idée et un seul exemple développé par sous-partie : l'exemple doit être daté, précis (acteurs, faits), situé dans la bonne période, puis interprété (« ce qui montre que… »). Mieux vaut un exemple développé que plusieurs exemples cités. Aide l'élève à choisir puis à développer un exemple en trois temps : idée, exemple, interprétation.",
+  aiRef:()=>txt(segsByTag(D.exemplesPart||subIds()[0],["idea","ex","int"])) },
+
+{ id:"liaison", code:"LIAISON", crit:"expr", icon:"🔗", title:"Les mots de liaison",
+  short:"Relier ses idées avec le bon connecteur",
+  diag:["Chaque sous-partie commence par un mot de liaison.","Je varie mes connecteurs.","Mes phrases sont courtes et claires (moins de trois lignes).","J'utilise le vocabulaire précis du cours."],
+  gapsPrompt:"Touche un trou, puis choisis le mot de liaison qui convient. Plusieurs mots peuvent convenir s'ils ont la même fonction.",
+  rew:{prompt:"Réécris un paragraphe de ta copie en utilisant au moins trois mots de liaison différents.",
+    fields:[{k:"p",label:"Mon paragraphe réécrit",rows:9}],
+    checks:()=>[
+      {l:"Au moins trois mots de liaison différents",f:v=>countConn(v.p)>=3},
+      {l:"Le paragraphe commence par un mot de liaison",f:v=>{const s=v.p.trim();return s.length>0&&new RegExp("^("+CONNECTEURS.join("|")+")","i").test(s)}},
+      {l:"Au moins trois phrases",f:v=>sentences(v.p)>=3},
+      {l:"Des phrases claires (35 mots maximum en moyenne)",f:v=>{const n=sentences(v.p);return n>0&&wc(v.p)/n<=35}}]},
+  model:()=>`<div class="copy hl-cx">${para(D.liaisonPart||subIds()[1])}</div><p class="small muted">Les mots de liaison sont soulignés.</p>`,
+  keep:["Chaque sous-partie s'ouvre sur un mot de liaison qui annonce la logique : opposer, expliquer, conclure…","Varie les connecteurs : « Cependant », « Pourtant » et « Toutefois » ont la même fonction.","Une phrase claire tient en deux ou trois lignes."],
+  ai:"L'EXPRESSION ET LES MOTS DE LIAISON. L'élève doit relier ses idées avec des connecteurs logiques variés et adaptés à leur fonction (expliquer : en effet ; opposer : cependant, pourtant, toutefois ; conclure : ainsi ; conséquence : c'est pourquoi ; temps : par la suite), écrire des phrases courtes et claires, et employer le vocabulaire précis du cours. Ne corrige pas l'orthographe à sa place : signale le type d'erreur et laisse-le corriger.",
+  aiRef:()=>txt(C().P[D.liaisonPart||subIds()[1]]) },
+
+{ id:"soin", code:"SOIN", crit:"soin", icon:"✒️", title:"Présentation et relecture",
+  short:"Une copie lisible, propre et bien relue",
+  diag:["Ma copie est lisible du début à la fin.","J'ai utilisé le blanco au plus pour un mot à la fois.","Mes ratures sont faites d'un seul trait, à la règle.","J'ai respecté la marge.","Mes alinéas et lignes sautées sont bien placés."],
+  exo:[{type:"qcm",qs:[
+    {q:"J'utilise du blanco pour effacer une phrase entière.",opts:[{t:"Vrai",why:"Le blanco est limité à un mot au maximum."},{t:"Faux",ok:1,why:"Exact : blanco pour un mot au maximum. Au-delà, on raye d'un seul trait, à la règle."}]},
+    {q:"Pour supprimer plusieurs mots, je les raye proprement, d'un trait, à la règle.",opts:[{t:"Vrai",ok:1,why:"C'est la bonne méthode : la copie reste propre et lisible."},{t:"Faux",why:"Si : c'est exactement ce qui est attendu."}]},
+    {q:"Je saute une ligne entre chaque sous-partie.",opts:[{t:"Vrai",why:"Non : on saute une ligne seulement entre l'introduction, les parties et la conclusion."},{t:"Faux",ok:1,why:"Exact : chaque sous-partie commence par un alinéa ; la ligne sautée sépare l'introduction, les parties et la conclusion."}]},
+    {q:"Je commence chaque sous-partie par un alinéa.",opts:[{t:"Vrai",ok:1,why:"Oui : l'alinéa montre au correcteur qu'une nouvelle idée commence."},{t:"Faux",why:"Si : l'alinéa signale chaque nouvelle sous-partie."}]},
+    {q:"J'écris au crayon à papier pour pouvoir gommer.",opts:[{t:"Vrai",why:"Non : la copie s'écrit à l'encre bleue ou noire."},{t:"Faux",ok:1,why:"Exact : encre bleue ou noire."}]},
+    {q:"Je garde environ 20 minutes pour me relire.",opts:[{t:"Vrai",ok:1,why:"Oui : pour l'orthographe, les phrases-bilans et la conclusion."},{t:"Faux",why:"Si : la relecture fait partie des deux heures."}]}
+  ]}],
+  rew:{prompt:"Écris tes trois règles de présentation et de relecture pour le prochain devoir.",
+    fields:[{k:"r",label:"Mes trois règles",rows:5,ph:"1. …\n2. …\n3. …"}],
+    checks:()=>[
+      {l:"Assez précis (15 mots ou plus)",f:v=>wc(v.r)>=15},
+      {l:"Une règle sur les ratures ou le blanco",f:v=>/(blanco|ratur|rayer|raye|règle)/i.test(v.r)},
+      {l:"Une règle sur la relecture",f:v=>/(reli|relecture|relire)/i.test(v.r)}]},
+  model:()=>`<ul class="copy" style="padding-left:1.2em;margin:0"><li>Écrire lisiblement, à l'encre bleue ou noire.</li><li>Blanco limité à un mot au maximum ; au-delà, rayer d'un seul trait, à la règle, proprement.</li><li>Respecter la marge.</li><li>Un alinéa au début de chaque sous-partie ; une ligne sautée entre l'introduction, les parties et la conclusion.</li><li>Garder 20 minutes de relecture : orthographe, phrases-bilans, conclusion.</li></ul>`,
+  keep:["Une copie propre se lit plus facilement : le correcteur suit mieux ton raisonnement.","Blanco : un mot au maximum. Sinon, un trait à la règle.","La mise en page montre ton plan : alinéas et lignes sautées."],
+  ai:"LE SOIN ET LA RELECTURE. Regarde la présentation de la copie : lisibilité, encre bleue ou noire, ratures (le professeur accepte le blanco pour un mot au maximum ; au-delà, il faut rayer proprement d'un seul trait à la règle), marge, alinéa au début de chaque sous-partie, ligne sautée uniquement entre l'introduction, les parties et la conclusion. Aide l'élève à se fixer trois règles concrètes pour le prochain devoir et une méthode de relecture en 20 minutes.",
+  aiRef:()=>"Règles : encre bleue ou noire ; blanco un mot maximum, sinon rayer à la règle ; marge ; alinéa par sous-partie ; ligne sautée entre introduction, parties et conclusion ; 20 minutes de relecture." }
+]
+/* etude: [ … ]  marches de l'étude critique de documents, à partir du DS3 */
+};
+
+/* Assemble les marches génériques et le contenu propre au devoir */
+function buildMarches(d){
+  const base = BASE[d.type] || [];
+  return base.map(b=>{
+    const x = (d.marches||{})[b.id] || {};
+    const m = Object.assign({}, b);
+    let exo = x.exo ? JSON.parse(JSON.stringify(x.exo)) : (b.exo ? b.exo : []);
+    exo.forEach(e=>{
+      if(e.type==="qcm") e.qs.forEach(q=>q.opts.forEach(o=>{ if(/^@/.test(o.why)) o.why=IDEA_WHY[o.why.slice(1)]||o.why; }));
+      if(e.type==="multi" && !e.prompt) e.prompt=b.multiPrompt;
+      if(e.type==="gaps" && !e.prompt) e.prompt=b.gapsPrompt;
+    });
+    if(b.autoExo) exo = [b.autoExo()].concat(exo);
+    m.exo = exo;
+    m.rew = Object.assign({}, b.rew, x.rew||{});
+    m.rew.fields = typeof m.rew.fields==="function" ? m.rew.fields() : m.rew.fields;
+    const baseChecks = typeof b.rew.checks==="function" ? b.rew.checks() : (b.rew.checks||[]);
+    m.rew.checks = (x.checks||[]).concat(baseChecks);
+    m.ai = b.ai + (x.ai ? " "+x.ai : "");
+    if(x.model) m.model = x.model;
+    if(x.keep) m.keep = x.keep;
+    return m;
+  }).filter(m=>m.exo.length);
+}
+const STEP_NAMES = ["Ma copie","Exercice","Réécrire","Comparer"];
+const ENCOURAGE = ["Bien joué, tu avances !","C'est exactement comme ça qu'on progresse.","Belle étape de franchie !","Ton prochain devoir te dira merci.","Solide ! Continue sur ta lancée."];
+
+function useDevoir(id){
+  if(D && D.id===id) return true;
+  if(!REG[id]) return false;
+  D = REG[id]; S = loadState(D); MARCHES = buildMarches(D); M = Object.fromEntries(MARCHES.map(m=>[m.id,m]));
+  if(D.couleur) document.documentElement.style.setProperty("--acc",D.couleur);
+  photosFor(D);
+  return true;
+}
+function prevDevoir(){ const i=ORDER.indexOf(D.id); for(let j=i-1;j>=0;j--){ const s=loadState(REG[ORDER[j]]); if(s.signed&&notesOkOf(s)) return {d:REG[ORDER[j]],s}; } return null; }
+
+function addXP(n,key,id){
+  const m = id?ms(id):null;
+  if(m){ if(m.xpd[key]) return; m.xpd[key]=1; }
+  S.xp += n; save(); updateHeader();
+  const f=document.createElement("div"); f.className="xpfloat"; f.textContent="+"+n; document.body.appendChild(f); setTimeout(()=>f.remove(),1000);
+}
+function levelOf(xp){let i=0;LEVELS.forEach((l,k)=>{if(xp>=l[0])i=k});return i}
+function updateHeader(){
+  const xp=totalXP(), i=levelOf(xp), cur=LEVELS[i][0], nxt=LEVELS[i+1]?LEVELS[i+1][0]:cur;
+  $("#xpPill").textContent="✦ "+xp;
+  $("#xpPill").title=fr("Niveau : "+LEVELS[i][1]);
+  $("#xpFill").style.width=(nxt>cur?Math.min(100,(xp-cur)/(nxt-cur)*100):100)+"%";
+  $("#brandTitle").textContent = D ? fr("Corriger mon "+D.court) : "Méthode";
+  $("#brandSub").textContent = D ? fr(TYPE_LABEL[D.type]||"") : "HGGSP · Corriger mes devoirs";
+  $("#brandLogo").textContent = D ? D.court : "M";
+}
+function applyTheme(){ let t=null; try{t=localStorage.getItem(THEME_KEY)}catch(e){} if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme"); }
+
+/* Exercice terminé ? */
+function blockDone(id,bi){
+  const ex=M[id].exo[bi], st=ms(id).exo[bi]||{};
+  if(ex.type==="qcm") return ex.qs.every((q,qi)=>st["q"+qi]!=null);
+  if(ex.type==="order") return !!st.ok;
+  if(ex.type==="multi") return ex.groups.every((g,gi)=>st["g"+gi]&&st["g"+gi].ok);
+  if(ex.type==="gaps") return ex.items.every((it,i)=>st["v"+i]&&groupOf(st["v"+i])===it.g);
+  return true;
+}
+const exoDone = id => M[id].exo.every((_,bi)=>blockDone(id,bi));
+const rewVals = id => { const r={}; M[id].rew.fields.forEach(f=>r[f.k]=ms(id).f[f.k]||""); return r; };
+const rewLen = id => Object.values(rewVals(id)).join("").trim().length;
+
+/* =====================================================================
+   PHOTOS (uniquement sur l'appareil, dans IndexedDB, un espace par devoir)
+   ===================================================================== */
+let DB=null, PHOTOS=[], DBNAME=null;
+function photosFor(d){
+  const name = d.photosDb || (d.id==="ds1" ? "hggsp1-ds1-photos" : "hggsp1-methode-"+d.id+"-photos");
+  if(name===DBNAME) return;
+  DBNAME=name; PHOTOS.forEach(p=>URL.revokeObjectURL(p.url)); PHOTOS=[]; DB=null;
+  dbOpen(name).then(loadPhotos).then(()=>{ if(route().v!=="home") render(); });
+}
+function dbOpen(name){return new Promise(res=>{try{const r=indexedDB.open(name,1);r.onupgradeneeded=()=>r.result.createObjectStore("p",{keyPath:"id",autoIncrement:true});r.onsuccess=()=>{DB=r.result;res()};r.onerror=()=>res()}catch(e){res()}})}
+function dbAll(){return new Promise(res=>{if(!DB)return res([]);const q=DB.transaction("p").objectStore("p").getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>res([])})}
+function dbPut(blob){return new Promise(res=>{if(!DB)return res(null);const q=DB.transaction("p","readwrite").objectStore("p").add({blob,t:Date.now()});q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)})}
+function dbDel(id){return new Promise(res=>{if(!DB)return res();const q=DB.transaction("p","readwrite").objectStore("p").delete(id);q.onsuccess=()=>res();q.onerror=()=>res()})}
+async function loadPhotos(){PHOTOS.forEach(p=>URL.revokeObjectURL(p.url));PHOTOS=(await dbAll()).map(r=>({id:r.id,url:URL.createObjectURL(r.blob)}))}
+function shrink(file){return new Promise(res=>{const img=new Image();const u=URL.createObjectURL(file);img.onload=()=>{const k=Math.min(1,1800/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b||file),"image/jpeg",.78)};img.onerror=()=>{URL.revokeObjectURL(u);res(file)};img.src=u})}
+async function addPhotos(files){
+  for(const f of files){ const b=await shrink(f); const id=await dbPut(b); if(id==null){ PHOTOS.push({id:"m"+Date.now()+Math.random(),url:URL.createObjectURL(b)}); } }
+  if(DB) await loadPhotos();
+  toast(files.length>1?files.length+" photos ajoutées":"Photo ajoutée"); render();
+}
+function openViewer(){
+  if(!D){ toast("Choisis d'abord un devoir."); return; }
+  if(!PHOTOS.length){ toast("Aucune photo pour l'instant : ajoute-les dans « Faire le point »."); return; }
+  const v=document.createElement("div"); v.className="viewer"; v.id="viewer";
+  v.innerHTML=`<div class="vbar"><b>Ma copie (${PHOTOS.length} photo${PHOTOS.length>1?"s":""})</b><span class="row" style="flex:0 0 auto"><button class="btn" data-a="vzoom">🔍 Zoom</button><button class="btn" data-a="vclose">✕ Fermer</button></span></div>`+PHOTOS.map(p=>`<img src="${p.url}" alt="Page de ma copie">`).join("");
+  document.body.appendChild(v); document.body.style.overflow="hidden";
+}
+function closeViewer(){const v=$("#viewer"); if(v) v.remove(); document.body.style.overflow="";}
+
+/* =====================================================================
+   VUES
+   ===================================================================== */
+function route(){ const h=decodeURIComponent(location.hash.slice(1)); const a=h.split("/").filter(Boolean); if(!a.length) return {v:"home"}; return {ds:a[0], v:a[1]||"ds", p:a[2]}; }
+function go(h){ const t = h==="" ? "" : (D && !/^~/.test(h) ? D.id+(h==="ds"?"":"/"+h) : h.replace(/^~/,"")); if(location.hash.slice(1)===t) render(); else location.hash=t; }
+function actions(html){ $("#actions").innerHTML = html?`<div class="wrap">${html}</div>`:""; typo($("#actions")); }
+function nextChosen(id){ return S.chosen.find(x=>x!==id&&!ms(x).done); }
+
+/* ---------- Accueil : tous les devoirs ---------- */
+function vAll(){
+  D=null; document.documentElement.style.removeProperty("--acc");
+  actions("");
+  const rows = ORDER.map(id=>({d:REG[id],s:loadState(REG[id])}));
+  const withNotes = rows.filter(r=>notesOkOf(r.s));
+  const card = ({d,s})=>{ const t=totalOf(s); const done=s.chosen.filter(x=>s.m[x]&&s.m[x].done).length;
+    const st = !t&&!s.signed ? '<span class="st">À commencer</span>' : !s.signed ? '<span class="st">En cours</span>' : done===s.chosen.length ? '<span class="st done">✓ Terminé</span>' : `<span class="st">${done}/${s.chosen.length}</span>`;
+    return `<button class="mcard" data-a="go" data-to="~${d.id}"><span class="ic" style="font-family:Fraunces;font-weight:800;font-size:1rem">${esc(d.court)}</span><span style="min-width:0"><span class="ctag">${esc(TYPE_LABEL[d.type]||"")}${d.theme?" · "+esc(d.theme):""}</span><b>${esc(d.titre)}</b>${t!==null?`<span class="muted small">Note : ${fmtN(t)}/20${s.signed?" · objectif : "+fmtN(s.target)+"/20":""}</span>`:""}</span>${st}</button>`; };
+  return `
+  <div class="kicker">HGGSP Première · toute l'année</div>
+  <h1>Corriger mes devoirs</h1>
+  <p class="lead">Après chaque devoir, choisis un ou deux points de méthode et retravaille-les marche par marche. Ta progression se suit d'un devoir à l'autre.</p>
+  <h2>Mes devoirs</h2>
+  ${rows.length? rows.slice().reverse().map(card).join("") : `<p class="muted">Aucun devoir disponible pour l'instant.</p>`}
+  ${withNotes.length?`<h2>Ma progression</h2><div class="card" style="overflow-x:auto"><table class="prog-t"><thead><tr><th></th>${withNotes.map(r=>`<th>${esc(r.d.court)}</th>`).join("")}</tr></thead><tbody>
+    ${CRIT_ORDER.slice().reverse().map(k=>`<tr><td>${CRIT[k].n} <span class="muted">/${CRIT[k].max}</span></td>${withNotes.map((r,i)=>{const v=Number(r.s.notes[k]);const p=i?Number(withNotes[i-1].s.notes[k]):null;return `<td class="${p===null?"":v>p?"up":v<p?"down":""}">${fmtN(v)}</td>`}).join("")}</tr>`).join("")}
+    <tr class="tot"><td>Total <span class="muted">/20</span></td>${withNotes.map((r,i)=>{const v=totalOf(r.s);const p=i?totalOf(withNotes[i-1].s):null;return `<td class="${p===null?"":v>p?"up":v<p?"down":""}">${fmtN(v)}</td>`}).join("")}</tr>
+    <tr><td>Objectif fixé</td>${withNotes.map(r=>`<td class="muted">${r.s.signed?fmtN(r.s.target):"—"}</td>`).join("")}</tr>
+  </tbody></table><p class="muted small" style="margin:8px 0 0">En vert : un critère en progrès par rapport au devoir précédent.</p></div>`:""}
+  <div class="card"><h3>🔒 Tes données restent sur ton téléphone</h3><p class="muted small" style="margin:0">Photos, notes et réécritures ne sont envoyées nulle part. Elles sont enregistrées dans ce navigateur, sur cet appareil.</p></div>
+  <div class="foot"><a href="${HOME_URL}">← Banque d'exercices HGGSP</a></div>`;
+}
+
+/* ---------- Accueil d'un devoir ---------- */
+function vHome(){
+  const started = notesOk() || S.signed;
+  const done = MARCHES.filter(m=>S.m[m.id]&&S.m[m.id].done).length;
+  actions(`<button class="btn ghost" data-a="go" data-to="">←</button>${started?`<button class="btn primary" data-a="go" data-to="${S.signed?"parcours":"point"}">Reprendre mon travail →</button>`:`<button class="btn primary" data-a="go" data-to="point">Commencer →</button>`}`);
+  return `
+  <div class="kicker">${esc(D.court)} · ${esc(TYPE_LABEL[D.type]||"")}${D.theme?" · "+esc(D.theme):""}</div>
+  <h1>Corriger et progresser</h1>
+  <div class="subject"><small>Le sujet</small>${esc(D.sujet)}</div>
+  <p class="lead">Ton devoir est noté. Ici, tu ne refais pas tout : tu choisis <b>un ou deux points de méthode</b> et tu les travailles marche par marche, à ton rythme.</p>
+  <div class="steps3">
+    <div class="card"><div class="num">1</div><div><b>Faire le point</b><br><span class="muted small">Photos de ta copie et tes points par critère · 3 min</span></div></div>
+    <div class="card"><div class="num">2</div><div><b>Choisir mon objectif</b><br><span class="muted small">Un ou deux points de méthode et la note que tu vises au prochain devoir · 2 min</span></div></div>
+    <div class="card"><div class="num">3</div><div><b>Monter les marches</b><br><span class="muted small">Ta copie, un exercice, une réécriture, la comparaison avec la copie modèle · 10 min par marche</span></div></div>
+  </div>
+  <div class="card"><h3>🤖 Avec ou sans IA</h3><p class="muted small" style="margin:0">Tout fonctionne sans IA. À chaque marche, tu peux aussi copier une consigne toute prête pour te faire aider par ton IA habituelle, qui te guide sans écrire à ta place.</p></div>
+  ${done?`<p class="muted small">Marches terminées : ${done}.</p>`:""}
+  <div class="foot"><button data-a="go" data-to="">← Tous mes devoirs</button><button data-a="reset">Tout effacer pour ce devoir</button></div>`;
+}
+
+function prevContractBox(){
+  const pv=prevDevoir(); if(!pv) return "";
+  const t=total(), ok=t!==null&&t>=pv.s.target;
+  const crits=[...new Set(pv.s.chosen.map(id=>(BASE[pv.d.type]||[]).find(b=>b.id===id)).filter(Boolean).map(b=>b.crit))];
+  return `<div class="contract"><p><b>📌 Ton contrat au ${esc(pv.d.court)}</b></p>
+  <p>Tu visais <b>${fmtN(pv.s.target)}/20</b> en travaillant : ${pv.s.chosen.map(id=>{const b=(BASE[pv.d.type]||[]).find(x=>x.id===id);return b?esc(b.title):id}).join(", ")}.</p>
+  ${t===null?`<p class="muted small">Indique tes notes ci-dessous pour voir si tu as tenu ton contrat.</p>`:
+  `<p>${ok?"🎉 Objectif atteint : "+fmtN(t)+"/20 !":"Cette fois : "+fmtN(t)+"/20. Il manquait "+fmtN(pv.s.target-t)+" point"+(pv.s.target-t>1?"s":"")+" : on continue."}</p>
+  ${crits.map(k=>{const a=Number(pv.s.notes[k]),b=Number(S.notes[k]);return `<p class="small">${CRIT[k].n} : ${fmtN(a)} → <b>${fmtN(b)}</b>/${CRIT[k].max} ${b>a?"✅ en progrès":b<a?"↘ en baisse":"= stable"}</p>`}).join("")}`}
+  </div>`;
+}
+
+function vPoint(){
+  const t = total();
+  actions(`<button class="btn ghost" data-a="go" data-to="ds">←</button><button class="btn primary" data-a="go" data-to="contrat" ${notesOk()?"":"disabled"}>${notesOk()?"Choisir mon objectif →":"Indique tes 4 notes pour continuer"}</button>`);
+  return `
+  <div class="kicker">Étape 1 sur 3</div><h1 style="font-size:2rem">Faire le point</h1>
+  ${prevContractBox()}
+  <div class="card">
+    <h3>📷 Les photos de ma copie <span class="muted small">(facultatif)</span></h3>
+    <p class="muted small" style="margin:0 0 10px">Photographie l'en-tête d'évaluation et chaque page. Tu pourras les revoir à tout moment avec le bouton 📄. Elles restent sur ton téléphone.</p>
+    <label class="btn filebtn">📷 Ajouter des photos<input type="file" accept="image/*" multiple data-in="photos"></label>
+    <div class="thumbs">${PHOTOS.map(p=>`<div class="thumb"><img src="${p.url}" alt="Page de ma copie" data-a="photos"><button data-a="delphoto" data-id="${p.id}" aria-label="Supprimer la photo">✕</button></div>`).join("")}</div>
+  </div>
+  <div class="card">
+    <h3>📝 Mes points, critère par critère</h3>
+    <p class="muted small" style="margin:0 0 4px">Recopie les points notés dans la grille de l'en-tête.</p>
+    ${CRIT_ORDER.map(k=>{const c=CRIT[k];const opts=[];for(let v=0;v<=c.max;v+=.5)opts.push(v);
+      return `<div class="crit"><b>${c.n} <span class="muted">/ ${c.max}</span></b><span class="muted">${c.d}</span>
+      <select data-in="note" data-k="${k}" aria-label="${c.n}"><option value="">—</option>${opts.map(v=>`<option value="${v}" ${S.notes[k]!==null&&Number(S.notes[k])===v?"selected":""}>${fmtN(v)}</option>`).join("")}</select></div>`}).join("")}
+    <div class="total"><span>Ma note</span><b>${t===null?"— ":fmtN(t)} / 20</b></div>
+  </div>
+  <div class="card">
+    <h3>💬 L'appréciation et les conseils <span class="muted small">(facultatif)</span></h3>
+    <textarea data-in="appr" rows="3" placeholder="Recopie l'appréciation et les conseils de ton professeur">${esc(S.appr)}</textarea>
+  </div>`;
+}
+
+function recoCrit(){
+  if(!notesOk()) return null;
+  let best=null, lost=-1, ratio=-1;
+  CRIT_ORDER.forEach(k=>{const l=CRIT[k].max-Number(S.notes[k]), r=l/CRIT[k].max; if(l>lost||(l===lost&&r>ratio)){best=k;lost=l;ratio=r}});
+  return lost>0?best:null;
+}
+function vContrat(){
+  if(!notesOk()) { setTimeout(()=>go("point")); return ""; }
+  const t=total(), rk=recoCrit();
+  const maxT=Math.min(20,t+4);
+  if(S.target===null||S.target<t||S.target>maxT) S.target=Math.min(20,t+2);
+  const can = S.chosen.length>=1;
+  const pv = prevDevoir();
+  actions(`<button class="btn ghost" data-a="go" data-to="point">←</button><button class="btn primary" data-a="sign" ${can?"":"disabled"}>${can?"Je m'engage ✍️":"Choisis au moins une marche"}</button>`);
+  return `
+  <div class="kicker">Étape 2 sur 3</div><h1 style="font-size:2rem">Mon objectif</h1>
+  <div class="card">
+    <h3>Où as-tu perdu des points ?</h3>
+    <div class="lost">${CRIT_ORDER.slice().sort((a,b)=>(CRIT[b].max-S.notes[b])-(CRIT[a].max-S.notes[a])).map(k=>{const l=CRIT[k].max-Number(S.notes[k]);return `<div class="lostrow"><span>${CRIT[k].n}</span><div class="lostbar"><i style="width:${l/CRIT[k].max*100}%"></i></div><span>${l?"−"+fmtN(l):"✓"}</span></div>`}).join("")}</div>
+    ${rk?`<div class="reco">💡 C'est en <b>${CRIT[rk].n.toLowerCase()}</b> que tu as perdu le plus de points (−${fmtN(CRIT[rk].max-S.notes[rk])} sur ${CRIT[rk].max}) : c'est là que tu peux gagner le plus. Les marches conseillées sont signalées.</div>`:`<div class="reco">🏆 Tu n'as perdu aucun point : choisis une marche pour consolider ta méthode.</div>`}
+  </div>
+  <h2>Choisis 1 ou 2 marches</h2>
+  <p class="muted small" style="margin-top:-4px">Pas plus de deux : mieux vaut progresser vraiment sur un point que survoler tout le reste. Les autres marches resteront disponibles plus tard.</p>
+  ${CRIT_ORDER.slice().reverse().map(k=>{const list=MARCHES.filter(m=>m.crit===k);return list.length?`<div class="crithead">${CRIT[k].n} · /${CRIT[k].max}</div>`+list.map(m=>{const on=S.chosen.includes(m.id);const before=pv&&pv.s.chosen.includes(m.id);return `<button class="pick ${on?"on":""}" data-a="pick" data-id="${m.id}"><span class="ic">${m.icon}</span><span><b>${m.title}</b><span class="muted">${m.short}</span>${rk===k?'<span class="tag reco2">Conseillé</span>':""}${before?`<span class="tag">Déjà travaillé au ${esc(pv.d.court)}</span>`:""}${S.m[m.id]&&S.m[m.id].done?'<span class="tag">Fait ✓</span>':""}</span><span class="chk">${on?"✓":""}</span></button>`}).join(""):""}).join("")}
+  <h2>La note que je vise au prochain devoir</h2>
+  <div class="card">
+    ${t>=20?`<p style="margin:0">Tu as obtenu 20/20 : ton objectif est de garder ce niveau.</p>`:`
+    <div class="target">${fmtN(S.target)} / 20 <small>${S.target>t?"(+"+fmtN(S.target-t)+")":""}</small></div>
+    <input type="range" min="${t}" max="${maxT}" step="0.5" value="${S.target}" data-in="target" aria-label="Note visée">
+    <p class="muted small" style="margin:4px 0 0">Un objectif réaliste : au plus 4 points de plus que ta note actuelle (${fmtN(t)}).</p>`}
+  </div>`;
+}
+
+function vParcours(){
+  if(!S.signed){ setTimeout(()=>go(notesOk()?"contrat":"point")); return ""; }
+  const t=total();
+  const doneCount=S.chosen.filter(id=>ms(id).done).length;
+  const anyDone=MARCHES.some(m=>S.m[m.id]&&S.m[m.id].done);
+  const others=MARCHES.filter(m=>!S.chosen.includes(m.id));
+  const nx=S.chosen.find(id=>!ms(id).done);
+  actions(nx?`<button class="btn primary" data-a="go" data-to="m/${nx}">${ms(nx).reach>0?"Continuer":"Commencer"} : ${M[nx].title} →</button>`:`<button class="btn primary" data-a="go" data-to="bilan">Voir mon bilan 🏁</button>`);
+  const card=(m)=>{const s=ms(m.id);const st=s.done?'<span class="st done">✓ Terminé</span>':s.reach>0?`<span class="st">Étape ${Math.min(s.step,3)+1}/4</span>`:'<span class="st">À faire</span>';
+    return `<button class="mcard" style="--cc:${CRIT[m.crit].c}" data-a="go" data-to="m/${m.id}"><span class="ic">${m.icon}</span><span style="min-width:0"><span class="ctag">${CRIT[m.crit].n}</span><b>${m.title}</b><div class="mini"><i style="width:${s.done?100:s.reach*25}%"></i></div></span>${st}</button>`;};
+  return `
+  <div class="kicker">Étape 3 sur 3</div><h1 style="font-size:2rem">Mon parcours</h1>
+  <div class="contract">
+    <p><b>Mon contrat de progrès</b></p>
+    <p>J'ai obtenu <b>${fmtN(t)}/20</b>. Au prochain devoir, je vise <b>${fmtN(S.target)}/20</b> en travaillant :</p>
+    <p>${S.chosen.filter(id=>M[id]).map(id=>M[id].icon+" "+M[id].title).join("<br>")}</p>
+    <p class="small"><button class="btn ghost" style="padding:6px 10px" data-a="unsign">Modifier mon contrat</button></p>
+  </div>
+  <h2>Mes marches <span class="muted small">${doneCount}/${S.chosen.length}</span></h2>
+  ${S.chosen.filter(id=>M[id]).map(id=>card(M[id])).join("")}
+  <h2>Ressources</h2>
+  <button class="mcard ${anyDone?"":"locked"}" data-a="${anyDone?"go":"lockmsg"}" data-to="modele"><span class="ic">📜</span><span><b>La copie modèle complète</b><span class="muted small">${anyDone?"Avec ses idées, exemples, bilans et mots de liaison surlignés":"Se débloque quand tu termines ta première marche"}</span></span><span class="st">${anyDone?"Lire":"🔒"}</span></button>
+  <button class="mcard" data-a="go" data-to="bilan"><span class="ic">🏁</span><span><b>Mon bilan</b><span class="muted small">À imprimer ou à envoyer à ton professeur</span></span><span class="st">${doneCount===S.chosen.length?"Prêt":"En cours"}</span></button>
+  <details class="more"><summary>Les autres marches (pour un prochain devoir)</summary>${others.map(m=>card(m)).join("")}</details>
+  <div class="foot"><button data-a="go" data-to="">← Tous mes devoirs</button><button data-a="reset">Tout effacer pour ce devoir</button></div>`;
+}
+
+/* ---------- Une marche ---------- */
+function vMarche(id){
+  const mk=M[id]; if(!mk){ setTimeout(()=>go("parcours")); return ""; }
+  const m=ms(id);
+  if(m.done && m.step===4) return vDoneMarche(id);
+  const step=Math.min(m.step,3);
+  const head=`<div class="mhead"><span class="ic">${mk.icon}</span><div><div class="ctag" style="--cc:${CRIT[mk.crit].c}">${CRIT[mk.crit].n} · /${CRIT[mk.crit].max}</div><h1 class="mtitle">${mk.title}</h1></div></div>
+  <div class="stepper">${STEP_NAMES.map((n,i)=>`<button class="${i===step?"cur":""} ${i<m.reach||m.done?"done":""}" data-a="step" data-id="${id}" data-s="${i}" ${i>m.reach&&!m.done?"disabled":""}><i></i>${n}</button>`).join("")}</div>`;
+  let body="", canNext=true, label="Étape suivante →";
+  if(step===0){ body=stepDiag(id); }
+  else if(step===1){ body=stepExo(id); canNext=exoDone(id); if(!canNext) label="Termine l'exercice pour continuer"; }
+  else if(step===2){ body=stepRew(id); canNext=rewLen(id)>=15; label=canNext?"Comparer avec la copie modèle →":"Écris ta version pour continuer"; }
+  else { body=stepCmp(id); canNext=!!m.self; label=canNext?"Terminer la marche ✓":"Évalue ta version pour terminer"; }
+  actions(`<button class="btn ghost" data-a="${step===0?"go":"step"}" data-to="parcours" data-id="${id}" data-s="${step-1}">←</button><button class="btn primary" id="nextBtn" data-a="next" data-id="${id}" ${canNext?"":"disabled"}>${label}</button>`);
+  return head+body;
+}
+function stepDiag(id){
+  const mk=M[id], m=ms(id);
+  return `<h2 class="steph">1. Regarde ta copie</h2>
+  <p class="muted small" style="margin:0">Relis ta copie ${PHOTOS.length?"":"(ou ajoute tes photos dans « Faire le point »)"} et coche ce qui est vrai pour toi. Sois honnête : c'est pour toi.</p>
+  <button class="btn copybtn" data-a="photos">📄 Voir ma copie</button>
+  <div class="checks">${mk.diag.map((d,i)=>`<label><input type="checkbox" data-in="diag" data-id="${id}" data-i="${i}" ${m.diag[i]?"checked":""}><span>${d}</span></label>`).join("")}</div>
+  <label class="fld"><span>Recopie le passage concerné tel que tu l'as écrit <span class="muted small">(facultatif, pour comparer avant / après)</span></span><textarea data-in="orig" data-id="${id}" rows="4">${esc(m.orig)}</textarea></label>
+  ${m.diag.filter(Boolean).length===mk.diag.length?`<div class="fb good">Tout est coché : parfait, l'exercice va le confirmer.</div>`:""}`;
+}
+function stepExo(id){
+  const mk=M[id];
+  return `<h2 class="steph">2. Exercice</h2>`+mk.exo.map((ex,bi)=>{
+    if(ex.type==="qcm") return rQcm(id,bi,ex);
+    if(ex.type==="order") return rOrder(id,bi,ex);
+    if(ex.type==="multi") return rMulti(id,bi,ex);
+    if(ex.type==="gaps") return rGaps(id,bi,ex);
+    return "";
+  }).join("")+(exoDone(id)?`<div class="fb good">✓ Exercice réussi ! Passe à la réécriture.</div>`:"");
+}
+const exst = (id,bi) => { const m=ms(id); return m.exo[bi]||(m.exo[bi]={}); };
+function rQcm(id,bi,ex){
+  const st=exst(id,bi);
+  return ex.qs.map((q,qi)=>{const got=st["q"+qi], wr=st["w"+qi];
+    return `<div class="q-card ${got!=null?"solved":""}"><div class="q-n">Question ${qi+1} / ${ex.qs.length}</div>
+    ${q.ctx&&C().P[q.ctx]?`<details class="ctx"><summary>Lire la sous-partie ${esc(C().sub[q.ctx]||q.ctx)}</summary><div class="copy">${para(q.ctx)}</div></details>`:""}
+    <p class="q-t">${esc(q.q)}</p><div class="opts">${q.opts.map((o,oi)=>`<button class="opt ${got===oi?"ok":wr===oi?"ko":""}" data-a="qcm" data-id="${id}" data-b="${bi}" data-q="${qi}" data-o="${oi}" ${got!=null?"disabled":""}>${esc(o.t)}</button>`).join("")}</div>
+    ${got!=null?`<div class="fb good">✓ ${esc(q.opts[got].why)}</div>`:wr!=null?`<div class="fb bad">✗ ${esc(q.opts[wr].why)} <b>Essaie encore.</b></div>`:""}</div>`}).join("");
+}
+function rOrder(id,bi,ex){
+  const st=exst(id,bi); if(!st.ord) st.ord=ex.start.slice();
+  return `<div class="q-card ${st.ok?"solved":""}"><p class="q-t">${esc(ex.prompt)}</p>
+  ${st.ord.map((ix,pos)=>{const it=ex.items[ix];const mark=st.chk?(ix===pos?"okp":"kop"):"";return `<div class="ord ${mark}"><div class="t">${st.ok?`<b>${pos+1}. ${esc(it.k)}</b>`:""}${esc(it.t)}</div>${st.ok?"":`<div class="mv"><button data-a="ord" data-id="${id}" data-b="${bi}" data-p="${pos}" data-d="-1" ${pos===0?"disabled":""} aria-label="Monter">↑</button><button data-a="ord" data-id="${id}" data-b="${bi}" data-p="${pos}" data-d="1" ${pos===st.ord.length-1?"disabled":""} aria-label="Descendre">↓</button></div>`}</div>`}).join("")}
+  ${st.ok?`<div class="fb good">✓ Bravo, c'est le bon ordre.</div>`:`<button class="btn block" data-a="ordchk" data-id="${id}" data-b="${bi}">Vérifier l'ordre</button>${st.chk?`<div class="fb bad">✗ ${st.ord.filter((ix,p)=>ix===p).length} bloc(s) bien placé(s) sur ${st.ord.length} (bordure verte). Réessaie.</div>`:""}`}</div>`;
+}
+function rMulti(id,bi,ex){
+  const st=exst(id,bi);
+  return `<p class="muted small">${esc(ex.prompt||"")}</p>`+ex.groups.map((g,gi)=>{const s=st["g"+gi]||{sel:[]};
+    return `<div class="q-card ${s.ok?"solved":""}"><div class="q-n">${esc(g.idea)}</div><p class="sel-note">Exemple de la copie modèle : <b>${esc(g.used)}</b>. Coche ceux qui pourraient le remplacer :</p>
+    <div class="opts">${g.opts.map((o,oi)=>{const on=s.sel.includes(oi);let cls=on?"sel":"";if(s.chk&&on){cls=o.ok?"ok":"ko"}
+      return `<button class="opt ${cls}" data-a="msel" data-id="${id}" data-b="${bi}" data-g="${gi}" data-o="${oi}" ${s.ok?"disabled":""}>${on?"☑":"☐"} ${esc(o.t)}${s.chk&&on?`<div class="small" style="margin-top:4px;font-weight:400">${o.ok?"✓":"✗"} ${esc(o.why)}</div>`:""}</button>`}).join("")}</div>
+    ${s.ok?`<div class="fb good">✓ Bien vu !</div>`:`<button class="btn block" style="margin-top:10px" data-a="mchk" data-id="${id}" data-b="${bi}" data-g="${gi}" ${s.sel.length?"":"disabled"}>Vérifier</button>${s.chk&&!s.ok?`<div class="fb bad">✗ Pas tout à fait. ${(()=>{const miss=g.opts.filter((o,oi)=>o.ok&&!s.sel.includes(oi)).length;const bad=s.sel.filter(oi=>!g.opts[oi].ok).length;return [bad?bad+" exemple"+(bad>1?"s":"")+" ne convien"+(bad>1?"nent":"t")+" pas.":"",miss?"Il manque "+miss+" bon exemple"+(miss>1?"s":"")+".":""].join(" ")})()} Corrige ta sélection et vérifie de nouveau.</div>`:""}`}</div>`}).join("");
+}
+function rGaps(id,bi,ex){
+  const st=exst(id,bi);
+  if(st.act==null||(st["v"+st.act]&&groupOf(st["v"+st.act])===ex.items[st.act].g)){ const f=ex.items.findIndex((it,i)=>!(st["v"+i]&&groupOf(st["v"+i])===it.g)); st.act=f<0?null:f; }
+  return `<p class="muted small">${esc(ex.prompt||"")}</p>`+ex.items.map((it,i)=>{const v=st["v"+i], ok=v&&groupOf(v)===it.g;
+    const cls=ok?"okg":v?"kog":(st.act===i?"act":"");
+    const fb=ok?`<div class="fb good small">✓ ${esc(LIAISON_GROUPS[it.g].n)} : « ${esc(v)} » convient${v!==it.ans?` (la copie modèle utilise « ${esc(it.ans)} »)`:""}.</div>`:v?`<div class="fb bad small">✗ « ${esc(v)} » sert à ${esc(LIAISON_GROUPS[groupOf(v)].d)}. Ici, il faut plutôt ${esc(LIAISON_GROUPS[it.g].d)}.</div>`:"";
+    const pal=st.act===i?`<div class="palette"><div class="small muted" style="font-weight:700">Choisis un mot de liaison :</div>${Object.keys(LIAISON_GROUPS).map(g=>`<div class="pg"><span>${LIAISON_GROUPS[g].n}</span>${LIAISON_GROUPS[g].w.map(w=>`<button data-a="gapput" data-id="${id}" data-b="${bi}" data-w="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div>`:"";
+    return `<div class="gapline" id="gap-${i}">${it.ctx?`<span class="ctxs">${esc(it.ctx)}</span>`:""}${it.b?esc(it.b)+" ":""}<button class="gap ${cls}" data-a="gapsel" data-id="${id}" data-b="${bi}" data-i="${i}" ${ok?"disabled":""}>${v?esc(v):"……"}</button>${esc(it.a)}${fb}${pal}</div>`}).join("");
+}
+function stepRew(id){
+  const mk=M[id], m=ms(id);
+  return `<h2 class="steph">3. Réécris</h2><p style="margin:0 0 6px">${esc(mk.rew.prompt)}</p>
+  ${mk.rew.fields.map(f=>`<label class="fld"><span>${esc(f.label)}</span><textarea data-in="rew" data-id="${id}" data-k="${f.k}" rows="${f.rows||4}" placeholder="${esc(f.ph||"")}">${esc(m.f[f.k]||"")}</textarea></label>`).join("")}
+  <div class="card" style="padding:12px 14px"><b class="small">Vérifications automatiques</b> <span class="muted small">(des repères, pas une note)</span><ul class="livechecks" id="livechecks">${liveChecks(id)}</ul></div>
+  <details class="aibox"><summary>🤖 Me faire aider par mon IA (facultatif)</summary><div class="in">
+    <ol class="small"><li>Ouvre ton IA habituelle et démarre une nouvelle conversation.</li><li>Copie la consigne ci-dessous et colle-la dans l'IA.</li><li>Envoie-lui la photo de l'en-tête d'évaluation (<b>cache ton nom</b>) et les pages de ta copie.</li><li>Réponds à ses questions, réécris, puis <b>recopie ta version finale ici</b>.</li></ol>
+    <button class="btn primary block" data-a="copyprompt" data-id="${id}">📋 Copier la consigne pour mon IA</button>
+    <p class="muted small" style="margin:8px 0 0">L'IA est réglée pour te guider sans écrire à ta place. Si tu restes dans la même conversation, inutile de renvoyer les photos pour la marche suivante.</p>
+    <textarea class="promptbox" id="promptbox" readonly hidden></textarea>
+  </div></details>`;
+}
+function liveChecks(id){ const v=rewVals(id); return M[id].rew.checks.map(c=>{let ok=false;try{ok=c.f(v)}catch(e){};return `<li class="${ok?"y":""}">${esc(c.l)}</li>`}).join(""); }
+function stepCmp(id){
+  const mk=M[id], m=ms(id), v=rewVals(id);
+  const mine=mk.rew.fields.map(f=>v[f.k]?`${mk.rew.fields.length>1?`<b class="small" style="display:block;margin-top:6px">${esc(f.label)}</b>`:""}<div class="pre">${esc(v[f.k])}</div>`:"").join("");
+  return `<h2 class="steph">4. Compare</h2><p class="muted small" style="margin:0">Lis ta version, puis le passage de la copie modèle. Qu'est-ce qui change ?</p>
+  ${m.orig?`<div class="cmp"><b>Avant · ma copie</b><div class="pre">${esc(m.orig)}</div></div>`:""}
+  <div class="cmp mine"><b>${m.orig?"Après · ma réécriture":"Ma réécriture"}</b>${mine}</div>
+  <div class="cmp model"><b>La copie modèle</b>${mk.model()}</div>
+  <div class="keep"><b>À retenir</b><ul>${mk.keep.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></div>
+  <h2 class="steph">Ma version est-elle aussi efficace ?</h2>
+  <div class="selfev">${[["oui","✅ Oui, j'ai les mêmes éléments"],["partiel","🟡 En partie : il me manque encore quelque chose"],["non","🔁 Pas encore : je retravaillerai ce point"]].map(([k,l])=>`<button class="${m.self===k?"on":""}" data-a="self" data-id="${id}" data-v="${k}">${l}</button>`).join("")}</div>
+  ${m.self==="non"?`<p class="small muted">Aucun souci : tu peux revenir à l'étape 3 avec la flèche ←, ou garder ce point pour ton prochain devoir.</p>`:""}`;
+}
+function vDoneMarche(id){
+  const mk=M[id], nx=nextChosen(id);
+  actions(nx?`<button class="btn ghost" data-a="go" data-to="parcours">Parcours</button><button class="btn primary" data-a="go" data-to="m/${nx}">Marche suivante : ${M[nx].title} →</button>`:`<button class="btn ghost" data-a="go" data-to="parcours">Parcours</button><button class="btn primary" data-a="go" data-to="bilan">Voir mon bilan 🏁</button>`);
+  return `<div class="card done-card"><div class="big">${mk.icon}</div><h1 style="font-size:1.8rem">Marche terminée !</h1><p class="lead">${esc(mk.title)} · ${esc(ENCOURAGE[(mk.id.length+S.xp)%ENCOURAGE.length])}</p>
+  <p class="muted small">${MARCHES.filter(x=>S.m[x.id]&&S.m[x.id].done).length===1?"La copie modèle complète est maintenant débloquée dans ton parcours.":""}</p>
+  <button class="btn" data-a="redo" data-id="${id}">Revoir cette marche</button></div>`;
+}
+
+/* ---------- Copie modèle ---------- */
+let HL=new Set(["idea","ex"]);
+function vModele(){
+  if(!MARCHES.some(m=>S.m[m.id]&&S.m[m.id].done)){ setTimeout(()=>go("parcours")); return ""; }
+  actions(`<button class="btn primary" data-a="go" data-to="parcours">← Retour au parcours</button>`);
+  const chips=[["idea","Idées","var(--acc)"],["ex","Exemples","var(--olive)"],["int","Ce que l'exemple prouve","var(--gold)"],["bil","Bilans et transitions","var(--terra)"],["cx","Mots de liaison","var(--ink)"],["intro","Étapes de l'introduction","var(--gold)"]];
+  return `<div class="kicker">Correction · ${esc(D.court)}</div><h1 style="font-size:2rem">La copie modèle</h1>
+  <div class="subject"><small>Le sujet</small>${esc(D.sujet)}</div>
+  <p class="muted small">Touche les étiquettes pour surligner chaque élément de méthode. Une ligne sautée sépare l'introduction, les parties et la conclusion ; chaque sous-partie commence par un alinéa.</p>
+  <div class="hlchips noprint">${chips.map(([k,l,c])=>`<button class="${HL.has(k)?"on":""}" data-a="hl" data-k="${k}"><i style="background:${c}"></i>${l}</button>`).join("")}</div>
+  <div class="copy ${[...HL].map(k=>"hl-"+k).join(" ")}" id="fullcopy">${fullCopy(true)}</div>`;
+}
+
+/* ---------- Bilan ---------- */
+function codeSuivi(){ return `${D.court} · ${fmtN(total())} → ${fmtN(S.target)} · ${S.chosen.filter(id=>M[id]).map(id=>M[id].code).join("+")}`; }
+const SELF_TXT = {oui:"aussi efficace que le modèle",partiel:"efficace en partie",non:"pas encore efficace"};
+function bilanText(){
+  const L=[];
+  L.push(`BILAN · Correction du ${D.court} d'HGGSP (${D.titre})`);
+  const pv=prevDevoir(); if(pv) L.push(`Contrat du ${pv.d.court} : objectif ${fmtN(pv.s.target)}/20 · obtenu ${fmtN(total())}/20 ${total()>=pv.s.target?"(atteint)":"(pas encore atteint)"}`);
+  L.push(`Note obtenue : ${fmtN(total())}/20 (Soin ${fmtN(S.notes.soin)}/2, Expression ${fmtN(S.notes.expr)}/4, Connaissances ${fmtN(S.notes.conn)}/6, Argumentation ${fmtN(S.notes.arg)}/8)`);
+  L.push(`Objectif au prochain devoir : ${fmtN(S.target)}/20`);
+  L.push(`Marches choisies : ${S.chosen.filter(id=>M[id]).map(id=>M[id].title).join(", ")}`);
+  L.push(`Code de suivi : ${codeSuivi()}`);
+  MARCHES.filter(m=>S.m[m.id]&&(S.m[m.id].done||rewLen(m.id))).forEach(m=>{
+    const s=ms(m.id), v=rewVals(m.id);
+    L.push(""); L.push(`— ${m.title} ${s.done?"(terminée)":"(en cours)"}`);
+    if(s.orig) L.push("Avant : "+s.orig);
+    m.rew.fields.forEach(f=>{ if(v[f.k]) L.push((m.rew.fields.length>1?f.label+" : ":"Après : ")+v[f.k]); });
+    if(s.self) L.push("Mon évaluation : "+SELF_TXT[s.self]);
+  });
+  return fr(L.join("\n"));
+}
+function vBilan(){
+  if(!S.signed){ setTimeout(()=>go("parcours")); return ""; }
+  actions(`<button class="btn ghost" data-a="go" data-to="parcours">←</button><button class="btn primary" data-a="print">🖨️ Imprimer ou PDF</button>`);
+  const worked=MARCHES.filter(m=>S.m[m.id]&&(S.m[m.id].done||rewLen(m.id)));
+  const pv=prevDevoir();
+  return `<div class="kicker">Étape finale</div><h1 style="font-size:2rem">Mon bilan</h1>
+  <div class="print-only"><p><b>Nom, prénom, classe :</b> ………………………………………………</p></div>
+  <div class="contract">
+    <p>${esc(D.court)} · ${esc(D.sujet)}</p>
+    ${pv?`<p class="small">Contrat du ${esc(pv.d.court)} : objectif ${fmtN(pv.s.target)}/20 → ${total()>=pv.s.target?"<b>atteint</b> 🎉":"pas encore atteint"}</p>`:""}
+    <p>Note obtenue : <b>${fmtN(total())}/20</b> · Objectif au prochain devoir : <b>${fmtN(S.target)}/20</b></p>
+    <p>Soin ${fmtN(S.notes.soin)}/2 · Expression ${fmtN(S.notes.expr)}/4 · Connaissances ${fmtN(S.notes.conn)}/6 · Argumentation ${fmtN(S.notes.arg)}/8</p>
+  </div>
+  <div class="card"><h3>📌 Mon code de suivi</h3><p class="muted small" style="margin:0 0 8px">Recopie-le en haut de ta prochaine copie : ton professeur verra l'objectif que tu t'étais fixé.</p><div class="code">${esc(codeSuivi())}</div></div>
+  <div class="card"><h3>Mon travail</h3>
+  ${worked.length?worked.map(m=>{const s=ms(m.id),v=rewVals(m.id);return `<div class="bil-m"><h4>${m.icon} ${esc(m.title)} ${s.done?"✓":"<span class='muted small'>(en cours)</span>"}</h4>
+    ${s.orig?`<div class="cmp"><b>Avant</b><div class="pre">${esc(s.orig)}</div></div>`:""}
+    <div class="cmp mine"><b>${s.orig?"Après":"Ma réécriture"}</b>${m.rew.fields.map(f=>v[f.k]?`${m.rew.fields.length>1?`<b class="small" style="display:block;margin-top:6px;text-transform:none;letter-spacing:0">${esc(f.label)}</b>`:""}<div class="pre">${esc(v[f.k])}</div>`:"").join("")}</div>
+    ${s.self?`<p class="small">Mon évaluation : <b>${SELF_TXT[s.self]}</b></p>`:""}</div>`}).join(""):`<p class="muted">Termine au moins une marche pour la voir apparaître ici.</p>`}
+  </div>
+  <div class="row noprint"><button class="btn" data-a="copybilan">📋 Copier le texte du bilan</button><button class="btn" data-a="print">🖨️ Imprimer ou enregistrer en PDF</button></div>
+  <p class="muted small noprint">Pour l'envoyer à ton professeur : copie le texte et colle-le dans un message de l'ENT, ou enregistre le PDF.</p>`;
+}
+
+/* =====================================================================
+   CONSIGNE POUR L'IA
+   ===================================================================== */
+function buildPrompt(id){
+  const mk=M[id];
+  const chosen=S.chosen.filter(x=>M[x]).map(x=>M[x].title).join(" ; ");
+  const pv=prevDevoir();
+  const typeTxt = D.type==="etude" ? "étude critique de documents" : "composition (dissertation)";
+  return fr(`Tu es un tuteur de méthodologie en HGGSP (spécialité Histoire-géographie, géopolitique et sciences politiques, classe de Première, en France). Tu aides un ou une élève de lycée à retravailler UN point précis de sa copie (${typeTxt}), déjà corrigée et notée par son professeur.
+
+RÈGLES À RESPECTER ABSOLUMENT
+1. Tu ne rédiges jamais à la place de l'élève : ni introduction, ni paragraphe, ni phrase de sa copie. Tu poses des questions, tu donnes des pistes et, si besoin, un exemple sur un AUTRE sujet. Si l'élève insiste pour obtenir la réponse, refuse gentiment et propose un indice.
+2. La note et l'appréciation du professeur font foi : tu ne donnes aucune nouvelle note sur 20.
+3. Tu travailles UNIQUEMENT sur le point indiqué plus bas, pas sur toute la copie.
+4. Réponses courtes (10 lignes maximum), bienveillantes et précises. Une seule question à la fois. Tutoie l'élève.
+5. Le repère de correction plus bas est pour toi seul : ne le recopie pas et ne le montre pas à l'élève.
+6. Si une photo est floue ou illisible, demande à l'élève de recopier le passage.
+
+DÉROULEMENT
+a) Si l'élève ne t'a pas encore envoyé de photos dans cette conversation, demande-lui la photo de l'en-tête d'évaluation (nom caché) et des pages de sa copie. Sinon, utilise celles déjà reçues.
+b) Transcris le passage de sa copie qui concerne le point à travailler, et demande-lui de confirmer ta transcription.
+c) Pose-lui deux ou trois questions, une par une, pour l'aider à voir ce qui manque.
+d) Demande-lui de réécrire le passage. Fais un retour : un point réussi, un point à améliorer.
+e) Après deux réécritures au maximum, félicite-le pour un progrès précis et dis-lui de recopier sa version finale dans l'application de son professeur.
+
+LE DEVOIR (${D.court})
+Sujet : « ${D.sujet} »
+Consigne : ${D.consigne||""}
+Barème : Soin /2, Expression /4, Connaissances /6, Argumentation /8.
+Méthode attendue par le professeur : ${D.type==="composition"?METHODE_COMPO:(D.methode||"")}
+
+L'ÉLÈVE
+Note obtenue : ${fmtN(total())}/20 (Soin ${fmtN(S.notes.soin)}/2, Expression ${fmtN(S.notes.expr)}/4, Connaissances ${fmtN(S.notes.conn)}/6, Argumentation ${fmtN(S.notes.arg)}/8).
+Objectif fixé : viser ${fmtN(S.target)}/20 au prochain devoir en travaillant : ${chosen}.
+${pv?`Au devoir précédent (${pv.d.court}), il visait ${fmtN(pv.s.target)}/20 : objectif ${total()>=pv.s.target?"atteint":"pas encore atteint"}.\n`:""}${S.appr.trim()?`Appréciation du professeur : « ${S.appr.trim()} »\n`:""}
+POINT À TRAVAILLER AUJOURD'HUI
+${mk.ai}
+
+REPÈRE DE CORRECTION (pour toi seul)
+${mk.aiRef()}
+
+Commence maintenant par l'étape a).`);
+}
+
+/* =====================================================================
+   RENDU ET ÉVÉNEMENTS
+   ===================================================================== */
+function render(){
+  const r=route(); let html="";
+  if(r.v==="home" || !useDevoir(r.ds)) html=vAll();
+  else if(!MARCHES.length) html=`<div class="kicker">${esc(D.court)}</div><h1 style="font-size:2rem">Bientôt disponible</h1><p class="lead">Les marches de ce type de devoir arrivent prochainement.</p>`;
+  else if(r.v==="ds") html=vHome();
+  else if(r.v==="point") html=vPoint();
+  else if(r.v==="contrat") html=vContrat();
+  else if(r.v==="parcours") html=vParcours();
+  else if(r.v==="m") html=vMarche(r.p);
+  else if(r.v==="modele") html=vModele();
+  else if(r.v==="bilan") html=vBilan();
+  else html=vHome();
+  $("#app").innerHTML=html; typo($("#app")); updateHeader();
+}
+window.addEventListener("hashchange",()=>{ closeViewer(); render(); window.scrollTo(0,0); });
+
+const ACT = {
+  go:el=>go(el.dataset.to||""),
+  theme:()=>{const dark=matchMedia("(prefers-color-scheme: dark)").matches;let cur=null;try{cur=localStorage.getItem(THEME_KEY)}catch(e){};cur=cur||(dark?"dark":"light");try{localStorage.setItem(THEME_KEY,cur==="dark"?"light":"dark")}catch(e){};applyTheme()},
+  photos:()=>openViewer(),
+  vclose:()=>closeViewer(),
+  vzoom:()=>$("#viewer").classList.toggle("zoom"),
+  delphoto:async el=>{const id=el.dataset.id; if(!confirm("Supprimer cette photo ?"))return; if(/^m/.test(id)) PHOTOS=PHOTOS.filter(p=>String(p.id)!==id); else {await dbDel(Number(id)); await loadPhotos();} render();},
+  pick:el=>{const id=el.dataset.id;const i=S.chosen.indexOf(id);if(i>=0)S.chosen.splice(i,1);else{if(S.chosen.length>=2){toast("Deux marches au maximum : c'est le meilleur moyen de progresser vraiment.");return}S.chosen.push(id)}save();render()},
+  sign:()=>{if(!S.chosen.length)return;S.signed=true;save();confetti(30);toast("Contrat signé ! Première marche : "+M[S.chosen[0]].title);go("parcours")},
+  unsign:()=>{S.signed=false;save();go("contrat")},
+  lockmsg:()=>toast("Termine ta première marche pour débloquer la copie modèle complète."),
+  step:el=>{const id=el.dataset.id,s=Number(el.dataset.s);if(el.dataset.to==="parcours"&&s<0){go("parcours");return}const m=ms(id);if(s<0)return;if(s<=m.reach||m.done){m.step=s;save();render();window.scrollTo(0,0)}},
+  next:el=>{const id=el.dataset.id,m=ms(id);
+    if(m.step===0) addXP(10,"diag",id);
+    if(m.step===1){ if(!exoDone(id))return; addXP(15,"exo",id); }
+    if(m.step===2){ if(rewLen(id)<15)return; addXP(20,"rew",id); }
+    if(m.step===3){ if(!m.self)return; m.done=true; m.step=4; m.reach=4; addXP(25,"done",id); save(); confetti(); render(); window.scrollTo(0,0); return; }
+    m.step++; m.reach=Math.max(m.reach,m.step); save(); render(); window.scrollTo(0,0);
+    if(m.step===3) toast(ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)]);
+  },
+  redo:el=>{const m=ms(el.dataset.id);m.step=0;save();render();window.scrollTo(0,0)},
+  qcm:el=>{const {id,b,q,o}=el.dataset;const st=exst(id,b);const opt=M[id].exo[b].qs[q].opts[o];
+    if(opt.ok){st["q"+q]=Number(o);delete st["w"+q];addXP(5,`q${b}-${q}`,id)}else st["w"+q]=Number(o);save();render();if(exoDone(id))toast("Exercice réussi !")},
+  ord:el=>{const {id,b}=el.dataset,p=Number(el.dataset.p),d=Number(el.dataset.d);const st=exst(id,b);const a=st.ord;[a[p],a[p+d]]=[a[p+d],a[p]];st.chk=false;save();render()},
+  ordchk:el=>{const {id,b}=el.dataset;const st=exst(id,b);st.chk=true;st.ok=st.ord.every((ix,p)=>ix===p);if(st.ok)addXP(5,"ord"+b,id);save();render();if(exoDone(id))toast("Exercice réussi !")},
+  msel:el=>{const {id,b,g}=el.dataset,o=Number(el.dataset.o);const st=exst(id,b);const s=st["g"+g]||(st["g"+g]={sel:[]});const i=s.sel.indexOf(o);if(i>=0)s.sel.splice(i,1);else s.sel.push(o);s.chk=false;save();render()},
+  mchk:el=>{const {id,b,g}=el.dataset;const st=exst(id,b);const s=st["g"+g];const grp=M[id].exo[b].groups[g];s.chk=true;s.ok=grp.opts.every((o,oi)=>!!o.ok===s.sel.includes(oi));if(s.ok)addXP(5,`m${b}-${g}`,id);save();render();if(exoDone(id))toast("Exercice réussi !")},
+  gapsel:el=>{const {id,b}=el.dataset;exst(id,b).act=Number(el.dataset.i);save();render()},
+  gapput:el=>{const {id,b,w}=el.dataset;const st=exst(id,b);if(st.act==null)return;const it=M[id].exo[b].items[st.act];st["v"+st.act]=w;const ok=groupOf(w)===it.g;if(ok){addXP(3,`g${b}-${st.act}`,id);st.act=null}save();render();if(exoDone(id))toast("Exercice réussi !");else if(ok){const nx=exst(id,b).act;const el2=nx!=null&&document.getElementById("gap-"+nx);if(el2)el2.scrollIntoView({behavior:"smooth",block:"center"})}},
+  self:el=>{const m=ms(el.dataset.id);m.self=el.dataset.v;save();render()},
+  hl:el=>{const k=el.dataset.k;HL.has(k)?HL.delete(k):HL.add(k);render()},
+  copyprompt:el=>copyText(buildPrompt(el.dataset.id),"Consigne copiée : colle-la dans ton IA.",true),
+  copybilan:()=>copyText(bilanText(),"Bilan copié : colle-le dans un message à ton professeur."),
+  print:()=>window.print(),
+  reset:()=>{if(!confirm("Tout effacer pour ce devoir (notes, contrat, réécritures et photos) ?"))return;S=fresh();save();Promise.all(PHOTOS.map(p=>dbDel(p.id))).then(loadPhotos).then(()=>go("ds"))}
+};
+function copyText(t,msg,isPrompt){
+  const fallback=()=>{const pb=$("#promptbox");if(isPrompt&&pb){pb.hidden=false;pb.value=t;pb.focus();pb.select();try{document.execCommand("copy");toast(msg)}catch(e){toast("Sélectionne le texte et copie-le.")}}else{const ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(msg)}catch(e){toast("Copie impossible sur cet appareil.")}ta.remove()}};
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast(msg)).catch(fallback); else fallback();
+}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-a]");if(!el||el.disabled)return;const f=ACT[el.dataset.a];if(f){e.preventDefault();f(el,e)}});
+document.addEventListener("input",e=>{const el=e.target, k=el.dataset.in; if(!k)return;
+  if(k==="appr"){S.appr=el.value;save()}
+  else if(k==="orig"){ms(el.dataset.id).orig=el.value;save()}
+  else if(k==="rew"){const id=el.dataset.id;ms(id).f[el.dataset.k]=el.value;save();const lc=$("#livechecks");if(lc)lc.innerHTML=liveChecks(id);const nb=$("#nextBtn");if(nb){const ok=rewLen(id)>=15;nb.disabled=!ok;nb.textContent=fr(ok?"Comparer avec la copie modèle →":"Écris ta version pour continuer")}}
+  else if(k==="target"){S.target=Number(el.value);save();const t=total();const box=document.querySelector(".target");if(box)box.innerHTML=`${fmtN(S.target)} / 20 <small>${S.target>t?"(+"+fmtN(S.target-t)+")":""}</small>`}
+});
+document.addEventListener("change",e=>{const el=e.target,k=el.dataset.in;if(!k)return;
+  if(k==="note"){S.notes[el.dataset.k]=el.value===""?null:Number(el.value);S.target=null;save();render()}
+  else if(k==="diag"){const m=ms(el.dataset.id);m.diag[Number(el.dataset.i)]=el.checked;save()}
+  else if(k==="photos"){const files=[...el.files];if(files.length)addPhotos(files);el.value=""}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeViewer()});
+
+applyTheme();
+loadDevoirs().then(()=>{ render(); });
+
+</script>
+</body>
+</html>

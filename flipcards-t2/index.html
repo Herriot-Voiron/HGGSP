@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6b1f2e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Puissance">
+<meta name="format-detection" content="telephone=no">
+<title>Puissance, puissances — Révisions</title>
+<meta name="description" content="Flip cards de révision HGGSP Première, Thème 2 : Puissance, puissances. Répétition espacée, points et badges.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5efe3; --bg2:#ece3d1; --card:#fffdf8; --ink:#1c2230; --muted:#5d6475; --line:#ddd2bc;
+  --aegean:#6b1f2e; --terra:#b8502f; --olive:#5f7032; --gold:#b98a1f; --eu:#2b4ea2;
+  --ok:#2f7d4f; --mid:#c08a12; --ko:#b23b2e;
+  --c-intro:var(--gold); --c-a1:var(--aegean); --c-a2:var(--olive); --c-oec:var(--eu);
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 10px 30px -12px rgba(40,30,10,.25);
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+    --aegean:#e58f9c; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f; --eu:#8fa6ff;
+    --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151d; --bg2:#181e29; --card:#1c2331; --ink:#ece6d9; --muted:#9aa2b3; --line:#2c3547;
+  --aegean:#e58f9c; --terra:#e27f5f; --olive:#a9bd6b; --gold:#e0b94f; --eu:#8fa6ff;
+  --ok:#5cc489; --mid:#e6b13f; --ko:#ef6b5c;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.mode,.card3d,summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 "Source Sans 3",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
+
+/* Frise de losanges (motif de kilim) */
+.meander{height:18px;background:var(--aegean);opacity:.7;-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2730%27%20height%3D%2718%27%20viewBox%3D%270%200%2030%2018%27%3E%3Crect%20width%3D%2730%27%20height%3D%272%27/%3E%3Crect%20y%3D%2716%27%20width%3D%2730%27%20height%3D%272%27/%3E%3Cpath%20fill-rule%3D%27evenodd%27%20d%3D%27M15%203.5%2024%209%2015%2014.5%206%209Z%20M15%206.6%2019%209%2015%2011.4%2011%209Z%27/%3E%3Cpath%20d%3D%27M15%208%2016.6%209%2015%2010%2013.4%209Z%27/%3E%3Cpath%20d%3D%27M0%206.2%202.6%209%200%2011.8Z%20M30%206.2%2027.4%209%2030%2011.8Z%27/%3E%3C/svg%3E") 0 0/30px 18px repeat-x;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2730%27%20height%3D%2718%27%20viewBox%3D%270%200%2030%2018%27%3E%3Crect%20width%3D%2730%27%20height%3D%272%27/%3E%3Crect%20y%3D%2716%27%20width%3D%2730%27%20height%3D%272%27/%3E%3Cpath%20fill-rule%3D%27evenodd%27%20d%3D%27M15%203.5%2024%209%2015%2014.5%206%209Z%20M15%206.6%2019%209%2015%2011.4%2011%209Z%27/%3E%3Cpath%20d%3D%27M15%208%2016.6%209%2015%2010%2013.4%209Z%27/%3E%3Cpath%20d%3D%27M0%206.2%202.6%209%200%2011.8Z%20M30%206.2%2027.4%209%2030%2011.8Z%27/%3E%3C/svg%3E") 0 0/30px 18px repeat-x}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:14px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer;background:none;border:0;padding:0}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:var(--aegean);color:var(--bg);display:grid;place-items:center;font-family:Fraunces;font-weight:800}
+.brand span{font-family:Fraunces;font-size:1.05rem}
+.brand small{display:block;font-family:"Source Sans 3";font-weight:600;color:var(--muted);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.hstats{margin-left:auto;display:flex;align-items:center;gap:10px}
+.lvl{display:flex;align-items:center;gap:8px;min-width:0}
+.lvl .name{font-weight:700;font-size:.9rem;white-space:nowrap}
+.xpbar{width:120px;height:8px;border-radius:9px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--terra));width:0;transition:width .6s}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:.88rem;white-space:nowrap}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+@media (max-width:640px){.xpbar{width:64px}.lvl .name{display:none}.brand small{display:none}.hide-sm{display:none}}
+@media (max-width:480px){.lvl{display:none}.brand span{font-size:.95rem}.hbar{gap:8px}}
+
+/* Accueil */
+.hero{padding:34px 0 10px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:end}
+.kicker{font-weight:700;color:var(--terra);letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.hero h1{font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.02;margin:.2em 0 .25em;font-weight:800}
+.hero p{color:var(--muted);margin:0;max-width:46ch}
+.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
+.stat b{font-family:Fraunces;font-size:1.7rem;display:block;line-height:1.1}
+.stat span{color:var(--muted);font-size:.84rem;font-weight:600}
+@media (max-width:760px){.hero{grid-template-columns:1fr;gap:18px;padding-top:24px}}
+
+section.block{margin:26px 0}
+.block h2{font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.block h2::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.modes{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.mode{position:relative;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.mode:hover{transform:translateY(-2px);border-color:var(--aegean)}
+.mode.main{background:var(--aegean);color:#fff;border-color:transparent}
+:root[data-theme="dark"] .mode.main{color:#0d1420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mode.main{color:#0d1420}}
+.mode h3{margin:4px 0 4px;font-size:1.25rem}
+.mode p{margin:0;font-size:.92rem;opacity:.85}
+.mode .tag{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.8}
+.sizes{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.sizes button{border:1px solid currentColor;background:transparent;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.85rem;opacity:.75}
+.sizes button.on{opacity:1;background:rgba(255,255,255,.22)}
+@media (max-width:760px){.modes{grid-template-columns:1fr 1fr}.mode.main{grid-column:1/-1}}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 13px;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:7px}
+.chip .dot{width:9px;height:9px;border-radius:50%}
+.chip.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.filters{display:grid;gap:10px}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--aegean);width:18px;height:18px}
+
+.parts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.part{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:14px;padding:14px 16px}
+.part .top{display:flex;justify-content:space-between;gap:10px;font-weight:700}
+.part .top span:last-child{color:var(--muted);font-weight:600;font-size:.9rem;white-space:nowrap}
+.boxes{display:flex;height:10px;border-radius:9px;overflow:hidden;margin-top:10px;background:var(--bg2)}
+.boxes i{display:block;height:100%}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media (max-width:640px){.parts{grid-template-columns:1fr}}
+
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.badge{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;opacity:.42;filter:grayscale(1)}
+.badge.got{opacity:1;filter:none;border-color:var(--gold)}
+.badge .e{font-size:1.7rem}
+.badge b{display:block;font-size:.9rem;margin-top:2px}
+.badge small{color:var(--muted);font-size:.76rem;line-height:1.25;display:block}
+
+.foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;padding:24px 0 40px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);margin-top:30px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 15px;font-weight:700}
+.btn.primary{background:var(--aegean);border-color:transparent;color:#fff}
+.btn.ghost{background:transparent}
+
+/* Révision */
+#study{padding:20px 0 40px}
+.actions{position:sticky;bottom:0;z-index:4;padding:12px 0 calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 22%)}
+.actions .flipbtn,.actions .grades{margin-top:0}
+@media (max-width:640px){
+  #study{padding:12px 0 0}
+  .sbar{margin-bottom:10px}
+  .card3d{min-height:min(58vh,420px)}
+  .face{padding:20px 18px;border-radius:18px}
+  .q{padding:16px 0}
+  .ans{font-size:1.02rem}
+  .deep{font-size:.92rem}
+  .grades button{padding:16px 6px}
+  .hero h1{font-size:2.3rem}
+  .badges{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+}
+.sbar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.prog{flex:1;height:10px;background:var(--bg2);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--aegean);width:0;transition:width .35s}
+.combo{font-weight:800;font-family:Fraunces;color:var(--terra);min-width:74px;text-align:right;transition:transform .2s}
+.combo.pop{transform:scale(1.35)}
+.timer{font-family:Fraunces;font-weight:800;font-size:1.1rem}
+.timer.low{color:var(--ko)}
+
+.scene{perspective:1600px;position:relative}
+.card3d{display:grid;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.7,.2,1);cursor:pointer;min-height:360px}
+.card3d.noanim{transition:none}
+.card3d.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;transform:rotateY(0deg);-webkit-transform:rotateY(0deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:26px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.face::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--pc)}
+.back{transform:rotateY(180deg);-webkit-transform:rotateY(180deg)}
+.scene{touch-action:pan-y}
+.scene.drag{transition:none}
+.scene{transition:transform .25s}
+.swipehint{display:none;text-align:center;color:var(--muted);font-size:.82rem;margin-top:12px}
+@media (hover:none){.swipehint{display:block}}
+.ctag{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ctag .p{color:var(--pc)}
+.ctag .box{margin-left:auto;letter-spacing:0;text-transform:none}
+.q{font-family:Fraunces;font-weight:700;font-size:clamp(1.35rem,3.3vw,1.95rem);line-height:1.2;margin:auto 0;padding:24px 0;text-wrap:balance}
+.hint{color:var(--muted);font-size:.88rem;text-align:center}
+.ans{font-size:1.08rem;margin:16px 0 0}
+.ans b,.ans strong{color:var(--pc)}
+.ans ul,.ans ol{margin:.4em 0;padding-left:1.25em}
+.ans li{margin:.15em 0}
+.deep{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--bg2);border:1px dashed var(--line);font-size:.95rem}
+.deep h4{margin:0 0 4px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--olive)}
+.qrecall{font-family:Fraunces;font-weight:700;font-size:1rem;color:var(--muted);margin-top:10px;line-height:1.3}
+
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.grades button{border:0;border-radius:14px;padding:14px 8px;font-weight:800;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .1s}
+.grades button:active{transform:scale(.97)}
+.grades button small{font-weight:600;opacity:.85;font-size:.78rem}
+.g0{background:var(--ko)}.g1{background:var(--mid)}.g2{background:var(--ok)}
+:root[data-theme="dark"] .grades button{color:#101520}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .grades button{color:#101520}}
+.flipbtn{width:100%;margin-top:16px;padding:15px;border-radius:14px;border:0;background:var(--ink);color:var(--bg);font-weight:800;font-size:1.02rem}
+.kbd{display:inline-block;border:1px solid currentColor;border-radius:5px;padding:0 5px;font-size:.72rem;opacity:.7;margin-left:6px}
+@media (hover:none){.kbd{display:none}}
+
+.xpfloat{position:absolute;top:30%;left:50%;transform:translateX(-50%);font-family:Fraunces;font-weight:800;font-size:2.2rem;color:var(--ok);pointer-events:none;animation:up 1s ease-out forwards;z-index:5;text-shadow:0 2px 10px var(--bg)}
+@keyframes up{from{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1}to{opacity:0;transform:translate(-50%,-70px) scale(1.1)}}
+
+/* Fin */
+#end{padding:30px 0 50px;text-align:center}
+#end h2{font-size:clamp(1.8rem,5vw,2.6rem);margin:.2em 0}
+.endgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0;text-align:left}
+@media (max-width:640px){.endgrid{grid-template-columns:repeat(2,1fr)}}
+.missed{text-align:left;margin:20px 0}
+.missed li{margin:6px 0}
+.endbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* Parcourir */
+#browse{padding:20px 0 40px}
+.search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin-bottom:14px}
+details.bc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:12px;padding:10px 14px;margin:8px 0}
+details.bc summary{cursor:pointer;font-weight:700;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.bc summary::-webkit-details-marker{display:none}
+details.bc summary small{margin-left:auto;color:var(--muted);font-weight:600;white-space:nowrap}
+details.bc .ans{font-size:1rem;margin-top:8px}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:700;opacity:0;transition:.3s;z-index:50;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.6}}
+.hidden{display:none!important}
+@media (prefers-reduced-motion: reduce){
+  .card3d{transition:opacity .2s}.card3d.flipped{transform:none}
+  .card3d.flipped .front{visibility:hidden}.back{transform:none;visibility:hidden}.card3d.flipped .back{visibility:visible}
+  .confetti,.xpfloat{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="meander"></div>
+  <div class="wrap hbar">
+    <a class="icon-btn" href="../" title="Banque d'exercices HGGSP" aria-label="Retour à l'accueil de la banque d'exercices" style="text-decoration:none;color:inherit;flex:none">⌂</a>
+    <button class="brand" onclick="goHome()" aria-label="Accueil">
+      <div class="logo">P</div>
+      <div><span>Puissance, puissances</span><small>HGGSP · Première · Thème 2</small></div>
+    </button>
+    <div class="hstats">
+      <div class="lvl"><span class="name" id="lvlName">Observateur</span><div class="xpbar" title="Progression vers le niveau suivant"><i id="xpFill"></i></div></div>
+      <span class="pill" id="xpPill" title="Points d’expérience">✦ 0</span>
+      <span class="pill hide-sm" id="streakPill" title="Jours de révision consécutifs">🔥 0</span>
+      <button class="icon-btn" id="themeBtn" title="Changer de thème" aria-label="Changer de thème">◐</button>
+    </div>
+  </div>
+</header>
+
+<!-- ACCUEIL -->
+<main id="home" class="wrap">
+  <div class="hero">
+    <div>
+      <div class="kicker">Préparer l’évaluation finale</div>
+      <h1>Puissance,<br>puissances</h1>
+      <p>Retourne la carte, sois honnête avec toi-même : les cartes ratées reviennent plus souvent, celles que tu maîtrises s’espacent. Chaque bonne réponse rapporte des points.</p>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><b id="stMaster">0</b><span>cartes maîtrisées</span></div>
+      <div class="stat"><b id="stDue">0</b><span>à revoir maintenant</span></div>
+      <div class="stat"><b id="stNew">0</b><span>jamais vues</span></div>
+      <div class="stat"><b id="stCombo">0</b><span>meilleur combo</span></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>Choisir un mode</h2>
+    <div class="modes">
+      <div class="mode main" role="button" tabindex="0" onclick="startSession('session')" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();startSession('session')}">
+        <div class="tag">Recommandé · répétition espacée</div>
+        <h3>Séance de sherpa</h3>
+        <p>Priorité aux cartes ratées et à revoir. Une carte ratée revient dans la même séance jusqu’à ce qu’elle soit sue.</p>
+        <div class="sizes" id="sizes" onclick="event.stopPropagation()">
+          <button data-n="10">10</button><button data-n="20">20</button><button data-n="40">40</button><button data-n="999">Tout</button>
+        </div>
+      </div>
+      <button class="mode" onclick="startSession('flash')">
+        <div class="tag">90 secondes · points ×2</div>
+        <h3>Défi Spoutnik</h3>
+        <p>La course contre la montre : enchaîne le plus de cartes possible.</p>
+      </button>
+      <button class="mode" onclick="startSession('rattrapage')">
+        <div class="tag">Ciblé</div>
+        <h3>Rattrapage</h3>
+        <p>Uniquement les cartes déjà ratées et pas encore consolidées.</p>
+      </button>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Filtrer les cartes</h2>
+    <div class="filters">
+      <div class="chips" id="partChips"></div>
+      <div class="chips" id="typeChips"></div>
+      <label class="toggle"><input type="checkbox" id="invert"> Sens inversé pour les notions (on voit la définition, on retrouve le mot)</label>
+      <div><button class="btn ghost" onclick="openBrowse()">📖 Parcourir toutes les cartes</button></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Ma maîtrise du chapitre</h2>
+    <div class="parts" id="parts"></div>
+    <div class="legend">
+      <span><i style="background:var(--line)"></i>jamais vue</span>
+      <span><i style="background:var(--ko)"></i>boîte 1 · à revoir</span>
+      <span><i style="background:var(--mid)"></i>boîtes 2-3 · en cours</span>
+      <span><i style="background:var(--ok)"></i>boîtes 4-5 · maîtrisée</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Badges</h2>
+    <div class="badges" id="badges"></div>
+  </section>
+
+  <div class="foot">
+    <span>Progression enregistrée sur cet appareil et dans ce navigateur.</span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="copyReport()">📋 Copier mon bilan</button>
+      <button class="btn ghost" onclick="resetAll()">Réinitialiser</button>
+    </span>
+  </div>
+</main>
+
+<!-- RÉVISION -->
+<main id="study" class="wrap hidden" style="max-width:760px">
+  <div class="sbar">
+    <button class="icon-btn" onclick="endSession(true)" title="Quitter (Échap)" aria-label="Quitter">✕</button>
+    <div class="prog"><i id="progFill"></i></div>
+    <span class="timer hidden" id="timer">90</span>
+    <span class="combo" id="combo"></span>
+  </div>
+  <div class="scene" id="scene">
+    <div class="card3d" id="card" onclick="flip()">
+      <div class="face front" id="front"></div>
+      <div class="face back" id="back"></div>
+    </div>
+  </div>
+  <div class="actions">
+  <button class="flipbtn" id="flipBtn" onclick="flip()">Retourner la carte <span class="kbd">Espace</span></button>
+  <div class="grades hidden" id="grades">
+    <button class="g0" onclick="grade(0)">Raté<small>revient vite</small><span class="kbd">1</span></button>
+    <button class="g1" onclick="grade(1)">Hésité<small>+4</small><span class="kbd">2</span></button>
+    <button class="g2" onclick="grade(2)">Su !<small id="g2pts">+10</small><span class="kbd">3</span></button>
+  </div>
+  </div>
+</main>
+
+<!-- FIN -->
+<main id="end" class="wrap hidden" style="max-width:760px"></main>
+
+<!-- PARCOURIR -->
+<main id="browse" class="wrap hidden" style="max-width:820px">
+  <div class="sbar"><button class="icon-btn" onclick="goHome()" aria-label="Retour">←</button><h2 style="margin:0;font-size:1.3rem">Toutes les cartes</h2></div>
+  <input class="search" id="search" placeholder="Rechercher : Soliman, 1991, soft power, G20…" oninput="renderBrowse()">
+  <div id="browseList"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DONNÉES — [id, partie, type, recto, verso, approfondissement]
+   Parties : intro · a1 · a2 · oec
+   Types   : Notion · Date · Citation · Acteur · Exemple · Chiffre · Analyse
+   ========================================================= */
+const RAW = [
+/* ---------- INTRODUCTION ---------- */
+["i01","intro","Notion","Définis la <em>puissance</em>.","Capacité d’un acteur, le plus souvent un État, à <b>imposer sa volonté aux autres</b> ou à <b>influencer leurs comportements</b>, en mobilisant des ressources <b>matérielles</b> (armée, économie) et <b>immatérielles</b> (culture, technologie, diplomatie).","La puissance est une <b>relation</b>, pas un stock : elle n’existe que face aux autres, et seulement si l’État a la volonté et la capacité de mobiliser ses ressources."],
+["i02","intro","Citation","Complète et attribue : « J’appelle puissance sur la scène internationale la capacité d’une unité politique… »","« …d’<b>imposer sa volonté aux autres unités</b>. » — <b>Raymond Aron</b>, <em>Paix et guerre entre les nations</em>, <b>1962</b>.","Définition classique, centrée sur la <b>contrainte</b>. Tout l’enjeu du thème est de montrer qu’elle ne suffit plus : la puissance passe aussi par l’attraction, l’influence et le contrôle des flux."],
+["i03","intro","Acteur","Quels sont les quatre verbes de la puissance selon Serge Sur ?","<b>Faire</b>, <b>faire faire</b>, <b>empêcher de faire</b> et <b>refuser de faire</b>. — Serge Sur, <em>Relations internationales</em>, <b>1995</b>.","Grille très utile en dissertation : la Russie actuelle pèse surtout par « empêcher de faire » (capacité de nuisance), l’UE par « faire faire » (ses normes)."],
+["i04","intro","Analyse","Quelles sont les ressources <em>matérielles</em> de la puissance ?","<ul><li>un <b>territoire</b> et sa position géographique ;</li><li>une <b>population</b> ;</li><li>des <b>ressources naturelles</b> ;</li><li>une <b>économie</b> (mesurée par le PIB) ;</li><li>une <b>armée</b> et, pour <b>neuf États</b> seulement, l’<b>arme nucléaire</b>.</li></ul>","Ce sont les bases du hard power. Elles se mesurent facilement… mais ne garantissent pas le succès."],
+["i05","intro","Analyse","Quelles sont les ressources <em>immatérielles</em> de la puissance ?","Une <b>langue</b> et une <b>culture</b> qui rayonnent, des <b>universités</b> attractives, une <b>avance technologique</b>, un <b>réseau diplomatique</b>, des <b>alliances</b>, une <b>image</b>.","Elles fondent le soft power (Joseph Nye). Elles se construisent lentement et dépendent du regard des autres."],
+["i06","intro","Exemple","Posséder des ressources suffit-il à être puissant ? Donne deux exemples.","<b>Non.</b><ul><li><b>Février 2022</b> : la Russie, l’une des premières armées du monde, <b>échoue devant Kiev</b>.</li><li><b>2021</b> : les États-Unis quittent l’<b>Afghanistan</b> après vingt ans de guerre sans avoir atteint leurs objectifs.</li></ul>","La puissance dépend aussi de la stratégie, de la volonté, de la résistance de l’adversaire et de la légitimité de l’action."],
+["i07","intro","Notion","Qu’est-ce qu’une <em>superpuissance</em> ? Donne deux exemples.","État qui <b>domine dans tous les domaines</b> de la puissance (militaire, économique, technologique, culturel) et dont l’action s’exerce <b>à l’échelle du monde entier</b>. Ex. : les <b>États-Unis</b> aujourd’hui, l’<b>URSS</b> pendant la guerre froide.","Après 1991, Hubert Védrine parle d’« <b>hyperpuissance</b> » américaine : les États-Unis sont alors seuls au sommet."],
+["i08","intro","Notion","Qu’est-ce qu’une <em>puissance régionale</em> ? Donne des exemples.","État qui exerce une <b>influence dominante dans une région du monde</b> sans peser autant à l’échelle mondiale : <b>Turquie, Brésil, Afrique du Sud, Iran, Arabie saoudite</b>.","La Turquie d’Erdoğan est l’exemple développé dans l’axe 1 (néo-ottomanisme, puissance d’équilibre)."],
+["i09","intro","Notion","Qu’est-ce qu’une <em>puissance émergente</em> ? Donne des exemples.","État dont la <b>croissance économique</b> et le <b>poids international</b> augmentent rapidement : <b>Inde, Indonésie</b>.","En 2025, l’Inde revendique le 4e rang des économies mondiales, devant le Japon."],
+["i10","intro","Analyse","Quelles sont les six « grandes puissances » citées dans le cours ?","<b>Chine, Russie, Royaume-Uni, France, Japon, Allemagne.</b>","Elles pèsent à l’échelle mondiale sans dominer dans tous les domaines. La Chine est la plus proche du statut de superpuissance."],
+["i11","intro","Analyse","Quel type de puissance est la France ? Donne ses atouts et ses fragilités.","Une <b>puissance moyenne d’influence</b>.<br>Atouts : <b>membre permanent du Conseil de sécurité</b>, <b>arme nucléaire</b>, <b>2e zone économique exclusive</b> du monde.<br>Fragilités : la <b>dette</b> et le <b>recul de son influence en Afrique</b>.","Départ des troupes françaises du Mali (2022), du Niger (2023), du Tchad et du Sénégal (2025)."],
+["i12","intro","Notion","Qu’est-ce que la <em>multipolarité</em> ?","Organisation du monde autour de <b>plusieurs pôles de puissance concurrents</b>, par opposition à la <b>bipolarité</b> (deux pôles) et à l’<b>unipolarité</b> (un seul).","Aujourd’hui, la rivalité États-Unis / Chine structure le monde, mais la Russie, l’UE, l’Inde et les puissances régionales comptent aussi."],
+["i13","intro","Date","Retrace les trois « ordres mondiaux » successifs depuis 1947.","<ul><li><b>1947-1991</b> : monde <b>bipolaire</b> de la guerre froide ;</li><li><b>années 1990</b> : moment <b>unipolaire</b>, l’« hyperpuissance » américaine (H. Védrine) ;</li><li><b>aujourd’hui</b> : monde <b>multipolaire</b>.</li></ul>","Une bonne accroche d’introduction : la question n’est plus « qui domine ? » mais « comment rivalise-t-on ? »."],
+["i14","intro","Notion","Qu’appelle-t-on le <em>Sud global</em> ?","L’ensemble des <b>pays en développement et émergents</b> qui revendiquent un <b>poids accru dans la gouvernance mondiale</b>, sans forcément s’aligner sur l’Occident ou sur la Chine.","Il s’organise dans de nouveaux cadres comme les BRICS+, et a imposé ses priorités au G20 depuis 2022."],
+["i15","intro","Exemple","Qui compose les BRICS+ ? Quels élargissements en 2024 et 2025 ?","À l’origine : <b>Brésil, Russie, Inde, Chine, Afrique du Sud</b>.<br><b>2024</b> : Égypte, Éthiopie, Iran, Émirats arabes unis.<br><b>2025</b> : Indonésie.","Près de la <b>moitié de la population mondiale</b> vit dans un pays membre des BRICS+."],
+["i16","intro","Notion","Qu’est-ce que le <em>PIB</em> ?","<b>Produit intérieur brut</b> : richesse produite sur le territoire d’un État <b>en un an</b>. C’est l’indicateur le plus utilisé de la puissance économique.","Les États-Unis produisent environ 25 % du PIB mondial, la Chine environ 16 %."],
+["i17","intro","Chiffre","Combien le monde a-t-il dépensé pour ses armées en 2025 ?","<b>2 887 milliards de dollars</b> (SIPRI), en hausse pour la <b>11e année consécutive</b>, soit <b>2,5 % du PIB mondial</b>, le niveau le plus élevé depuis 2009.","Le monde se réarme : <b>+14 % en Europe</b> et <b>+24 % en Allemagne</b> en 2025. Le hard power n’a pas disparu."],
+["i18","intro","Chiffre","Quels sont les trois premiers budgets militaires du monde en 2025 ?","<b>États-Unis : 954 milliards $</b> (environ un tiers du total mondial) ; <b>Chine : 336 milliards</b> ; <b>Russie : 190 milliards</b>.","Pour la Russie, 190 milliards représentent <b>7,5 % de son PIB</b> : une véritable économie de guerre."],
+["i19","intro","Chiffre","Quelle part du PIB mondial produisent les États-Unis et la Chine ? Quel rang revendique l’Inde ?","<b>États-Unis ≈ 25 %</b>, <b>Chine ≈ 16 %</b>. En 2025, l’<b>Inde</b> revendique le <b>4e rang</b> des économies mondiales, devant le Japon.","Le poids économique reste la base de la puissance : c’est lui qui finance l’armée, la recherche et l’influence."],
+["i20","intro","Chiffre","Combien d’États possèdent l’arme nucléaire ? Quel lien avec le Conseil de sécurité ?","<b>9 États</b>. <b>5</b> d’entre eux sont <b>membres permanents du Conseil de sécurité</b> de l’ONU, avec un <b>droit de veto</b>.","Les cinq : États-Unis, Russie, Chine, Royaume-Uni, France — les vainqueurs de 1945."],
+["i21","intro","Analyse","Quelle est la problématique du thème ?","<b>Comment les ressorts de la puissance évoluent-ils dans un monde multipolaire ?</b>","Trois temps : essor et déclin des puissances (axe 1), formes indirectes de la puissance (axe 2), coopérations et rivalités au G20 (OEC)."],
+["i22","intro","Date","Quels sont les repères à savoir replacer pour l’évaluation ?","<ul><li><b>1453</b> et <b>1520-1566</b> : essor et apogée ottomans ;</li><li><b>1923</b> : fin de l’Empire ottoman ;</li><li><b>1991</b> : fin de l’URSS ;</li><li><b>2013</b> : nouvelles routes de la soie ;</li><li><b>2022</b> : invasion de l’Ukraine ;</li><li><b>2025-2026</b> : « America First », G20 de Johannesburg puis de Miami.</li></ul>","Notions à maîtriser : puissance, superpuissance, puissance régionale, multipolarité, hard / soft / smart / sharp power, surextension impériale, puissance normative, multilatéralisme."],
+["i23","intro","Analyse","Quelles sont les trois idées de la conclusion du thème ?","<ul><li>La puissance est une <b>relation multidimensionnelle</b> (ressources matérielles et immatérielles, volonté de les mobiliser).</li><li>C’est une <b>dynamique cyclique</b> : le déclin n’est jamais une fatalité, ni la puissance un acquis.</li><li>Elle s’exerce de plus en plus <b>indirectement</b> (langue, culture, numérique, routes, ressources)…</li></ul>","…mais le réarmement mondial et la politique américaine depuis 2025 rappellent que le hard power n’a pas disparu : la puissance la plus efficace <b>combine la force et l’influence</b>."],
+
+/* ---------- AXE 1 · A — EMPIRE OTTOMAN ---------- */
+["a101","a1","Date","Que se passe-t-il vers 1299 ?","<b>Osman Ier</b> fonde un petit <b>émirat turc en Anatolie</b>, qui donne son nom à la dynastie : les <b>Ottomans</b>.","Ses successeurs s’étendent vers les Balkans avant même de prendre Constantinople."],
+["a102","a1","Date","Que se passe-t-il le 29 mai 1453 ?","<b>Mehmed II prend Constantinople</b> : l’Empire byzantin disparaît. La ville, devenue <b>Istanbul</b>, devient la capitale.","Repère à savoir replacer : le début de la grande puissance ottomane."],
+["a103","a1","Date","Que conquiert Selim Ier en 1516-1517, et pourquoi est-ce décisif ?","La <b>Syrie</b> et l’<b>Égypte</b>. Le sultan contrôle désormais les <b>lieux saints de l’islam</b> (La Mecque et Médine) et se fait <b>calife</b>.","La puissance ottomane devient aussi religieuse : le sultan se pose en chef de la communauté des croyants."],
+["a104","a1","Acteur","Pourquoi le règne de Soliman le Magnifique est-il l’apogée de l’Empire ?","Sous <b>Soliman (1520-1566)</b>, l’Empire s’étend sur <b>trois continents</b>, de l’Algérie à l’Irak et de la Hongrie à l’Arabie : victoire de <b>Mohács (1526)</b>, <b>siège de Vienne (1529)</b>, flotte qui domine la <b>Méditerranée</b>.","Rayonnement culturel : la mosquée <b>Süleymaniye</b>, construite par l’architecte <b>Sinan</b> (1557), domine encore Istanbul."],
+["a105","a1","Exemple","Comment le sultan devient-il un acteur du jeu européen au XVIe siècle ?","Soliman s’<b>allie avec François Ier</b> contre les <b>Habsbourg</b> et accorde à la France des <b>capitulations (1536)</b>, privilèges commerciaux qui font du royaume l’interlocuteur privilégié de la Porte.","« La Porte » (ou Sublime Porte) désigne le gouvernement ottoman. Une alliance qui choque l’Europe chrétienne de l’époque."],
+["a106","a1","Analyse","Sur quoi repose la puissance ottomane à son apogée ? (4 éléments)","<ul><li>un <b>pouvoir centralisé</b> : le sultan est chef politique, militaire et religieux, assisté du <b>grand vizir</b> et du <b>divan</b> ;</li><li>une armée permanente d’élite, les <b>janissaires</b> ;</li><li>le <b>contrôle des routes commerciales</b> entre l’Europe, l’Asie et l’Afrique ;</li><li>une <b>gestion de la diversité</b> : le système des <b>millets</b>.</li></ul>","On retrouve les deux moteurs de l’essor : un avantage sur les voisins et une forte unité interne."],
+["a107","a1","Notion","Qu’est-ce qu’un <em>empire</em> ?","État qui <b>domine des territoires et des peuples variés</b>, souvent conquis, sous l’autorité d’un <b>pouvoir central unique</b>.","L’Empire ottoman et l’URSS en sont deux exemples, à des époques très différentes."],
+["a108","a1","Notion","Qu’est-ce qu’un <em>calife</em> ?","Le <b>successeur du prophète Mahomet</b> à la tête de la communauté des musulmans. Le sultan ottoman porte ce titre à partir du <b>XVIe siècle</b>.","Le califat est aboli par Mustafa Kemal en 1924."],
+["a109","a1","Notion","Qui sont les <em>janissaires</em> ?","Le corps d’<b>infanterie d’élite</b> de l’armée ottomane, formé à l’origine de <b>jeunes chrétiens enlevés</b> (le <b>devchirmé</b>) et convertis à l’islam.","Une armée permanente et fidèle au seul sultan : un atout majeur face aux armées féodales européennes."],
+["a110","a1","Notion","Qu’est-ce qu’un <em>millet</em> ?","Une <b>communauté religieuse non musulmane</b> de l’Empire ottoman (orthodoxes, Arméniens, juifs), <b>autonome</b> pour son culte, son droit familial et son éducation, <b>en échange d’un impôt</b>.","Une gestion de la diversité qui a assuré la stabilité de l’Empire pendant des siècles."],
+["a111","a1","Notion","Que sont les <em>capitulations</em> ?","Des <b>privilèges commerciaux et juridiques</b> accordés par le sultan à des puissances européennes, à commencer par la <b>France en 1536</b>.","Signe de puissance au XVIe siècle, elles deviennent au XIXe siècle un instrument de domination européenne sur l’Empire affaibli."],
+["a112","a1","Date","Que se passe-t-il en 1683 et en 1699 ?","<b>1683</b> : <b>échec du second siège de Vienne</b>.<br><b>1699</b> : <b>traité de Karlowitz</b>, l’Empire perd la <b>Hongrie</b>.","C’est le <b>premier recul territorial</b> d’une puissance qui n’avait connu que l’expansion : le début du déclin."],
+["a113","a1","Analyse","Quelles sont les causes du long déclin ottoman (XVIIe-XIXe s.) ?","<ul><li><b>Retard économique et technique</b> sur l’Europe industrielle ;</li><li><b>faillite</b> en 1875, puis gestion d’une partie des recettes confiée aux <b>créanciers européens</b> (1881) ;</li><li><b>nationalismes</b> qui fragmentent l’Empire ;</li><li><b>convoitises</b> des grandes puissances européennes.</li></ul>","Un déclin lent : instabilité, retard technologique et concurrence extérieure, comme dans le schéma des cycles de la puissance."],
+["a114","a1","Exemple","Comment les nationalismes fragmentent-ils l’Empire ottoman ?","Indépendance de la <b>Grèce (1830)</b>, puis de la <b>Serbie</b>, du <b>Monténégro</b> et de la <b>Roumanie</b> (congrès de Berlin, <b>1878</b>). Les <b>guerres balkaniques (1912-1913)</b> chassent presque totalement l’Empire d’Europe.","Les Balkans deviennent la « poudrière de l’Europe » à la veille de 1914."],
+["a115","a1","Notion","Qu’appelle-t-on la <em>Question d’Orient</em> ?","L’ensemble des problèmes posés au <b>XIXe siècle</b> par le <b>déclin de l’Empire ottoman</b> et par les <b>rivalités des puissances européennes</b> pour se partager son influence.","Exemples : la France s’empare de l’Algérie (1830), le Royaume-Uni occupe l’Égypte (1882)."],
+["a116","a1","Citation","Qui a qualifié l’Empire ottoman d’« homme malade de l’Europe » ? Quel piège dans ce document ?","Le <b>tsar Nicolas Ier</b>, à l’ambassadeur britannique, en <b>1853</b>.<br>Piège : l’expression est forgée par un <b>rival</b> qui <b>espère le démembrement</b> de l’Empire.","On décrit souvent le déclin d’une puissance avec les mots de ceux qui en profitent : un document à <b>critiquer</b>, pas à prendre au pied de la lettre."],
+["a117","a1","Analyse","Comment l’Empire tente-t-il de se réformer, et avec quel résultat ?","<ul><li><b>Tanzimat (1839-1876)</b> : égalité de tous les sujets, modernisation de l’administration ;</li><li><b>Constitution de 1876</b>…</li><li>…suspendue dès <b>1878</b> par le sultan <b>Abdülhamid II</b>, qui gouverne de façon autoritaire jusqu’à la <b>révolution des Jeunes-Turcs (1908)</b>.</li></ul>","Une puissance en déclin cherche à se réaffirmer : la tentative échoue ici, mais elle montre que le déclin n’est pas subi passivement."],
+["a118","a1","Date","Que se passe-t-il en 1915-1916 ?","Le <b>génocide des Arméniens</b>, commis par l’Empire ottoman entré en guerre aux côtés de l’Allemagne en 1914 : <b>plus d’un million de victimes</b>.","Vaincu en 1918, l’Empire est ensuite démembré par le traité de Sèvres (1920)."],
+["a119","a1","Acteur","Quel est le rôle de Mustafa Kemal ?","Il <b>refuse le traité de Sèvres</b> et mène une <b>guerre d’indépendance</b> victorieuse. Il <b>abolit le sultanat (1922)</b>, obtient le <b>traité de Lausanne (1923)</b>, proclame la <b>République de Turquie le 29 octobre 1923</b>, puis <b>abolit le califat (1924)</b>.","Un empire de plus de six siècles disparaît : sa puissance se <b>reconvertit</b> en celle d’un État-nation turc."],
+["a120","a1","Date","Distingue le traité de Sèvres et le traité de Lausanne.","<b>Sèvres (1920)</b> : <b>démembre</b> l’Empire ottoman vaincu.<br><b>Lausanne (1923)</b> : obtenu par Mustafa Kemal après sa victoire, il <b>reconnaît la Turquie</b> dans ses frontières.","Lausanne efface Sèvres : la force militaire permet de réviser un traité imposé."],
+
+/* ---------- AXE 1 · B — URSS / RUSSIE ---------- */
+["a130","a1","Date","Que se passe-t-il le 30 décembre 1922 ?","La <b>création de l’URSS</b> : un État <b>fédéral</b> de républiques, en réalité dirigé d’une main de fer par le <b>Parti communiste depuis Moscou</b>.","Elle est née de la révolution d’octobre 1917 et d’une guerre civile (1918-1921)."],
+["a131","a1","Exemple","Comment Staline industrialise-t-il l’URSS, et à quel prix ?","Par la <b>planification</b> et la <b>collectivisation</b> : une industrialisation à marche forcée, au prix de la <b>terreur</b> et de <b>famines meurtrières</b>, comme l’<b>Holodomor</b> en Ukraine (1932-1933).","La puissance industrielle soviétique, décisive en 1941-1945, s’est construite sur une violence de masse."],
+["a132","a1","Analyse","Pourquoi l’URSS devient-elle une superpuissance après 1945 ?","<ul><li>la <b>victoire de 1945</b> (environ 27 millions de morts soviétiques) ;</li><li>la domination d’un <b>bloc de l’Est</b> (pacte de Varsovie, 1955) ;</li><li>un siège de <b>membre permanent</b> au Conseil de sécurité ;</li><li>la <b>bombe atomique (1949)</b> ;</li><li>l’avance spatiale : <b>Spoutnik (1957)</b>, <b>Gagarine (1961)</b> ;</li><li>un <b>modèle communiste</b>, des succès sportifs et culturels (le Bolchoï).</li></ul>","L’URSS combine hard power (armée, bombe) et soft power (modèle politique, conquête spatiale)."],
+["a133","a1","Analyse","Quelles sont les faiblesses de la puissance soviétique ?","Une <b>économie planifiée inefficace</b>, une population qui <b>manque de biens de consommation</b>, une <b>course aux armements ruineuse</b> et un <b>enlisement en Afghanistan (1979-1989)</b>.","Un bon exemple de <b>surextension impériale</b> (Paul Kennedy) : des engagements militaires que l’économie ne peut plus financer."],
+["a134","a1","Notion","Que sont la <em>perestroïka</em> et la <em>glasnost</em> ?","La « <b>restructuration</b> » de l’économie et la « <b>transparence</b> » de la vie publique : réformes lancées par <b>Gorbatchev à partir de 1985</b>.","Elles libèrent les critiques sans relancer l’économie, et accélèrent la crise du régime."],
+["a135","a1","Date","Quand et comment l’URSS disparaît-elle ?","Après la <b>chute du mur de Berlin (9 novembre 1989)</b>, l’URSS disparaît fin <b>décembre 1991</b> (démission de Gorbatchev le <b>25 décembre</b>). Elle éclate en <b>quinze États indépendants</b>.","Un effondrement brutal plutôt qu’un déclin lent. Repère à savoir : 1991."],
+["a136","a1","Analyse","Pourquoi les années 1990 sont-elles vécues comme une humiliation en Russie ?","Sous <b>Boris Eltsine</b> : passage brutal à l’économie de marché (enrichissement des <b>oligarques</b>, appauvrissement de la population), <b>défaut sur la dette en 1998</b>, enlisement en <b>Tchétchénie</b>, <b>élargissement de l’OTAN</b> vers l’Est (1999, 2004), perçu comme une menace.","Ce ressentiment nourrit la politique de reconquête de Vladimir Poutine."],
+["a137","a1","Notion","Qu’est-ce qu’un <em>oligarque</em> ?","Un <b>homme d’affaires russe</b> enrichi lors des <b>privatisations des années 1990</b>, dont la fortune dépend de ses <b>liens avec le pouvoir</b>.","Sous Poutine, les oligarques doivent se soumettre au Kremlin, ou perdre leur fortune."],
+["a138","a1","Citation","Qui a dit que « l’effondrement de l’Union soviétique a été la plus grande catastrophe géopolitique du siècle » ? Quand ?","<b>Vladimir Poutine</b>, discours devant l’Assemblée fédérale, le <b>25 avril 2005</b>.","La fin de l’URSS n’est pas vue comme une libération des peuples, mais comme une <b>perte de puissance à réparer</b> : la phrase éclaire la Crimée et la guerre en Ukraine."],
+["a139","a1","Acteur","Comment Vladimir Poutine restaure-t-il la puissance russe à partir de 2000 ?","Il <b>restaure l’autorité de l’État</b>, profite de la <b>hausse des prix du pétrole et du gaz</b> pour redresser l’économie, puis <b>réarme</b>. Au <b>discours de Munich (2007)</b>, il conteste ouvertement l’ordre mondial dominé par les États-Unis.","La Russie devient une <b>puissance révisionniste</b>."],
+["a140","a1","Notion","Qu’est-ce que l’<em>étranger proche</em> ?","Expression russe désignant les <b>anciennes républiques soviétiques</b>, que Moscou considère comme sa <b>zone d’influence légitime</b>.","Le concept justifie les interventions en Géorgie (2008) et en Ukraine (2014, 2022)."],
+["a141","a1","Date","Quelles sont les étapes de la reconquête de l’« étranger proche » ?","<ul><li><b>2008</b> : guerre contre la <b>Géorgie</b> ;</li><li><b>2014</b> : <b>annexion de la Crimée</b>, soutien aux séparatistes du <b>Donbass</b> ;</li><li><b>24 février 2022</b> : <b>invasion de l’Ukraine</b>.</li></ul>","Une escalade progressive : chaque étape teste la réaction des Occidentaux."],
+["a142","a1","Exemple","Où la Russie se projette-t-elle au-delà de son « étranger proche » ?","Au <b>Moyen-Orient</b> (intervention en <b>Syrie</b> en 2015) et en <b>Afrique</b> : le groupe <b>Wagner</b>, devenu <b>Africa Corps</b>, au Mali, en Centrafrique, au Burkina Faso, au Niger.","La Russie remplace la France dans une partie du Sahel."],
+["a143","a1","Analyse","Quels sont les instruments de la puissance russe ? (4)","<ul><li>l’<b>arme nucléaire</b> (le premier arsenal d’ogives au monde) ;</li><li>l’<b>énergie</b> comme arme diplomatique (gaz, nucléaire civil avec <b>Rosatom</b>) ;</li><li>le <b>sharp power</b> : RT, Sputnik, désinformation, ingérences électorales ;</li><li>des <b>alliances alternatives</b> : BRICS, OCS, partenariat « sans limites » avec la Chine (février 2022), soldats nord-coréens à Koursk (2024-2025).</li></ul>","Exemple d’ingérence : la présidentielle roumaine annulée en décembre 2024."],
+["a144","a1","Exemple","La Syrie (2015-2024) : que montre-t-elle de la grandeur et des limites de la projection russe ?","<b>30 septembre 2015</b> : la Russie intervient pour sauver <b>Bachar el-Assad</b> ; ses bombardements renversent le cours de la guerre et elle garde ses bases de <b>Hmeimim</b> et <b>Tartous</b> (accès à la Méditerranée).<br>Mais le <b>8 décembre 2024</b>, le régime tombe en <b>onze jours</b> : absorbée par l’Ukraine, la Russie ne peut pas le sauver.","Une puissance peut se projeter loin… à condition de ne pas être engagée sur <b>plusieurs fronts</b> à la fois."],
+["a145","a1","Analyse","Que révèle la guerre en Ukraine de la puissance russe ?","À la fois sa <b>capacité de nuisance</b> et ses <b>limites</b> : l’offensive éclair de 2022 échoue, la guerre devient une <b>guerre d’usure</b>. En 2025, Moscou consacre <b>190 milliards $</b> à son armée, soit <b>7,5 % de son PIB</b>.","Les négociations relancées depuis 2025 sous l’égide des États-Unis n’ont pas abouti : en septembre 2026, les frappes sur Kiev se poursuivent."],
+["a146","a1","Analyse","Quelles sont les faiblesses structurelles de la Russie ?","<ul><li>une économie <b>dépendante des hydrocarbures</b>, un PIB du même ordre que celui de l’<b>Italie</b> ;</li><li>les <b>sanctions</b> occidentales ;</li><li>une <b>démographie en déclin</b> ;</li><li>une <b>dépendance croissante envers la Chine</b> ;</li><li>une <b>image dégradée</b> hors de son camp.</li></ul>","La Russie compte davantage par sa capacité à <b>empêcher</b> que par sa capacité à <b>attirer</b>."],
+["a147","a1","Notion","Qu’est-ce qu’une <em>puissance révisionniste</em> ?","Un État qui <b>conteste l’ordre international existant</b> (règles, frontières, alliances) et cherche à le <b>modifier</b>, au besoin <b>par la force</b>.","Exemple central : la Russie de Poutine (Crimée, Ukraine)."],
+["a148","a1","Notion","Qu’est-ce que la <em>capacité de nuisance</em> ?","Le pouvoir d’un État de <b>bloquer, déstabiliser ou empêcher</b> l’action des autres, même lorsqu’il ne peut pas imposer un projet positif.","C’est le « empêcher de faire » de Serge Sur."],
+["a149","a1","Notion","Que sont des <em>sanctions</em> ?","Des <b>mesures économiques, financières ou diplomatiques</b> prises contre un État pour le <b>contraindre à changer de politique</b> (gel d’avoirs, embargos).","Elles relèvent du hard power économique."],
+
+/* ---------- AXE 1 · C — CYCLES ---------- */
+["a150","a1","Analyse","Quel est le schéma en quatre temps des cycles de la puissance ?","<ol><li><b>Naissance et essor</b> ;</li><li><b>apogée et domination</b> ;</li><li><b>déclin progressif ou effondrement brutal</b> ;</li><li><b>transformation ou réaffirmation</b>.</li></ol>","Il s’applique à l’Empire ottoman comme à l’URSS, mais ce n’est <b>pas une loi automatique</b>."],
+["a151","a1","Analyse","Qu’est-ce qui permet l’essor d’une puissance ?","Un <b>avantage sur ses voisins</b> (position stratégique, ressources rares, conquêtes, commerce, innovation) et une <b>unité interne</b> (politique, religieuse, linguistique, militaire, juridique) qui permet de centraliser le pouvoir et de mobiliser les ressources.","Exemple : les Ottomans, avec Istanbul au carrefour des routes commerciales et un sultan aux pouvoirs politiques, militaires et religieux."],
+["a152","a1","Analyse","Distingue déclin progressif et effondrement brutal.","<b>Déclin lent</b> : instabilité politique, stagnation économique, concurrence extérieure, retard technologique.<br><b>Effondrement brutal</b> : défaite militaire, crise financière, révolution.","L’Empire ottoman décline lentement puis disparaît après la défaite de 1918 ; l’URSS s’effondre en deux ans (1989-1991)."],
+["a153","a1","Notion","Qu’est-ce que la <em>surextension impériale</em> ? Qui a forgé ce concept ?","Situation d’une puissance dont les <b>engagements extérieurs</b> (guerres, bases, alliés à protéger) <b>dépassent ses moyens économiques</b>, ce qui précipite son déclin.<br>L’historien <b>Paul Kennedy</b>, <em>Naissance et déclin des grandes puissances</em>, <b>1987</b>.","S’applique à l’URSS (Afghanistan, course aux armements)… et nourrit le débat sur un éventuel déclin américain."],
+["a154","a1","Analyse","Le déclin d’une puissance est-il une fatalité ?","<b>Non.</b> Une puissance déchue peut <b>renaître sous une autre forme</b>, grâce à un <b>chef</b>, à des <b>réformes</b>, à de <b>nouvelles ressources</b> ou à de <b>nouvelles alliances</b>.","Exemples : la Turquie de Mustafa Kemal puis d’Erdoğan, la Russie de Poutine."],
+["a155","a1","Notion","Qu’est-ce que le <em>néo-ottomanisme</em> ?","La politique étrangère turque qui cherche à <b>restaurer l’influence d’Ankara</b> dans les <b>anciens territoires ottomans</b> (Balkans, Moyen-Orient, Caucase, Afrique du Nord).","Portée par Recep Tayyip Erdoğan, Premier ministre en 2003, président depuis 2014."],
+["a156","a1","Exemple","Où la Turquie d’Erdoğan intervient-elle, et comment joue-t-elle les médiatrices ?","Interventions : <b>Syrie</b> (depuis 2016), <b>Libye</b> (2020), soutien à l’<b>Azerbaïdjan</b> au Haut-Karabagh grâce à ses <b>drones Bayraktar</b> ; contrôle des <b>détroits</b> du Bosphore et des Dardanelles.<br>Médiations : <b>accord sur les céréales ukrainiennes</b> (juillet 2022), pourparlers russo-ukrainiens à <b>Istanbul</b> (2025).","Elle sort renforcée de la chute d’Assad, dont elle soutenait les adversaires."],
+["a157","a1","Analyse","Quelles sont les limites de la puissance turque ?","Une <b>forte inflation</b> et une <b>dérive autoritaire</b>, illustrée par l’<b>arrestation du maire d’Istanbul, Ekrem İmamoğlu</b>, principal opposant, en <b>mars 2025</b>.","Le lien avec le thème 1 : une dérive autoritaire peut aussi affaiblir le soft power d’un pays."],
+["a158","a1","Exemple","Pourquoi la Turquie est-elle une « puissance d’équilibre » entre l’Occident et la Russie ?","Membre de l’<b>OTAN depuis 1952</b>, elle achète pourtant des <b>missiles russes S-400</b> (2019). Elle <b>ferme les détroits</b> aux navires de guerre dès février 2022 (convention de <b>Montreux, 1936</b>) mais <b>refuse les sanctions</b> contre Moscou. Elle livre des <b>drones à l’Ukraine</b> tout en accueillant les négociations.","Ce jeu d’équilibre fait d’Ankara un <b>interlocuteur indispensable</b> : une forme de puissance propre aux puissances moyennes dans un monde multipolaire."],
+["a159","a1","Exemple","Sur quoi repose le soft power turc ?","Les <b>séries télévisées (dizi)</b> diffusées dans le monde entier, la compagnie <b>Turkish Airlines</b>, les <b>instituts Yunus Emre</b> et la <b>construction de mosquées</b>.","La Turquie combine ainsi hard power (drones, armée de l’OTAN) et soft power."],
+["a160","a1","Notion","Qu’est-ce que le « <em>monde russe</em> » (Russkiy mir) ?","L’idée invoquée par la Russie pour justifier un <b>droit de regard sur les territoires où vivent des russophones</b>, de l’Ukraine aux pays baltes.","Comme le néo-ottomanisme, c’est un « retour des empires » qui s’appuie sur l’histoire."],
+["a161","a1","Notion","Qu’est-ce que le <em>piège de Thucydide</em> ?","Concept de <b>Graham Allison (2017)</b>, inspiré de la guerre du Péloponnèse : le <b>risque de guerre</b> entre une <b>puissance montante</b> et la <b>puissance établie</b> qu’elle inquiète.","Historiquement, ce choc a souvent débouché sur un conflit… <b>mais pas toujours</b>. Il nourrit le débat sur la rivalité Chine / États-Unis."],
+
+/* ---------- AXE 2 · A — FORMES DE LA PUISSANCE ---------- */
+["a201","a2","Acteur","Qui est Joseph Nye et qu’apporte-t-il à l’analyse de la puissance ?","Politiste américain (<b>1937-2025</b>). Dans <em>Bound to Lead</em> (<b>1990</b>), il distingue le <b>hard power</b> et le <b>soft power</b> ; il forge ensuite la notion de <b>smart power</b>.","Il renouvelle la définition classique d’Aron : la puissance n’est pas seulement contrainte, elle est aussi attraction."],
+["a202","a2","Notion","Qu’est-ce que le <em>hard power</em> ?","La capacité d’un État à imposer sa volonté par des <b>moyens coercitifs</b> : <b>force militaire</b> (armée, dissuasion nucléaire), mais aussi <b>pression économique</b> (sanctions, droits de douane, embargo, aides, contrôle des ressources).","Le bâton… et la carotte : contraindre ou payer."],
+["a203","a2","Notion","Qu’est-ce que le <em>soft power</em> ?","La capacité d’un État à <b>influencer les autres par l’attraction</b> de sa culture, de ses valeurs et de sa politique, <b>sans contrainte</b> (Joseph Nye, 1990).","Il ne se décrète pas : il dépend de l’<b>image</b> qu’ont les autres d’un pays."],
+["a204","a2","Analyse","Sur quelles trois ressources repose le soft power selon Nye ?","<ul><li>une <b>culture qui séduit</b> (cinéma, musique, sport, mode, gastronomie) ;</li><li>des <b>valeurs politiques admirées</b> (démocratie, droits de l’homme) ;</li><li>une <b>politique étrangère perçue comme légitime</b>.</li></ul>","Si l’une des trois s’effondre (une guerre jugée illégitime, par exemple), le soft power recule."],
+["a205","a2","Citation","Complète et attribue : « Le soft power, c’est la capacité d’obtenir ce que l’on veut par… »","« …l’<b>attraction</b> plutôt que par la <b>coercition</b> ou la <b>rétribution</b>. » — <b>Joseph Nye</b>, <em>Soft Power</em>, <b>2004</b>.","Trois manières d’agir : contraindre (le bâton), payer (la carotte), séduire. La troisième est la moins coûteuse et la plus durable, mais la plus difficile à contrôler."],
+["a206","a2","Notion","Qu’est-ce que le <em>smart power</em> ? Donne deux exemples.","Une stratégie qui <b>combine hard power et soft power</b>, en privilégiant la diplomatie, les alliances, l’aide au développement et les institutions, <b>adossées à une force militaire crédible</b>.<br>Ex. : la <b>Chine</b> (prêts des routes de la soie + instituts Confucius) ; la <b>France</b> (ventes de Rafale + coopération militaire + francophonie).","C’est, selon la conclusion du thème, la forme de puissance la plus efficace."],
+["a207","a2","Notion","Qu’est-ce que le <em>sharp power</em> ? Qui a forgé la notion ?","La « <b>puissance tranchante</b> » : les techniques de <b>manipulation</b> (désinformation, propagande, ingérence électorale, cyberattaques, pressions sur les diasporas, censure) utilisées surtout par des <b>régimes autoritaires</b> pour percer et affaiblir les sociétés ouvertes.<br><b>Christopher Walker et Jessica Ludwig</b>, <b>2017</b>.","Ils travaillaient pour la National Endowment for Democracy, une fondation américaine."],
+["a208","a2","Exemple","Qu’est-ce que la campagne « Doppelgänger » ?","Une campagne <b>russe</b> de désinformation (<b>2022-2024</b>) qui a <b>cloné les sites de grands médias européens</b>, dont <em>Le Monde</em> et <em>Le Parisien</em>, pour y publier de <b>faux articles</b>.","Exemple type de sharp power : il exploite la liberté de la presse des démocraties."],
+["a209","a2","Notion","Qu’est-ce que l’<em>influence</em> ?","La capacité à <b>orienter les décisions</b> des autres acteurs <b>sans leur imposer directement sa volonté</b>.","C’est le cœur des formes indirectes de la puissance étudiées dans l’axe 2."],
+["a210","a2","Analyse","Assiste-t-on à un retour du hard power ? Justifie.","<b>Oui</b> : les formes indirectes <b>prolongent la force sans la remplacer</b>.<ul><li>Le monde se réarme (record en 2025, +14 % en Europe, +24 % en Allemagne).</li><li>Depuis 2025, Trump privilégie la <b>contrainte économique</b> : droits de douane du « <b>Liberation Day</b> » (2 avril 2025), démantèlement de l’<b>USAID</b>, coupes dans <b>Voice of America</b>.</li></ul>","Résultat : les États-Unis connaissent la plus forte baisse du Global Soft Power Index 2026. Trop de hard power peut éroder le soft power."],
+["a211","a2","Chiffre","Que montre le Global Soft Power Index 2026 ?","<b>1ers : les États-Unis</b> (74,9 / 100), malgré la <b>plus forte baisse</b> des 193 pays classés (−4,6 points).<br><b>2e : la Chine</b> (73,5), 1re pour l’éducation et les sciences.<br>3e Japon, 4e Royaume-Uni (au plus bas) ; la France recule.","Classement du cabinet Brand Finance. La Chine se rapproche de la première place."],
+
+/* ---------- AXE 2 · B — LANGUE, CULTURE, SAVOIR ---------- */
+["a220","a2","Analyse","Pourquoi l’anglais est-il la langue mondiale ? Quelle place garde le français ?","L’anglais domine les affaires, les sciences, Internet et les négociations : c’est l’<b>héritage de deux puissances successives</b>, le <b>Royaume-Uni</b> puis les <b>États-Unis</b>.<br>Le français, langue de la diplomatie européenne jusqu’au <b>traité de Versailles (1919)</b>, reste langue officielle de l’<b>ONU</b>, de l’<b>UE</b>, de l’<b>Union africaine</b> et du <b>CIO</b>.","Une langue mondiale est le reflet d’une puissance passée… et un outil de puissance présente."],
+["a221","a2","Notion","Distingue « francophonie » et « Francophonie ».","<b>francophonie</b> (minuscule) : l’ensemble des personnes et des pays qui ont le <b>français en partage</b>.<br><b>Francophonie</b> (majuscule) : l’<b>organisation</b> qui les rassemble, l’<b>OIF</b>.","L’OIF, née en 1970, rassemble près de 90 États et gouvernements."],
+["a222","a2","Chiffre","Combien y a-t-il de francophones en 2026, et où vivent-ils ?","<b>396 millions</b> (contre 321 millions en 2022), dont <b>65 % en Afrique</b>. Le français devient la <b>4e langue la plus parlée</b> au monde (5e en 2022).","Source : rapport 2026 de l’OIF. L’avenir du français se joue en Afrique."],
+["a223","a2","Exemple","L’influence de la langue française se confond-elle avec celle de la France ?","<b>Non</b> : le <b>Mali</b>, le <b>Burkina Faso</b> et le <b>Niger</b> ont <b>quitté l’OIF en 2025</b>, alors que le français y reste largement parlé.","À relier au recul de la France au Sahel (départ des troupes françaises du Mali en 2022, du Niger en 2023)."],
+["a224","a2","Exemple","Cite des réseaux culturels financés par des États.","<b>Alliance française</b> (1883), <b>Goethe-Institut</b> (Allemagne), <b>British Council</b> (Royaume-Uni), <b>instituts Yunus Emre</b> (Turquie), <b>instituts Confucius</b> (Chine, 2004).","C’est la <b>diplomatie culturelle</b> : diffuser sa langue et sa culture pour gagner en influence."],
+["a225","a2","Exemple","Pourquoi les instituts Confucius illustrent-ils la frontière floue entre soft et sharp power ?","Implantés dans les <b>universités</b>, ils ont été accusés de <b>surveiller les étudiants chinois</b> et d’imposer l’<b>autocensure</b> sur les sujets sensibles (Taïwan, Tibet, Tiananmen). La plupart de ceux des États-Unis ont <b>fermé depuis 2019</b>.","Un même outil peut séduire… ou contrôler."],
+["a226","a2","Notion","Qu’est-ce que la <em>diplomatie culturelle</em> ?","La politique par laquelle un État <b>diffuse sa langue, sa culture et ses valeurs à l’étranger</b> : instituts, lycées, médias, bourses d’études.","Exemples : Alliance française, British Council, instituts Confucius."],
+["a227","a2","Exemple","Donne des exemples d’industries culturelles qui façonnent l’image d’un pays.","<b>Hollywood</b> et <b>Netflix</b> (États-Unis), les <b>mangas</b> et l’animation (Japon), la <b>hallyu</b> (Corée du Sud), les <b>séries turques</b>, <b>Bollywood</b> (Inde).","Corée du Sud : de <em>Squid Game</em> (2021) à <em>KPop Demon Hunters</em>, devenu en 2025 le film le plus regardé de l’histoire de Netflix."],
+["a228","a2","Notion","Qu’est-ce que la <em>hallyu</em> ?","La « <b>vague coréenne</b> » : diffusion mondiale de la <b>culture populaire sud-coréenne</b> (musique, séries, cinéma), <b>soutenue par l’État</b>.","Un soft power construit délibérément par un pays moyen, coincé entre la Chine et le Japon."],
+["a229","a2","Exemple","Qu’est-ce que la « diplomatie du panda » ?","La pratique par laquelle la <b>Chine prête ses pandas géants</b> aux zoos étrangers.","Une version <b>étatique</b> du soft power : le panda devient l’ambassadeur d’une image sympathique de la Chine."],
+["a230","a2","Exemple","Cite trois grands événements récents qui servent de vitrines aux puissances.","Les <b>Jeux olympiques de Paris 2024</b>, l’<b>Exposition universelle d’Osaka 2025</b>, la <b>Coupe du monde de football 2026</b> organisée par les États-Unis, le Canada et le Mexique.","Accueillir un grand événement, c’est attirer les regards du monde entier."],
+["a231","a2","Notion","Qu’est-ce que le <em>sportswashing</em> ? Donne deux exemples.","L’utilisation du <b>sport</b> (compétitions, achat de clubs) par un État pour <b>améliorer son image</b> et <b>détourner l’attention de ses atteintes aux droits humains</b>.<br>Ex. : Coupe du monde au <b>Qatar (2022)</b>, en <b>Arabie saoudite (2034)</b>.","Le soft power peut servir à masquer une réalité moins attirante."],
+["a232","a2","Notion","Qu’est-ce que l’<em>attractivité</em> ?","La capacité d’un territoire à <b>attirer des personnes</b> (étudiants, chercheurs, touristes), des <b>entreprises</b> et des <b>capitaux</b>.","Les universités en sont un levier essentiel."],
+["a233","a2","Chiffre","Quels sont les premiers pays d’accueil des étudiants internationaux ? Où se situe la France ?","1ers : les <b>États-Unis</b> (près de <b>957 000</b> en 2023, UNESCO), devant le Royaume-Uni, l’Australie, l’Allemagne et le Canada. La Russie (6e) et la Turquie (7e) devancent la <b>France, 8e</b> (environ <b>443 000</b> étudiants, objectif 500 000 en 2027).","La France était <b>4e en 2017</b>. Les étudiants internationaux représentent environ 15 % des étudiants du supérieur en France."],
+["a234","a2","Analyse","Pourquoi former des étudiants étrangers est-il un levier de puissance ?","Former les <b>élites étrangères</b>, c’est s’assurer des <b>relais d’influence pour des décennies</b> : futurs dirigeants, chercheurs, chefs d’entreprise attachés au pays qui les a formés.","Depuis sa création en 2003, le <b>classement de Shanghai</b> place chaque année <b>Harvard</b> au premier rang."],
+["a235","a2","Exemple","Comment l’attractivité scientifique est-elle devenue un enjeu de rivalité en 2025 ?","L’administration Trump <b>gèle des milliards de dollars</b> de crédits fédéraux aux universités et tente d’<b>interdire à Harvard d’accueillir des étudiants étrangers</b>, avant d’être bloquée par la justice.<br>L’UE réplique avec « <b>Choose Europe for Science</b> » (mai 2025) pour attirer les chercheurs.","Une décision de politique intérieure peut affaiblir le soft power… et profiter aux concurrents."],
+
+/* ---------- AXE 2 · C — NUMÉRIQUE ---------- */
+["a240","a2","Notion","Que désignent les acronymes GAFAM et BATX ?","<b>GAFAM</b> : Google, Apple, Facebook, Amazon, Microsoft (États-Unis).<br><b>BATX</b> : Baidu, Alibaba, Tencent, Xiaomi (Chine).","Depuis 2024, on parle plutôt des <b>BATMMAAN</b>, qui intègrent les champions des puces et de l’IA."],
+["a241","a2","Analyse","Que signifient les lettres de BATMMAAN ?","<b>B</b>roadcom · <b>A</b>pple · <b>T</b>esla · <b>M</b>icrosoft · <b>M</b>eta · <b>A</b>mazon · <b>A</b>lphabet · <b>N</b>vidia.","Les huit plus grosses capitalisations technologiques américaines : la puissance numérique est d’abord américaine."],
+["a242","a2","Exemple","Quel levier de puissance détiennent Meta, Amazon, Microsoft et Nvidia ?","<b>Meta</b> : plus de 3 milliards d’utilisateurs, le <b>contrôle de l’information</b>.<br><b>Amazon</b> (AWS) : héberge une grande partie des <b>données mondiales</b>.<br><b>Microsoft</b> : équipe <b>administrations et armées</b> du monde entier.<br><b>Nvidia</b> : quasi-monopole sur les <b>puces d’entraînement de l’IA</b>.","Autres leviers : Apple (normes techniques), Alphabet (accès à l’information), Broadcom (réseaux, centres de données), Tesla (son patron dirige aussi SpaceX et Starlink)."],
+["a243","a2","Chiffre","Quel record Nvidia bat-il le 29 octobre 2025 ?","Elle devient la <b>première entreprise de l’histoire</b> à dépasser <b>5 000 milliards de dollars</b> de capitalisation boursière, une valeur <b>comparable au PIB de l’Allemagne</b>.","Des entreprises plus puissantes que des États : c’est la question posée par le cours."],
+["a244","a2","Notion","Qu’est-ce que la <em>capitalisation boursière</em> ?","La <b>valeur totale d’une entreprise en Bourse</b> : nombre d’actions multiplié par leur cours.","À ne pas confondre avec le chiffre d’affaires ou le PIB, même si on les compare souvent."],
+["a245","a2","Exemple","Pourquoi Starlink est-il un exemple d’entreprise devenue acteur géopolitique ?","Depuis <b>2022</b>, le réseau de satellites <b>Starlink</b> d’<b>Elon Musk</b> assure une partie des <b>communications de l’armée ukrainienne</b> : un <b>choix d’entreprise privée</b> peut peser sur le cours d’une guerre.","La frontière entre puissance des États et puissance des entreprises devient floue."],
+["a246","a2","Exemple","Comment les États se servent-ils aussi des entreprises : l’exemple de TikTok ?","Washington a imposé par une <b>loi de 2024</b> la <b>vente de la branche américaine de TikTok</b> (groupe chinois ByteDance), au nom de la <b>sécurité nationale</b>.","Les données des utilisateurs sont devenues un enjeu de puissance."],
+["a247","a2","Date","Retrace les étapes de la course à l’IA entre les États-Unis et la Chine.","<ul><li><b>Depuis 2022</b> : les États-Unis interdisent l’exportation de leurs <b>puces les plus avancées</b> vers la Chine ;</li><li><b>janvier 2025</b> : le modèle chinois <b>DeepSeek</b> montre qu’on peut rivaliser à moindre coût ;</li><li><b>23 juillet 2025</b> : « <b>America’s AI Action Plan</b> » (dérégulation, centres de données, contrôle des exportations).</li></ul>","La rivalité sino-américaine se joue d’abord sur la technologie."],
+["a248","a2","Exemple","Pourquoi parle-t-on du « bouclier de silicium » de Taïwan ?","Son entreprise <b>TSMC</b> fabrique l’<b>essentiel des puces les plus avancées du monde</b> : le monde entier a intérêt à ce que Taïwan ne soit pas attaquée.","Une dépendance technologique peut protéger un petit territoire."],
+["a249","a2","Notion","Que sont les <em>semi-conducteurs</em> ?","Des matériaux (surtout le <b>silicium</b>) qui servent à fabriquer les <b>puces électroniques</b>, présentes dans tous les objets numériques et les <b>armes modernes</b>.","Qui maîtrise les puces maîtrise l’IA, l’économie numérique et une partie de la guerre."],
+["a250","a2","Notion","Que sont les <em>terres rares</em> ?","Un groupe de <b>17 métaux</b> indispensables aux technologies de pointe (aimants, batteries, écrans, missiles), dont la <b>Chine domine la production et le raffinage</b>.","Téléphones, voitures électriques, armes : impossible de s’en passer."],
+["a251","a2","Exemple","Comment la Chine utilise-t-elle les terres rares comme arme ? Qu’est-ce que la trêve de Busan ?","La Chine assure environ <b>90 % du raffinage mondial</b>. En <b>avril puis octobre 2025</b>, elle <b>restreint leurs exportations</b>. Le <b>30 octobre 2025</b>, à <b>Busan</b> (Corée du Sud), Trump et Xi Jinping concluent une <b>trêve commerciale d’un an</b>.","<b>La dépendance de l’autre devient un levier de puissance.</b>"],
+["a252","a2","Notion","Qu’est-ce qu’une <em>puissance normative</em> ?","La capacité à <b>imposer ses règles et ses normes</b> aux autres acteurs, plutôt que sa force. C’est le <b>principal levier de l’Union européenne</b>.","L’UE « fait faire » (Serge Sur) : elle oblige les géants mondiaux à respecter ses lois."],
+["a253","a2","Date","Quelles lois l’UE a-t-elle adoptées pour réguler le numérique ?","<b>RGPD (2018)</b> : protection des données ; <b>DMA et DSA (2022)</b> : marchés et services numériques ; <b>AI Act (2024)</b> : premier règlement au monde sur l’intelligence artificielle.","Décembre 2025 : amende de <b>120 millions d’euros</b> au réseau social <b>X</b> au titre du DSA ; Washington menace de représailles."],
+["a254","a2","Notion","Qu’est-ce que l’« <em>effet Bruxelles</em> » ? Quelle est sa limite ?","Pour vendre sur un marché de <b>450 millions de consommateurs</b>, les entreprises <b>s’alignent sur les normes européennes</b>, qui se diffusent ainsi au monde entier.<br>Limite : l’Europe <b>régule plus qu’elle n’innove</b> et reste <b>dépendante</b> des technologies américaines et chinoises.","D’où l’enjeu de la souveraineté numérique."],
+["a255","a2","Notion","Qu’est-ce que la <em>souveraineté numérique</em> ?","La capacité d’un État ou de l’UE à <b>maîtriser ses données, ses infrastructures et ses technologies</b> sans dépendre de puissances étrangères.","C’est la grande faiblesse de l’Europe face aux BATMMAAN et aux BATX."],
+
+/* ---------- AXE 2 · D — ROUTES DE LA SOIE ---------- */
+["a260","a2","Notion","Que sont les <em>nouvelles routes de la soie</em> ?","Un programme chinois d’<b>infrastructures de transport</b> (ports, voies ferrées, routes, oléoducs) lancé en <b>2013 par Xi Jinping</b> (<em>Belt and Road Initiative</em>) pour relier la Chine au reste du monde, par des routes <b>terrestres</b> et <b>maritimes</b>.","Environ <b>150 pays</b> ont signé un accord ; plus de <b>1 000 milliards de dollars</b> de prêts et d’investissements. Exemple de ligne : Chongqing-Duisbourg."],
+["a261","a2","Exemple","Dans quels ports stratégiques la Chine a-t-elle pris pied ?","<ul><li><b>Le Pirée</b> (Grèce), contrôlé par COSCO depuis 2016 ;</li><li><b>Hambantota</b> (Sri Lanka), concédé pour 99 ans en 2017 ;</li><li><b>Gwadar</b> (Pakistan) ;</li><li><b>Chancay</b> (Pérou), inauguré en novembre 2024.</li></ul>","En <b>2017</b>, la Chine ouvre à <b>Djibouti</b> sa <b>première base militaire à l’étranger</b>."],
+["a262","a2","Analyse","Quels sont les objectifs des nouvelles routes de la soie ? (4)","<ul><li><b>Sécuriser ses approvisionnements</b> (80 % de son pétrole importé passe par le détroit de Malacca) ;</li><li><b>exporter ses surcapacités industrielles</b> ;</li><li><b>diffuser ses normes techniques</b> ;</li><li><b>gagner des soutiens diplomatiques</b> (par exemple contre la reconnaissance de Taïwan).</li></ul>","Un exemple parfait de smart power : de l’argent, des infrastructures, de l’influence."],
+["a263","a2","Notion","Qu’est-ce que le <em>piège de la dette</em> ? Donne un exemple.","Situation d’un pays qui, <b>ne pouvant rembourser ses emprunts</b>, doit <b>céder à son créancier</b> le contrôle d’infrastructures ou de ressources.<br>Ex. : le port de <b>Hambantota</b> (Sri Lanka), concédé pour <b>99 ans</b> à une entreprise chinoise en 2017.","C’est la principale critique adressée aux nouvelles routes de la soie."],
+["a264","a2","Notion","Qu’est-ce que le <em>collier de perles</em> ?","Le <b>réseau de ports et de points d’appui chinois</b> le long des routes maritimes entre la <b>mer de Chine</b> et le <b>golfe Persique</b>.","Gwadar, Hambantota, Djibouti en font partie."],
+["a265","a2","Exemple","Quelles résistances suscitent les nouvelles routes de la soie ?","<ul><li>L’<b>Italie</b>, seul pays du G7 à les avoir rejointes, s’en <b>retire en décembre 2023</b> ;</li><li>l’UE lance en <b>2021</b> le <b>Global Gateway</b> ;</li><li>un corridor <b>Inde-Moyen-Orient-Europe (IMEC)</b> est annoncé au G20 de 2023.</li></ul>","En février 2025, le Panama quitte à son tour les routes de la soie, sous pression américaine."],
+["a266","a2","Notion","Qu’est-ce que le <em>Global Gateway</em> ?","Le <b>programme d’investissements de l’Union européenne</b> (2021) destiné à <b>concurrencer les nouvelles routes de la soie</b> dans les pays du Sud.","La rivalité entre puissances passe aussi par les infrastructures."],
+["a267","a2","Notion","Qu’est-ce qu’un <em>point de passage stratégique</em> ? Donne des exemples.","Un <b>détroit ou canal</b> par lequel transite une part essentielle du commerce mondial : <b>Malacca, Ormuz, Suez, Panama, Bab el-Mandeb</b>. En anglais : <em>chokepoint</em>.","Les contrôler, c’est pouvoir bloquer l’économie mondiale."],
+["a268","a2","Exemple","Donne trois exemples récents de voies de communication disputées.","<ul><li><b>Mer Rouge</b> : depuis fin 2023, les attaques des <b>houthis</b> détournent une partie du trafic de Suez vers le <b>cap de Bonne-Espérance</b> ;</li><li><b>Arctique</b> : la fonte des glaces ouvre une <b>route du Nord-Est</b> que la Russie et la Chine veulent exploiter ;</li><li><b>Groenland</b> : revendiqué ouvertement par Donald Trump depuis 2025.</li></ul>","Le changement climatique redessine la carte des routes stratégiques."],
+["a269","a2","Exemple","Pourquoi le canal de Panama est-il au cœur de la rivalité sino-américaine (2025-2026) ?","Les ports de <b>Balboa</b> et <b>Cristóbal</b> étaient exploités depuis 1997 par le hongkongais <b>CK Hutchison</b>. En <b>2025</b>, Trump accuse la Chine de « contrôler » le canal ; le Panama <b>quitte les routes de la soie</b> (février), CK Hutchison accepte de vendre ses ports à un consortium mené par <b>BlackRock</b> (mars). Fin <b>janvier 2026</b>, la <b>Cour suprême du Panama</b> annule la concession ; <b>Maersk</b> gère provisoirement les terminaux.","Pékin menace le Panama de lui faire payer « un prix élevé » : le contrôle d’un simple port devient un enjeu entre les deux premières puissances."],
+
+/* ---------- OEC — G20 ---------- */
+["o01","oec","Analyse","Quelle est la problématique de l’objet d’étude conclusif ?","<b>Comment les puissances coopèrent-elles et rivalisent-elles dans un monde devenu multipolaire ?</b>","Le G20 en est le miroir : on y coopère sur l’économie mondiale tout en s’y affrontant."],
+["o02","oec","Date","Quand et pourquoi le G20 est-il créé ? Quand devient-il un sommet de chefs d’État ?","<b>1999</b>, après la <b>crise financière asiatique</b> : réunion des <b>ministres des Finances</b>.<br><b>Novembre 2008</b>, à <b>Washington</b> : premier sommet des <b>chefs d’État</b>, face à la <b>crise des subprimes</b>.","Le G7 ne peut plus gérer seul l’économie mondiale sans les puissances émergentes."],
+["o03","oec","Chiffre","Qui compose le G20 et que représente-t-il ?","<b>21 membres</b> : <b>19 États</b>, l’<b>Union européenne</b> et, depuis 2023 (sommet de New Delhi), l’<b>Union africaine</b>.<br>Environ <b>85 % du PIB mondial</b>, <b>75 % du commerce</b> international et <b>deux tiers de la population</b>.","Malgré son nom, le G20 compte donc 21 membres."],
+["o04","oec","Analyse","Comment fonctionne le G20 ?","Il n’a <b>ni siège ni secrétariat permanent</b> : la <b>présidence tourne chaque année</b>, les <b>sherpas</b> préparent les sommets, et les décisions, prises <b>par consensus</b>, ne sont <b>pas contraignantes</b>.","C’est un <b>lieu de dialogue plus que de gouvernement</b>."],
+["o05","oec","Notion","Qu’est-ce qu’un <em>sherpa</em> ?","Le <b>représentant personnel d’un chef d’État</b>, chargé de <b>préparer un sommet</b> international et d’en <b>négocier les textes</b> en amont.","C’est votre rôle dans la simulation du G20 !"],
+["o06","oec","Analyse","En quoi le G20 est-il un miroir de la multipolarité ?","Il rassemble des <b>puissances rivales</b> : les pays du <b>G7</b> côtoient ceux des <b>BRICS</b>. Depuis 2022, les présidences du <b>Sud global</b> (Indonésie, Inde, Brésil, Afrique du Sud) y ont imposé leurs priorités : <b>dette</b> des pays pauvres, <b>financement de la transition climatique</b>, <b>réforme des institutions</b> internationales.","Le Sud global ne se contente plus d’être invité : il fixe l’agenda."],
+["o07","oec","Date","Que se passe-t-il les 22 et 23 novembre 2025 à Johannesburg ?","Le <b>premier sommet du G20 organisé en Afrique</b>, <b>boycotté par les États-Unis</b>. Les autres membres adoptent malgré tout une <b>déclaration commune</b>.","Le multilatéralisme résiste… mais sans la première puissance mondiale."],
+["o08","oec","Analyse","Quels sont les atouts sans équivalent des États-Unis ?","<ul><li>environ <b>un quart du PIB mondial</b> ;</li><li>le <b>dollar</b> (près de 60 % des réserves de change mondiales) ;</li><li>un budget militaire de <b>954 milliards $</b> et une présence militaire mondiale (porte-avions, centaines de bases) ;</li><li>l’<b>OTAN</b> (32 membres) ;</li><li>les meilleures <b>universités</b>, les <b>géants du numérique</b>, <b>Hollywood</b>.</li></ul>","C’est la <b>seule superpuissance</b> : elle domine dans tous les domaines."],
+["o09","oec","Analyse","Qu’est-ce que la politique « America First » depuis janvier 2025 ?","<b>Guerre commerciale</b>, <b>retrait de l’accord de Paris</b> sur le climat et de l’<b>OMS</b>, démantèlement de l’<b>USAID</b>, préférence pour les <b>rapports de force bilatéraux</b> plutôt que pour les négociations multilatérales.","Les États-Unis utilisent davantage leur hard power, au risque d’<b>éroder leur soft power</b> et de pousser une partie du Sud global vers la Chine."],
+["o10","oec","Citation","Qui a dit : « À partir d’aujourd’hui, ce sera seulement l’Amérique d’abord » ? Quand ?","<b>Donald Trump</b>, <b>discours d’investiture</b>, le <b>20 janvier 2017</b>.","« America First » : une puissance fondée sur l’intérêt national immédiat, qui tourne le dos au rôle de garant de l’ordre multilatéral construit après 1945 (ONU, FMI, OTAN)."],
+["o11","oec","Date","Que prévoit le G20 de 2026 sous présidence américaine ?","Un sommet à <b>Miami en décembre 2026</b>, dont Washington annonce l’<b>exclusion de l’Afrique du Sud</b>.","Contexte : rivalité sino-américaine (guerre commerciale, trêve de Busan, Taïwan, IA) et guerre en Ukraine, qui oppose la Russie, membre du G20, aux Occidentaux."],
+["o12","oec","Notion","Qu’est-ce que le <em>multilatéralisme</em> ?","Un mode d’organisation des relations internationales fondé sur la <b>coopération entre plusieurs États</b>, au sein d’<b>institutions</b> et selon des <b>règles communes</b>.","ONU, OMC, G20… Il est aujourd’hui fragilisé par « America First »."],
+["o13","oec","Notion","Qu’est-ce que le <em>bilatéralisme</em> ?","Des relations <b>négociées directement entre deux États</b>, souvent <b>au profit du plus puissant</b>.","C’est la méthode privilégiée par Donald Trump : face à face, le plus fort l’emporte."],
+["o14","oec","Notion","Qu’est-ce que le <em>protectionnisme</em> ?","Une politique qui <b>protège l’économie nationale de la concurrence étrangère</b> : droits de douane, quotas, normes.","Exemple : les droits de douane américains du « Liberation Day », le 2 avril 2025."],
+["o15","oec","Exemple","Énergie : quelles tensions au G20 réel ?","Des <b>tensions entre la Russie et l’Occident sur le gaz</b> ; la déclaration finale de la <b>COP30</b> (Belém, novembre 2025) <b>ne mentionne pas la sortie des énergies fossiles</b>.","Les pays producteurs d’hydrocarbures défendent leur principale source de puissance."],
+["o16","oec","Exemple","Technologies : quelles rivalités au G20 réel ?","Le <b>plan américain pour l’IA</b> (juillet 2025) contre l’<b>AI Act européen</b> (2024) ; les <b>contrôles chinois sur les terres rares</b> et la <b>trêve de Busan</b> (octobre 2025) ; l’<b>Inde</b> négocie avec tous les camps.","Trois modèles s’affrontent : dérégulation américaine, régulation européenne, contrôle chinois."],
+["o17","oec","Exemple","Climat : quelles positions au G20 réel ?","Les présidences du Sud global (<b>Brésil 2024</b>, <b>Afrique du Sud 2025</b>) défendent une « <b>transition juste</b> » et l’<b>allègement de la dette</b> ; les <b>États-Unis quittent l’accord de Paris</b> (2025).","Le climat oppose pays riches, gros émetteurs historiques, et pays du Sud qui demandent des financements."],
+["o18","oec","Exemple","Commerce et gouvernance mondiale : que retenir du G20 réel ?","Les <b>droits de douane américains</b> (avril 2025) ; l’<b>Union africaine membre depuis 2023</b> ; le sommet de <b>Johannesburg boycotté</b> par Washington (novembre 2025).","Le G20 s’élargit au Sud… pendant que la première puissance s’en éloigne."],
+["o19","oec","Date","Associe chaque date à un événement du G20 : 1999 · 2008 · 2023 · 2025 · 2026.","<b>1999</b> : G20 des ministres des Finances · <b>2008</b> : 1er sommet des chefs d’État (Washington) · <b>2023</b> : l’Union africaine devient membre (New Delhi) · <b>2025</b> : sommet de Johannesburg, boycotté par les États-Unis · <b>2026</b> : sommet de Miami, sans l’Afrique du Sud.","Une chronologie qui raconte le passage d’un club de riches à un miroir du monde multipolaire."]
+];
+
+const PARTS = {
+  intro:{label:"Introduction & repères", short:"Intro", color:"var(--c-intro)"},
+  a1:{label:"Axe 1 · Essor et déclin des puissances", short:"Axe 1", color:"var(--c-a1)"},
+  a2:{label:"Axe 2 · Formes indirectes de la puissance", short:"Axe 2", color:"var(--c-a2)"},
+  oec:{label:"OEC · Simulation d’un G20", short:"OEC", color:"var(--c-oec)"}
+};
+const TYPES = ["Notion","Date","Citation","Acteur","Exemple","Chiffre","Analyse"];
+const CARDS = RAW.map(([id,part,type,front,back,deep])=>({id,part,type,front,back,deep}));
+const BYID = Object.fromEntries(CARDS.map(c=>[c.id,c]));
+
+/* ---------- Niveaux & badges ---------- */
+const LEVELS = [[0,"Observateur"],[150,"Sherpa"],[400,"Diplomate"],[800,"Puissance moyenne"],[1400,"Puissance régionale"],[2200,"Puissance émergente"],[3200,"Grande puissance"],[4500,"Superpuissance"]];
+const mastered = c => (S.cards[c.id]||{}).box>=4;
+const partDone = p => CARDS.filter(c=>c.part===p).every(mastered);
+const BADGES = [
+  {id:"first",e:"🌍",n:"Entrée en scène",d:"Réviser une première carte",t:()=>S.totalSeen>=1},
+  {id:"c10",e:"🛡️",n:"Janissaire",d:"Combo de 10 — l’infanterie d’élite ottomane",t:()=>S.bestCombo>=10},
+  {id:"c25",e:"👑",n:"Soliman",d:"Combo de 25 — l’apogée de l’Empire ottoman",t:()=>S.bestCombo>=25},
+  {id:"m25",e:"🤝",n:"Négociateur",d:"25 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=25},
+  {id:"m60",e:"🧭",n:"Multipolaire",d:"60 cartes maîtrisées",t:()=>CARDS.filter(mastered).length>=60},
+  {id:"intro",e:"📖",n:"Raymond Aron",d:"Introduction maîtrisée — auteur de la définition classique de la puissance",t:()=>partDone("intro")},
+  {id:"a1",e:"🕌",n:"Sublime Porte",d:"Axe 1 maîtrisé — le nom du gouvernement ottoman",t:()=>partDone("a1")},
+  {id:"a2",e:"🚢",n:"Routes de la soie",d:"Axe 2 maîtrisé — 150 pays, 1 000 milliards de dollars",t:()=>partDone("a2")},
+  {id:"oec",e:"🌐",n:"Sommet du G20",d:"OEC maîtrisé — 85 % du PIB mondial autour d’une table",t:()=>partDone("oec")},
+  {id:"all",e:"🏆",n:"Smart power",d:"Toutes les cartes maîtrisées — combiner la force et l’influence",t:()=>CARDS.every(mastered)},
+  {id:"flash15",e:"🚀",n:"Spoutnik",d:"15 « Su » en un défi — premier satellite artificiel (1957)",t:()=>S.flashBest>=15},
+  {id:"s3",e:"📅",n:"Assidu",d:"3 jours de suite",t:()=>S.streak>=3},
+  {id:"s7",e:"🐼",n:"Diplomatie du panda",d:"7 jours de suite — la patience paie",t:()=>S.streak>=7}
+];
+
+/* ---------- Stockage ---------- */
+const KEY = "hggsp1-t2-puissance-v1";
+const DAY = 86400000;
+const INTERVAL = {1:0, 2:1*DAY, 3:2*DAY, 4:4*DAY, 5:8*DAY};
+function fresh(){return {cards:{},xp:0,bestCombo:0,streak:0,lastDay:null,badges:[],flashBest:0,totalSeen:0,size:20,theme:null}}
+let S = fresh();
+try{const s=JSON.parse(localStorage.getItem(KEY)); if(s) S=Object.assign(fresh(),s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const cs = id => S.cards[id] || (S.cards[id]={box:0,due:0,seen:0,ok:0,ko:0});
+
+/* ---------- Filtres ---------- */
+let fParts = new Set(Object.keys(PARTS)), fTypes = new Set(TYPES);
+const filtered = () => CARDS.filter(c=>fParts.has(c.part)&&fTypes.has(c.type));
+
+/* ---------- Utilitaires ---------- */
+const $ = s => document.querySelector(s);
+const shuffle = a => {for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const dayStr = d => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
+function toast(msg,ms=2400){const t=$("#toast");t.innerHTML=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),ms)}
+function show(id){["home","study","end","browse"].forEach(x=>$("#"+x).classList.toggle("hidden",x!==id));window.scrollTo(0,0)}
+function levelOf(xp){let i=0;LEVELS.forEach((l,k)=>{if(xp>=l[0])i=k});return i}
+function confetti(n=60){const cols=["var(--gold)","var(--terra)","var(--aegean)","var(--ok)","var(--eu)"];for(let i=0;i<n;i++){const s=document.createElement("i");s.className="confetti";s.style.left=Math.random()*100+"vw";s.style.background=cols[i%cols.length];s.style.animationDuration=(1.6+Math.random()*1.8)+"s";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),4000)}}
+
+/* ---------- Thème ---------- */
+function applyTheme(){ if(S.theme) document.documentElement.setAttribute("data-theme",S.theme); else document.documentElement.removeAttribute("data-theme"); }
+$("#themeBtn").onclick=()=>{const dark = S.theme ? S.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches; S.theme = dark?"light":"dark"; applyTheme(); save();};
+applyTheme();
+
+/* ---------- En-tête ---------- */
+function renderHeader(){
+  const i=levelOf(S.xp), cur=LEVELS[i][0], nxt=LEVELS[i+1]?LEVELS[i+1][0]:null;
+  $("#lvlName").textContent=LEVELS[i][1];
+  $("#xpFill").style.width = nxt ? ((S.xp-cur)/(nxt-cur)*100)+"%" : "100%";
+  $("#xpPill").textContent="✦ "+S.xp;
+  const alive = S.lastDay===dayStr(Date.now()) || S.lastDay===dayStr(Date.now()-DAY);
+  $("#streakPill").textContent="🔥 "+(alive?S.streak:0);
+}
+
+/* ---------- Accueil ---------- */
+function renderHome(){
+  renderHeader();
+  const now=Date.now();
+  $("#stMaster").textContent=CARDS.filter(mastered).length+" / "+CARDS.length;
+  $("#stDue").textContent=CARDS.filter(c=>{const s=S.cards[c.id];return s&&s.box>0&&s.due<=now}).length;
+  $("#stNew").textContent=CARDS.filter(c=>!S.cards[c.id]||!S.cards[c.id].box).length;
+  $("#stCombo").textContent=S.bestCombo;
+
+  document.querySelectorAll("#sizes button").forEach(b=>{b.classList.toggle("on",+b.dataset.n===S.size);b.onclick=()=>{S.size=+b.dataset.n;save();renderHome()}});
+
+  $("#partChips").innerHTML=Object.entries(PARTS).map(([k,p])=>`<button class="chip ${fParts.has(k)?"on":""}" data-p="${k}"><span class="dot" style="background:${p.color}"></span>${p.short}</button>`).join("");
+  $("#partChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{const k=b.dataset.p; fParts.has(k)&&fParts.size>1?fParts.delete(k):fParts.add(k); renderHome()});
+  $("#typeChips").innerHTML=TYPES.map(t=>`<button class="chip ${fTypes.has(t)?"on":""}" data-t="${t}">${t}s <small style="opacity:.6">${CARDS.filter(c=>c.type===t&&fParts.has(c.part)).length}</small></button>`).join("");
+  $("#typeChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{const t=b.dataset.t; fTypes.has(t)&&fTypes.size>1?fTypes.delete(t):fTypes.add(t); renderHome()});
+
+  $("#parts").innerHTML=Object.entries(PARTS).map(([k,p])=>{
+    const cs_=CARDS.filter(c=>c.part===k), n=cs_.length;
+    const cnt=[0,0,0,0]; cs_.forEach(c=>{const b=(S.cards[c.id]||{}).box||0; cnt[b===0?0:b===1?1:b<=3?2:3]++});
+    const pct=Math.round(cnt[3]/n*100);
+    return `<div class="part" style="--pc:${p.color}"><div class="top"><span>${p.label}</span><span>${pct} % · ${n} cartes</span></div>
+      <div class="boxes"><i style="width:${cnt[3]/n*100}%;background:var(--ok)"></i><i style="width:${cnt[2]/n*100}%;background:var(--mid)"></i><i style="width:${cnt[1]/n*100}%;background:var(--ko)"></i><i style="width:${cnt[0]/n*100}%;background:var(--line)"></i></div></div>`;
+  }).join("");
+
+  $("#badges").innerHTML=BADGES.map(b=>`<div class="badge ${S.badges.includes(b.id)?"got":""}"><div class="e">${b.e}</div><b>${b.n}</b><small>${b.d}</small></div>`).join("");
+}
+function goHome(){ if(sess) endSession(true); else { show("home"); renderHome(); } }
+
+/* ---------- Séances ---------- */
+let sess=null, timerH=null;
+function pickSession(pool,n){
+  const now=Date.now();
+  const due=[], rest=[];
+  pool.forEach(c=>{const s=S.cards[c.id]; (!s||!s.box||s.due<=now?due:rest).push(c)});
+  const pr = c => {const s=S.cards[c.id]; if(!s||!s.box) return 1.5; return s.box;}; // ratées (boîte 1) d’abord, puis nouvelles
+  shuffle(due).sort((a,b)=>pr(a)-pr(b));
+  shuffle(rest).sort((a,b)=>(S.cards[a.id].box-S.cards[b.id].box)||(S.cards[a.id].due-S.cards[b.id].due));
+  return shuffle(due.concat(rest).slice(0,n));
+}
+function startSession(mode){
+  const pool=filtered();
+  let list;
+  if(mode==="rattrapage"){
+    list=pool.filter(c=>{const s=S.cards[c.id];return s&&s.ko>0&&s.box<=2});
+    if(!list.length) return toast("Aucune carte ratée à rattraper avec ces filtres. Bravo ! 🎉");
+    list=shuffle(list).slice(0,S.size);
+  } else if(mode==="flash"){ list=shuffle(pool.slice()); }
+  else list=pickSession(pool,S.size);
+  if(!list.length) return toast("Aucune carte avec ces filtres.");
+  sess={mode,queue:list.map(c=>c.id),pool:pool.map(c=>c.id),done:0,ok:0,mid:0,ko:0,xp:0,combo:0,maxCombo:0,tries:{},missed:new Set(),flipped:false,lvlStart:levelOf(S.xp)};
+  show("study");
+  $("#timer").classList.toggle("hidden",mode!=="flash");
+  if(mode==="flash"){ sess.endAt=Date.now()+90000; tick(); timerH=setInterval(tick,250); }
+  renderCard(true);
+}
+function tick(){
+  const left=Math.max(0,Math.ceil((sess.endAt-Date.now())/1000));
+  $("#timer").textContent=left+" s"; $("#timer").classList.toggle("low",left<=15);
+  if(left<=0){clearInterval(timerH);timerH=null;endSession(false)}
+}
+function renderCard(first){
+  if(!sess.queue.length){
+    if(sess.mode==="flash"){ sess.queue=shuffle(sess.pool.slice()); } else return endSession(false);
+  }
+  const c=BYID[sess.queue[0]], st=S.cards[c.id]||{box:0}, p=PARTS[c.part];
+  const inv = $("#invert").checked && c.type==="Notion";
+  const card=$("#card");
+  card.classList.add("noanim"); card.classList.remove("flipped"); void card.offsetWidth;
+  sess.flipped=false;
+  card.style.setProperty("--pc",p.color);
+  const boxTxt = st.box ? "Boîte "+st.box+"/5" : "Nouvelle";
+  const tag = `<div class="ctag"><span class="p">${p.short}</span>·<span>${c.type}</span><span class="box">${sess.tries[c.id]?"↻ Revient · ":""}${boxTxt}</span></div>`;
+  const plain = c.front.replace(/<[^>]+>/g,"");
+  const qFront = inv ? `<div class="q" style="font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:500">${c.back}</div><div class="hint">Quelle est cette notion ?</div>` : `<div class="q">${c.front}</div><div class="hint">Formule ta réponse dans ta tête (ou à voix haute), puis retourne.</div>`;
+  const backAns = inv ? `<div class="q" style="padding:14px 0 0;margin:0">${(c.front.match(/<em>(.*?)<\/em>/)||[null,plain])[1]}</div><div class="ans">${c.back}</div>` : `<div class="qrecall">${c.front}</div><div class="ans">${c.back}</div>`;
+  $("#front").innerHTML = tag + qFront;
+  $("#back").innerHTML = tag + backAns + (c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:"") + `<div class="swipehint">← glisse pour « Raté » · « Su ! » pour glisser →</div>`;
+  requestAnimationFrame(()=>card.classList.remove("noanim"));
+  $("#flipBtn").classList.remove("hidden"); $("#grades").classList.add("hidden");
+  const total = sess.mode==="flash" ? null : sess.done+sess.queue.length;
+  $("#progFill").style.width = sess.mode==="flash" ? ((90000-(sess.endAt-Date.now()))/900)+"%" : (sess.done/total*100)+"%";
+  updateCombo();
+  const nextPts=(10+Math.min(sess.combo,10))*(sess.mode==="flash"?2:1);
+  $("#g2pts").textContent="+"+(sess.tries[c.id]?Math.round(nextPts/2):nextPts);
+  $("#grades .g1 small").textContent="+"+(4*(sess.mode==="flash"?2:1));
+}
+function flip(){
+  if(!sess||sess.lock) return;
+  const card=$("#card");
+  if(sess.flipped) return;
+  sess.flipped=true; card.classList.add("flipped");
+  $("#flipBtn").classList.add("hidden"); $("#grades").classList.remove("hidden");
+}
+function updateCombo(pop){
+  const el=$("#combo"); el.textContent = sess.combo>=2 ? "×"+sess.combo+" combo" : "";
+  if(pop){el.classList.add("pop");setTimeout(()=>el.classList.remove("pop"),180)}
+}
+function floatXP(n,color){
+  const f=document.createElement("div"); f.className="xpfloat"; f.textContent=n>0?"+"+n:"✗"; if(color) f.style.color=color;
+  $("#scene").appendChild(f); setTimeout(()=>f.remove(),1000);
+}
+function grade(g){
+  if(!sess||!sess.flipped||sess.lock) return;
+  sess.lock=true; sess.flipped=false;
+  $("#grades").classList.add("hidden");
+  if(navigator.vibrate){ try{ navigator.vibrate(g===0?[40,40,40]:g===2?15:25) }catch(e){} }
+  const id=sess.queue.shift(), st=cs(id), now=Date.now();
+  const retry=!!sess.tries[id], mult=sess.mode==="flash"?2:1, reinsert=sess.mode!=="flash";
+  st.seen++; S.totalSeen++;
+  let pts=0;
+  if(g===2){
+    sess.combo++; pts=(10+Math.min(sess.combo-1,10))*mult; if(retry) pts=Math.round(pts/2);
+    st.ok++; sess.ok++;
+    if(!retry) st.box=Math.max(2,Math.min(5,st.box+1)); else if(st.box<=1) st.box=2;
+    floatXP(pts);
+  } else if(g===1){
+    pts=4*mult; sess.mid++; if(st.box<1) st.box=1; if(st.box>3) st.box=3;
+    if(reinsert && !sess.tries[id]){ sess.queue.splice(Math.min(6,sess.queue.length),0,id); }
+    sess.tries[id]=(sess.tries[id]||0)+1;
+    floatXP(pts,"var(--mid)");
+  } else {
+    sess.combo=0; st.box=1; st.ko++; sess.ko++; sess.missed.add(id);
+    if(reinsert){ sess.queue.splice(Math.min(3,sess.queue.length),0,id); }
+    sess.tries[id]=(sess.tries[id]||0)+1;
+    floatXP(0,"var(--ko)");
+  }
+  st.due = now + INTERVAL[st.box||1];
+  if(g!==1 || !reinsert) sess.done++; else if(sess.tries[id]>1) sess.done++;
+  sess.xp+=pts; S.xp+=pts;
+  sess.maxCombo=Math.max(sess.maxCombo,sess.combo); S.bestCombo=Math.max(S.bestCombo,sess.combo);
+  if(sess.mode==="flash") S.flashBest=Math.max(S.flashBest,sess.ok);
+  // série de jours
+  const today=dayStr(now);
+  if(S.lastDay!==today){ S.streak = S.lastDay===dayStr(now-DAY) ? S.streak+1 : 1; S.lastDay=today; }
+  if([5,10,15,20,25].includes(sess.combo)) toast("🔥 Combo ×"+sess.combo+" !",1400);
+  updateCombo(g===2);
+  checkBadges(); save(); renderHeader();
+  setTimeout(()=>{ if(sess){ sess.lock=false; renderCard(); } },g===2?260:320);
+}
+function checkBadges(){
+  BADGES.forEach(b=>{ if(!S.badges.includes(b.id) && b.t()){ S.badges.push(b.id); toast(`${b.e} Badge débloqué : <b>${b.n}</b>`,3000); }});
+  const lv=levelOf(S.xp); if(sess && lv>sess.lvlStart){ sess.lvlStart=lv; setTimeout(()=>{toast("🌍 Nouveau rang : <b>"+LEVELS[lv][1]+"</b>",3000);confetti(50)},400); }
+}
+function endSession(aborted){
+  if(timerH){clearInterval(timerH);timerH=null}
+  const s=sess; sess=null;
+  if(!s || (aborted && s.done===0)){ show("home"); renderHome(); return; }
+  const answered=s.ok+s.mid+s.ko, acc=answered?Math.round(s.ok/answered*100):0;
+  const title = acc>=90?"Digne d’une superpuissance !":acc>=70?"Belle séance, sherpa !":acc>=50?"En bonne voie":"Il faut y revenir";
+  const missed=[...s.missed].map(id=>BYID[id]);
+  $("#end").innerHTML=`
+    <div class="kicker">${s.mode==="flash"?"Défi Spoutnik terminé":aborted?"Séance interrompue":"Séance terminée"}</div>
+    <h2 class="serif">${title}</h2>
+    <p style="color:var(--muted)">Rang actuel : <b>${LEVELS[levelOf(S.xp)][1]}</b> · ${S.xp} points au total</p>
+    <div class="endgrid">
+      <div class="stat"><b>+${s.xp}</b><span>points gagnés</span></div>
+      <div class="stat"><b>${acc} %</b><span>de « Su »</span></div>
+      <div class="stat"><b>${s.maxCombo}</b><span>meilleur combo</span></div>
+      <div class="stat"><b>${s.ok}/${answered}</b><span>réponses sues</span></div>
+    </div>
+    ${missed.length?`<div class="missed"><h3 class="serif" style="margin:0 0 6px">À retravailler (${missed.length})</h3><ul>${missed.map(c=>`<li><b style="color:${PARTS[c.part].color}">${PARTS[c.part].short}</b> — ${c.front}</li>`).join("")}</ul><p style="color:var(--muted);font-size:.9rem">Ces cartes sont en boîte 1 : elles reviendront en priorité à la prochaine séance.</p></div>`:""}
+    <div class="endbtns">
+      <button class="btn primary" onclick="startSession('${s.mode==="flash"?"flash":"session"}')">${s.mode==="flash"?"Rejouer le défi":"Nouvelle séance"}</button>
+      ${missed.length?`<button class="btn" onclick="startSession('rattrapage')">Rattraper les ratées</button>`:""}
+      <button class="btn ghost" onclick="goHome()">Accueil</button>
+    </div>`;
+  show("end"); if(acc>=80&&answered>=5) confetti();
+}
+
+/* ---------- Parcourir ---------- */
+function openBrowse(){ show("browse"); $("#search").value=""; renderBrowse(); }
+function renderBrowse(){
+  const q=$("#search").value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const norm=s=>s.replace(/<[^>]+>/g," ").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const list=filtered().filter(c=>!q||norm(c.front+" "+c.back+" "+c.deep).includes(q));
+  $("#browseList").innerHTML = list.length ? Object.keys(PARTS).map(k=>{
+    const l=list.filter(c=>c.part===k); if(!l.length) return "";
+    return `<h3 class="serif" style="margin:18px 0 6px;color:${PARTS[k].color}">${PARTS[k].label}</h3>`+l.map(c=>{const b=(S.cards[c.id]||{}).box||0;return `<details class="bc" style="--pc:${PARTS[k].color}"><summary>${c.front}<small>${c.type} · ${b?"boîte "+b:"nouvelle"}</small></summary><div class="ans">${c.back}</div>${c.deep?`<div class="deep"><h4>Pour aller plus loin</h4>${c.deep}</div>`:""}</details>`}).join("");
+  }).join("") : `<p style="color:var(--muted)">Aucune carte ne correspond.</p>`;
+}
+
+/* ---------- Bilan & reset ---------- */
+function copyReport(){
+  const lines=[`Bilan révisions — HGGSP Thème 2 « Puissance, puissances » (${new Date().toLocaleDateString("fr-FR")})`,
+    `Rang : ${LEVELS[levelOf(S.xp)][1]} · ${S.xp} points · meilleur combo ${S.bestCombo} · série ${S.streak} j`,
+    `Cartes maîtrisées : ${CARDS.filter(mastered).length}/${CARDS.length}`];
+  Object.entries(PARTS).forEach(([k,p])=>{const l=CARDS.filter(c=>c.part===k);lines.push(`- ${p.label} : ${l.filter(mastered).length}/${l.length}`)});
+  lines.push(`Badges : ${S.badges.map(id=>BADGES.find(b=>b.id===id).n).join(", ")||"aucun"}`);
+  const txt=lines.join("\n");
+  const done=()=>toast("Bilan copié : colle-le dans un message à ton professeur.");
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,()=>fallback());
+  else fallback();
+  function fallback(){const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){prompt("Copie ce bilan :",txt)}ta.remove()}
+}
+function resetAll(){ if(confirm("Effacer toute ta progression (points, boîtes, badges) ?")){ const th=S.theme; S=fresh(); S.theme=th; save(); renderHome(); toast("Progression réinitialisée."); } }
+
+/* ---------- Gestes tactiles : glisser la carte retournée ---------- */
+(function(){
+  const sc=$("#scene"); let x0=null,y0=null,dx=0,horiz=null;
+  sc.addEventListener("touchstart",e=>{ if(!sess||!sess.flipped||sess.lock) return; const t=e.touches[0]; x0=t.clientX; y0=t.clientY; dx=0; horiz=null; },{passive:true});
+  sc.addEventListener("touchmove",e=>{
+    if(x0===null) return; const t=e.touches[0]; dx=t.clientX-x0; const dy=t.clientY-y0;
+    if(horiz===null && (Math.abs(dx)>8||Math.abs(dy)>8)) horiz=Math.abs(dx)>Math.abs(dy);
+    if(horiz){ sc.classList.add("drag"); sc.style.transform=`translateX(${dx}px) rotate(${dx/30}deg)`; sc.style.opacity=String(1-Math.min(Math.abs(dx)/500,.4)); }
+  },{passive:true});
+  const end=()=>{
+    if(x0===null) return; sc.classList.remove("drag");
+    const ok=horiz && Math.abs(dx)>80;
+    sc.style.transform=""; sc.style.opacity="";
+    if(ok){ swallowClick=true; setTimeout(()=>swallowClick=false,400); grade(dx>0?2:0); }
+    x0=null; horiz=null;
+  };
+  sc.addEventListener("touchend",end); sc.addEventListener("touchcancel",end);
+})();
+let swallowClick=false;
+$("#card").addEventListener("click",e=>{ if(swallowClick){ swallowClick=false; e.stopImmediatePropagation(); } },true);
+
+/* ---------- Clavier ---------- */
+document.addEventListener("keydown",e=>{
+  if($("#study").classList.contains("hidden")||!sess) return;
+  if(e.key===" "||e.key==="Enter"){e.preventDefault(); if(!sess.flipped) flip();}
+  else if(sess.flipped && ["1","2","3"].includes(e.key)) grade(+e.key-1);
+  else if(e.key==="Escape") endSession(true);
+});
+
+renderHome();
+</script>
+</body>
+</html>
